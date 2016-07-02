@@ -19,3 +19,4 @@
 #
 #Development Notes
 #   6/18/2016 - Decided not to use any API's as they can change, making this program unusable. That would be contrary to AOF 1. This means I cannot use the API's for jomax login. 
+#   6/18/2016 - If I can make it run in Apache 2.2 then it will run with the label printer P3DCAPP/L2Test
