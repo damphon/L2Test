@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using L2Test.Models;
-using System.Linq;
-using System.Web;
 
 namespace L2Test.Helpers
 {

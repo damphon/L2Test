@@ -2,8 +2,8 @@
 #
 #TODO
 #
-#Make a login for leads
-#Give leads ability to add leads or techs (techs get a temp password that expires)
+#Give leads ability to add leads or techs (techs get a temp password that expires) (Techs dont log in they get a one time code) Make another DB table.
+#Make password reset page
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -18,5 +18,9 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
-#   6/18/2016 - Decided not to use any API's as they can change, making this program unusable. That would be contrary to AOF 1. This means I cannot use the API's for jomax login. 
-#   6/18/2016 - If I can make it run in Apache 2.2 then it will run with the label printer P3DCAPP/L2Test
+#   07/16/2016 - 
+#   07/16/2016 - Completed webpages that allow leads to add/edit/remove questions on the test.
+#   07/09/2016 - Restructured databases and added tech ID DB.
+#   07/02/2016 - Got Login page working. Realized that I dont have a way to reset passwords. Also got Questions and ReportCard databases set up.
+#   06/18/2016 - Decided not to use any API's as they can change, making this program unusable. That would be contrary to AOF 1. This means I cannot use the API's for jomax login. 
+#   06/18/2016 - If I can make it run in Apache 2.2 then it will run with the label printer P3DCAPP/L2Test

@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Edit Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
+}
+<h2>@ViewBag.Title</h2>
+
+<!--************************Add Question*****************************-->
+<!--Modal Buttonn-->
+<div class="wrapper">
+    <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#addModal">Add New Question</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="gallerybtn" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Add New Question</h2>
+            </div>
+            <div class="modal-body">
+
+                <!--FORM STARTS HERE-->
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <fieldset>
+                        
+                        <!-- Get Question -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formQuestion">Question: </label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="formQuestion" name="formQuestion" maxlength="799"></textarea>
+                            </div>
+                        </div>
+                        <!-- Get Correct Answer -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer1">Correct Answer: </label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="formAnswer1" name="formAnswer1" maxlength="255"></textarea>
+                            </div>
+                        </div>
+                        <!-- Get Answer2 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer2">Wrong Answer: </label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="formAnswer2" name="formAnswer2" maxlength="255"></textarea>
+                            </div>
+                        </div>
+                        <!-- Get Answer3 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer3">Wrong Answer: </label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="formAnswer3" name="formAnswer3" maxlength="255"></textarea>
+                            </div>
+                        </div>
+                        <!-- Get Answer4 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer4">Wrong Answer: </label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="formAnswer4" name="formAnswer4" maxlength="255"></textarea>
+                            </div>
+                        </div>
+                        <!-- Get Catagory -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formCatagory">Select Catagory</label>
+                            <div class="col-md-4">
+                                <select id="formCatagory" name="formCatagory" class="form-control">
+                                    <option value="1">New Catagoy</option>
+                                    @Html.Raw(ListHelp.CatagoryList())
+                                </select>
+                            </div>
+                        </div>
+                        <!-- New Catagory-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="newCatagory">New Catagory</label>
+                            <div class="col-md-4">
+                                <input id="newCatagory" name="newCatagory" type="text" placeholder="" class="form-control input-md">
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="submitButton"></label>
+                            <div class="col-md-8">
+                                <button id="submitButton" name="submitButton" class="btn btn-info">Add Question</button>
+                                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form> <!--FORM ENDS HERE-->
+            </div>  <!--Modal Body-->
+
+        </div> <!--Modal Content-->
+    </div> <!--Modal Dialog-->
+</div>
+
+<!--************************Edit/Delete Games*****************************-->
+
+<h2>Edit Games</h2>
+
+<ul class="Test" style="list-style-type:none">
+    @Html.Raw(ListHelp.EditListString())
+</ul>

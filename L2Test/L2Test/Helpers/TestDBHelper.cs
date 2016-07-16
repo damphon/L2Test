@@ -4,14 +4,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using L2Test.Models;
-using System.Linq;
-using System.Web;
 
 namespace L2Test.Helpers
 {
     public class TestDBHelper
     {
-        public string NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string correctAnswer, string catagory)
+        public string NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string catagory)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -19,13 +17,12 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Test (Question, Answer1, Answer2, Answer3, Answer4, CorrectAnswer, Catagory) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @correctAnswer, @catagory)";
+                    command.CommandText = "INSERT INTO Test (Question, Answer1, Answer2, Answer3, Answer4, Catagory) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @catagory)";
                     command.Parameters.AddWithValue("@question", question);
                     command.Parameters.AddWithValue("@answer1", answer1);
                     command.Parameters.AddWithValue("@answer2", answer2);
                     command.Parameters.AddWithValue("@answer3", answer3);
                     command.Parameters.AddWithValue("@answer4", answer4);
-                    command.Parameters.AddWithValue("@correctAnswer", correctAnswer);
                     command.Parameters.AddWithValue("@catagory", catagory);
 
                     try
@@ -56,13 +53,12 @@ namespace L2Test.Helpers
                         while (reader.Read())
                         {
                             var Test = new TestModels();
-                            Test.key = reader.GetByte(reader.GetOrdinal("P_Id"));
+                            Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
                             Test.question = reader.GetString(reader.GetOrdinal("Question"));
                             Test.answer1 = reader.GetString(reader.GetOrdinal("Answer1"));
                             Test.answer2 = reader.GetString(reader.GetOrdinal("Answer2"));
                             Test.answer3 = reader.GetString(reader.GetOrdinal("Answer3"));
                             Test.answer4 = reader.GetString(reader.GetOrdinal("Answer4"));
-                            Test.correctAnswer = reader.GetString(reader.GetOrdinal("CorrectAnswer"));
                             Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
 
                             Questions.Add(Test);
@@ -87,13 +83,12 @@ namespace L2Test.Helpers
                         while (reader.Read())
                         {
                             var Test = new TestModels();
-                            Test.key = reader.GetByte(reader.GetOrdinal("P_Id"));
+                            Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
                             Test.question = reader.GetString(reader.GetOrdinal("Question"));
                             Test.answer1 = reader.GetString(reader.GetOrdinal("Answer1"));
                             Test.answer2 = reader.GetString(reader.GetOrdinal("Answer2"));
                             Test.answer3 = reader.GetString(reader.GetOrdinal("Answer3"));
                             Test.answer4 = reader.GetString(reader.GetOrdinal("Answer4"));
-                            Test.correctAnswer = reader.GetString(reader.GetOrdinal("CorrectAnswer"));
                             Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
 
                             Question.Add(Test);
