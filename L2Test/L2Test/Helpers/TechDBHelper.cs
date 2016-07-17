@@ -59,5 +59,32 @@ namespace L2Test.Helpers
             }
             return TechID;
         }
+
+        public List<TechModels> ListAll()
+        {
+            var TechID = new List<TechModels>();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                connection.Open();
+                string query = String.Format("SELECT * FROM Login");
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var Tech = new TechModels();
+                            Tech.TechKey = reader.GetInt32(reader.GetOrdinal("P_Id"));
+                            Tech.TechName = reader.GetString(reader.GetOrdinal("Tech"));
+                            Tech.TechID = reader.GetString(reader.GetOrdinal("TechID"));
+                            Tech.Time = reader.GetDateTime(reader.GetOrdinal("Time"));
+
+                            TechID.Add(Tech);
+                        }
+                    }
+                }
+            }
+            return TechID;
+        }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using L2Test.Helpers;
+using System.Web.Security;
+using System.Text;
+using System.Collections.Generic;
 
 namespace L2Test.Models
 {
@@ -25,6 +28,44 @@ namespace L2Test.Models
                 }
             }
             return false;
+        }
+
+        public void CreateNew(string tech)
+        {
+            TechDBHelper dbhelp = new TechDBHelper();
+            Random rand = new Random();
+            int numberOfChar = 5;
+            int nonAlphaNum = 0;
+            string techID = Membership.GeneratePassword(numberOfChar, nonAlphaNum);
+            dbhelp.NewID(tech, techID);
+        }
+
+        public string GetValid()
+        {
+            TechDBHelper dbhelp = new TechDBHelper();
+            var Temp = dbhelp.ListAll();
+            List<TechModels> List = new List<TechModels>();
+            DateTime current = DateTime.Now;
+
+            foreach(var ID in Temp)
+            {
+                TimeSpan span = current - ID.Time;
+                if (span.Minutes < 90)
+                    List.Add(ID);
+            }
+
+            string ValidIDString = "";
+            foreach (var ID in List)
+            {
+                StringBuilder sb = new StringBuilder(ValidIDString);
+                sb.Append("<p class='passwordList'>");
+                sb.Append(ID.TechName);
+                sb.Append(": ");
+                sb.Append(ID.TechID);
+                sb.Append("</p>");
+                ValidIDString = sb.ToString();
+            }
+            return ValidIDString;
         }
     }
 }

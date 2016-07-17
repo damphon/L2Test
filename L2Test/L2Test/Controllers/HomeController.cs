@@ -102,9 +102,19 @@ namespace L2Test.Controllers
             return Redirect("~/Home/Edit");
         }
 
+        [HttpGet]
         [Authorize]
         public ActionResult Manage()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Manage(string formTechName)
+        {
+            TechModels tech = new TechModels();
+            tech.CreateNew(formTechName);
             return View();
         }
     }

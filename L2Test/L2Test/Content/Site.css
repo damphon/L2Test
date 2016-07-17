@@ -60,3 +60,15 @@ textarea {
     float: right;
     font-weight:700;
 }
+
+/*Tech user management*/
+
+.ActiveTechs{
+    list-style:none;
+    padding-left:0px;
+}
+
+.passwordList{
+    font-size:1.7em;
+    color:orangered;
+}

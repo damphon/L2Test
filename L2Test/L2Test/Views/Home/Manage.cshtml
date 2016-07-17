@@ -2,7 +2,33 @@
 @{
     ViewBag.Title = "Manage Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    L2Test.Models.TechModels ListHelp = new L2Test.Models.TechModels();
 }
 
-<h2>Manage Users</h2>
+<h3>Active Authentication</h3>
+<ul class="ActiveTechs" style="list-style-type:none">
+    @Html.Raw(ListHelp.GetValid())
+</ul>
+<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <fieldset>
 
+        <!-- Form Name -->
+        <legend>Create New Test Login</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formTechName">Tech Jomax Login Name</label>
+            <div class="col-md-4">
+                <input id="formTechName" name="formTechName" type="text" placeholder="jtoler" class="form-control input-md" required="">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

@@ -18,6 +18,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   07/17/2016 - Added way for leads to create techID's to the manage page.
+#   07/17/2016 - Made pages only leads should have access to require authorization.
 #   07/16/2016 - Updated index page to request tech ID before taking test.
 #   07/16/2016 - Completed webpages that allow leads to add/edit/remove questions on the test.
 #   07/09/2016 - Restructured databases and added tech ID DB.
