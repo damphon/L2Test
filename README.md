@@ -18,7 +18,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
-#   07/16/2016 - 
+#   07/16/2016 - Updated index page to request tech ID before taking test.
 #   07/16/2016 - Completed webpages that allow leads to add/edit/remove questions on the test.
 #   07/09/2016 - Restructured databases and added tech ID DB.
 #   07/02/2016 - Got Login page working. Realized that I dont have a way to reset passwords. Also got Questions and ReportCard databases set up.

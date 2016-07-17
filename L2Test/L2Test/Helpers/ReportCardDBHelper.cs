@@ -8,7 +8,7 @@ namespace L2Test.Helpers
 {
     public class ReportCardDBHelper
     {
-        public string NewReportCard(string tech, string testURL)
+        public void NewReportCard(string tech, string testURL)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -25,13 +25,9 @@ namespace L2Test.Helpers
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
-                    catch (SqlException e)
-                    {
-                        return "Error: " + e.Message;
-                    }
+                    catch { throw; }
                 }
             }
-            return "Report Card Saved";
         }
 
         public List<ReportCardModels> GetReportCards()

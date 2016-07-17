@@ -5,31 +5,53 @@ using System.Web;
 using System.Web.Mvc;
 using L2Test.Helpers;
 using L2Test.Models;
+using System.IO;
 
 namespace L2Test.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            if (TempData["error"] == null)
+                ViewBag.Error = "";
+            else
+                ViewBag.Error = TempData["error"].ToString();
             return View();
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Index(string formTechID)
+        {
+            return Redirect("~/Home/Test/" + formTechID);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         public ActionResult Test()
         {
-            ViewBag.Message = "Your application description page.";
+            TechModels Check = new TechModels();
+            string URL = Request.Url.ToString();
+            string TechID = Path.GetFileName(URL);
 
-            return View();
+            if (Check.isValid(TechID))
+                return View();
+
+            TempData["error"] = "ERROR: Invalid ID. Please verify you entered the ID correctly. ID is only valid for 90 minutes, ask lead to create a new ID for you if your ID is not working.";
+            return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Results()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Edit()
         {
             TestModels List = new TestModels();
@@ -38,6 +60,7 @@ namespace L2Test.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formCatagory, string newCatagory)
         {
             TestDBHelper testDBHelp = new TestDBHelper();
@@ -54,12 +77,14 @@ namespace L2Test.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditQuestion()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult EditQuestion(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formCatagory, string uid)
         {
             TestDBHelper testDBHelp = new TestDBHelper();
@@ -70,16 +95,16 @@ namespace L2Test.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(string uid)
         {
             TestModels.Delete(uid);
             return Redirect("~/Home/Edit");
         }
 
+        [Authorize]
         public ActionResult Manage()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

@@ -128,11 +128,11 @@ namespace L2Test.Models
             return CatagoryString;
         }
 
-        public static string Delete(string uid)
+        public static void Delete(string uid)
         {
             int id = Int32.Parse(uid);
             TestDBHelper dbhelp = new TestDBHelper();
-            return dbhelp.RemoveQuestion(id);
+            dbhelp.RemoveQuestion(id);
         }
     }
 }

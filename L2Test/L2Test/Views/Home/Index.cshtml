@@ -1,19 +1,15 @@
 ﻿@{
     ViewBag.Title = "L2 Test";
 }
-
-<form class="form-horizontal">
+Some text about the l2 test or whatever
+<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
     <fieldset>
-
-        <!-- Form Name -->
-        <legend>Take Test</legend>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="formTechID">Enter Your Test ID</label>
             <div class="col-md-4">
                 <input id="formTechID" name="formTechID" type="text" placeholder="" class="form-control input-md" required="">
-                <span class="help-block">A lead will give you an ID when you can take the test.</span>
+                <span class="help-block" style="color:red;font-weight:700">@ViewBag.Error</span>
             </div>
         </div>
 

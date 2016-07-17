@@ -9,7 +9,7 @@ namespace L2Test.Helpers
 {
     public class TestDBHelper
     {
-        public string NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string catagory)
+        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string catagory)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -30,13 +30,9 @@ namespace L2Test.Helpers
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
-                    catch (SqlException e)
-                    {
-                        return "Error: " + e.Message;
-                    }
+                    catch { throw; }
                 }
             }
-            return "Question Added";
         }
 
         public List<TestModels> GetQuestions()
@@ -99,7 +95,7 @@ namespace L2Test.Helpers
             return Question;
         }
 
-        public string RemoveQuestion(int key)
+        public void RemoveQuestion(int key)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -115,13 +111,9 @@ namespace L2Test.Helpers
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
-                    catch (SqlException e)
-                    {
-                        return "Error: " + e.Message;
-                    }
+                    catch { throw; }
                 }
             }
-            return "Question has been removed from the test";
         }
     }
 }
