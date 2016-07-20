@@ -23,7 +23,7 @@ namespace L2Test.Models
                 foreach (var entry in tech)
                 {
                     TimeSpan span = DateTime.Now - entry.Time;
-                    if (span.Minutes < 90)
+                    if (span.TotalMinutes < 90)
                         return true;
                 }
             }
@@ -49,8 +49,8 @@ namespace L2Test.Models
 
             foreach(var ID in Temp)
             {
-                TimeSpan span = current - ID.Time;
-                if (span.Minutes < 90)
+                TimeSpan span = current.Subtract(ID.Time);
+                if (span.TotalMinutes < 90) //span.min looks at the minuits part of the sime stamp. it goes to 60 then back to 0...
                     List.Add(ID);
             }
 

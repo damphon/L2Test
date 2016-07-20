@@ -19,9 +19,10 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Login (Tech, TechID) VALUES (@tech, @techID)";
+                    command.CommandText = "INSERT INTO Login (Tech, TechID, Time) VALUES (@tech, @techID, @time)";
                     command.Parameters.AddWithValue("@tech", tech);
                     command.Parameters.AddWithValue("@techID", techID);
+                    command.Parameters.AddWithValue("@time", DateTime.Now);
 
                     try
                     {
