@@ -2,7 +2,7 @@
 #
 #TODO
 #
-#Give leads ability to add leads or techs (techs get a temp password that expires) (Techs dont log in they get a one time code) Make another DB table.
+#
 #Make password reset page
 #
 #Areas of Focus
@@ -18,6 +18,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   07/22/2016 - Test questions appear on test page, multiple choice only so far. Randomizes the questions and the order answered display in.
 #   07/17/2016 - Fixxed issue with techID validation not timing out.
 #   07/17/2016 - Added way for leads to create techID's to the manage page.
 #   07/17/2016 - Made pages only leads should have access to require authorization.

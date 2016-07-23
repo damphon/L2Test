@@ -34,6 +34,10 @@ namespace L2Test.Controllers
         public ActionResult Test()
         {
             TechModels Check = new TechModels();
+            TestModels List = new TestModels();
+
+            //ViewBag.TestQuestions = List.EditListString();
+
             string URL = Request.Url.ToString();
             string TechID = Path.GetFileName(URL);
 
@@ -55,7 +59,7 @@ namespace L2Test.Controllers
         public ActionResult Edit()
         {
             TestModels List = new TestModels();
-            ViewBag.TestQuestions = List.EditListString();
+            //ViewBag.TestQuestions = List.EditListString();
             return View();
         }
 

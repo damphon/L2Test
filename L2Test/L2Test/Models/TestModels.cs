@@ -134,5 +134,34 @@ namespace L2Test.Models
             TestDBHelper dbhelp = new TestDBHelper();
             dbhelp.RemoveQuestion(id);
         }
+
+        public string TakeTest()
+        {
+            var List = QuestionList();
+            Random rnd = new Random();
+            var Test = List.OrderBy(x => rnd.Next()).ToList().Take(100);
+            string QuestionString = "";
+            foreach (var Question in Test)
+            {
+                string[] A = {Question.answer1, Question.answer2, Question.answer3, Question.answer4};
+                A = A.OrderBy(x => rnd.Next()).ToArray();
+                StringBuilder sb = new StringBuilder(QuestionString);
+                sb.Append("<li class='well'><p class='TestQuestion'>");
+                sb.Append(Question.question);
+                sb.Append("</p><p class='TestAnswer'>A. ");
+                sb.Append(A[0]);
+                sb.Append("</p><p class='TestAnswer'>B. ");
+                sb.Append(A[1]);
+                sb.Append("</p><p class='TestAnswer'>C. ");
+                sb.Append(A[2]);
+                sb.Append("</p><p class='TestAnswer'>D. ");
+                sb.Append(A[3]);
+                sb.Append("</p><div id='TestData' QID='");
+                sb.Append(Question.key);
+                sb.Append("'' style='display: none;'/></li>");
+                QuestionString = sb.ToString();
+            }
+            return QuestionString;
+        }
     }
 }

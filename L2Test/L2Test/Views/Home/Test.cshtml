@@ -1,16 +1,36 @@
 ﻿@{
     Layout = null;
+    L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Test</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <title>L2 Test</title>
 </head>
 <body>
-    <div> 
+    <div class="SubmitFloat">
+        <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info">Submit Test for Grading</button></center>
     </div>
+    <div> 
+        <ul class="Test" style="list-style-type:none">
+            @Html.Raw(ListHelp.TakeTest())
+        </ul>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        $('.TestAnswer').click(function () {
+            $(this).toggleClass('SelectedAnswer');
+        });
+        $('.SelectedAnswer').click(function () {
+            $(this).toggleClass('TestAnswer');
+        });
+    </script>
 </body>
 </html>

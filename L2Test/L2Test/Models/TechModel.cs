@@ -50,7 +50,7 @@ namespace L2Test.Models
             foreach(var ID in Temp)
             {
                 TimeSpan span = current.Subtract(ID.Time);
-                if (span.TotalMinutes < 90) //span.min looks at the minuits part of the sime stamp. it goes to 60 then back to 0...
+                if (span.TotalMinutes < 90) 
                     List.Add(ID);
             }
 

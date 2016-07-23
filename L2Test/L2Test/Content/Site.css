@@ -37,8 +37,38 @@ textarea {
 .TestQuestion{
     background-color: white;
     font-size:1.5em;
-    margin-top: -10px;
+    margin-bottom:20px;
     padding: 0px 5px;
+}
+
+.SubmitFloat{
+    position: fixed;
+    z-index: 10000;
+    bottom: 0;
+    left:0;
+    font-weight:bold;
+    background: #222222;
+	line-height: 2em;
+	padding: .5em 1em .5em 1em;
+    width: 100%;
+}
+
+.TestAnswer{
+    background-color:white;
+    margin-top: -5px;
+    padding: 0px 5px;
+}
+
+.SelectedAnswer{
+    background-color: cornflowerblue;
+}
+
+.CorrectAnswer{
+    background-color: limegreen;
+}
+
+.WrongAnswer{
+    background-color: orangered;
 }
 
 /*Test Edit Page Formatting*/
