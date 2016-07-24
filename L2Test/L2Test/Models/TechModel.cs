@@ -1,6 +1,5 @@
 ﻿using System;
 using L2Test.Helpers;
-using System.Web.Security;
 using System.Text;
 using System.Collections.Generic;
 
@@ -33,10 +32,7 @@ namespace L2Test.Models
         public void CreateNew(string tech)
         {
             TechDBHelper dbhelp = new TechDBHelper();
-            Random rand = new Random();
-            int numberOfChar = 5;
-            int nonAlphaNum = 0;
-            string techID = Membership.GeneratePassword(numberOfChar, nonAlphaNum);
+            string techID = Password.Generate();
             dbhelp.NewID(tech, techID);
         }
 

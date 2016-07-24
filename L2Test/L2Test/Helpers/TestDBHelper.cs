@@ -9,20 +9,33 @@ namespace L2Test.Helpers
 {
     public class TestDBHelper
     {
-        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string catagory)
+        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, bool c1, bool c2, bool c3, bool c4, string catagory)
         {
+            string id1 = Password.Generate();
+            string id2 = Password.Generate();
+            string id3 = Password.Generate();
+            string id4 = Password.Generate();
+
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Test (Question, Answer1, Answer2, Answer3, Answer4, Catagory) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @catagory)";
+                    command.CommandText = "INSERT INTO Test (Question, A1, A2, A3, A4, A1ID, A2ID, A3ID, A4ID, C1, C2, C3, C4, Catagory) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @id1, @id2, @id3, @id4, @c1, @c2, @c3, @c4, @catagory)";
                     command.Parameters.AddWithValue("@question", question);
                     command.Parameters.AddWithValue("@answer1", answer1);
                     command.Parameters.AddWithValue("@answer2", answer2);
                     command.Parameters.AddWithValue("@answer3", answer3);
                     command.Parameters.AddWithValue("@answer4", answer4);
+                    command.Parameters.AddWithValue("@id1", id1);
+                    command.Parameters.AddWithValue("@id2", id2);
+                    command.Parameters.AddWithValue("@id3", id3);
+                    command.Parameters.AddWithValue("@id4", id4);
+                    command.Parameters.AddWithValue("@c1", c1);
+                    command.Parameters.AddWithValue("@c2", c2);
+                    command.Parameters.AddWithValue("@c3", c3);
+                    command.Parameters.AddWithValue("@c4", c4);
                     command.Parameters.AddWithValue("@catagory", catagory);
 
                     try
@@ -51,10 +64,18 @@ namespace L2Test.Helpers
                             var Test = new TestModels();
                             Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
                             Test.question = reader.GetString(reader.GetOrdinal("Question"));
-                            Test.answer1 = reader.GetString(reader.GetOrdinal("Answer1"));
-                            Test.answer2 = reader.GetString(reader.GetOrdinal("Answer2"));
-                            Test.answer3 = reader.GetString(reader.GetOrdinal("Answer3"));
-                            Test.answer4 = reader.GetString(reader.GetOrdinal("Answer4"));
+                            Test.answer1 = reader.GetString(reader.GetOrdinal("A1"));
+                            Test.answer2 = reader.GetString(reader.GetOrdinal("A2"));
+                            Test.answer3 = reader.GetString(reader.GetOrdinal("A3"));
+                            Test.answer4 = reader.GetString(reader.GetOrdinal("A4"));
+                            Test.aid1 = reader.GetString(reader.GetOrdinal("A1ID"));
+                            Test.aid2 = reader.GetString(reader.GetOrdinal("A2ID"));
+                            Test.aid3 = reader.GetString(reader.GetOrdinal("A3ID"));
+                            Test.aid4 = reader.GetString(reader.GetOrdinal("A4ID"));
+                            Test.c1 = (bool)reader["C1"];
+                            Test.c2 = (bool)reader["C2"];
+                            Test.c3 = (bool)reader["C3"];
+                            Test.c4 = (bool)reader["C4"];
                             Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
 
                             Questions.Add(Test);
@@ -81,10 +102,18 @@ namespace L2Test.Helpers
                             var Test = new TestModels();
                             Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
                             Test.question = reader.GetString(reader.GetOrdinal("Question"));
-                            Test.answer1 = reader.GetString(reader.GetOrdinal("Answer1"));
-                            Test.answer2 = reader.GetString(reader.GetOrdinal("Answer2"));
-                            Test.answer3 = reader.GetString(reader.GetOrdinal("Answer3"));
-                            Test.answer4 = reader.GetString(reader.GetOrdinal("Answer4"));
+                            Test.answer1 = reader.GetString(reader.GetOrdinal("A1"));
+                            Test.answer2 = reader.GetString(reader.GetOrdinal("A2"));
+                            Test.answer3 = reader.GetString(reader.GetOrdinal("A3"));
+                            Test.answer4 = reader.GetString(reader.GetOrdinal("A4"));
+                            Test.aid1 = reader.GetString(reader.GetOrdinal("A1ID"));
+                            Test.aid2 = reader.GetString(reader.GetOrdinal("A2ID"));
+                            Test.aid3 = reader.GetString(reader.GetOrdinal("A3ID"));
+                            Test.aid4 = reader.GetString(reader.GetOrdinal("A4ID"));
+                            Test.c1 = (bool)reader["C1"];
+                            Test.c2 = (bool)reader["C2"];
+                            Test.c3 = (bool)reader["C3"];
+                            Test.c4 = (bool)reader["C4"];
                             Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
 
                             Question.Add(Test);

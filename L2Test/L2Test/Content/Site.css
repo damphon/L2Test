@@ -61,14 +61,20 @@ textarea {
 
 .SelectedAnswer{
     background-color: cornflowerblue;
+    margin-top: -5px;
+    padding: 0px 5px;
 }
 
 .CorrectAnswer{
-    background-color: limegreen;
+    background-color: greenyellow;
+    margin-top: -5px;
+    padding: 0px 5px;
 }
 
 .WrongAnswer{
     background-color: orangered;
+    margin-top: -5px;
+    padding: 0px 5px;
 }
 
 /*Test Edit Page Formatting*/
@@ -89,6 +95,18 @@ textarea {
 .TestCatagory{
     float: right;
     font-weight:700;
+}
+
+.TestAnswerTrue{
+    background-color: greenyellow;
+    margin-top: -5px;
+    padding: 0px 5px;
+}
+
+.TestAnswerFalse{
+    background-color:white;
+    margin-top: -5px;
+    padding: 0px 5px;
 }
 
 /*Tech user management*/

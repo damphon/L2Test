@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
     L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
+    string TechID = Path.GetFileName(Request.Url.ToString());
+    ViewBag.TechID = TechID;
 }
 
 <!DOCTYPE html>
@@ -25,6 +27,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script>
+        //Toggel which answer is selected
         $('.TestAnswer').click(function () {
             $(this).toggleClass('SelectedAnswer');
         });

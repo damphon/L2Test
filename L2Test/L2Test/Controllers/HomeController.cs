@@ -65,10 +65,17 @@ namespace L2Test.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formCatagory, string newCatagory)
+        public ActionResult Edit(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formC1, string formC2, string formC3, string formC4, string formCatagory, string newCatagory)
         {
             TestDBHelper testDBHelp = new TestDBHelper();
             string catagory = "";
+            bool C1 = false, C2 = false, C3 = false, C4 = false;
+
+            if (formC1 == "1") C1 = true;
+            if (formC2 == "1") C2 = true;
+            if (formC3 == "1") C3 = true;
+            if (formC4 == "1") C4 = true;
+
             //Handle ability to add catagorys to dropdown list.
             if (formCatagory == "1")
                 catagory = newCatagory;
@@ -76,7 +83,7 @@ namespace L2Test.Controllers
                 catagory = formCatagory;
 
             //Need to put in checks to prevent incorrect data from breaking DB
-            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, catagory);
+            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, C1, C2, C3, C4, catagory);
             return Redirect("~/Home/Edit");
         }
 
@@ -89,12 +96,25 @@ namespace L2Test.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult EditQuestion(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formCatagory, string uid)
+        public ActionResult EditQuestion(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formC1, string formC2, string formC3, string formC4, string formCatagory, string newCatagory, string uid)
         {
             TestDBHelper testDBHelp = new TestDBHelper();
             TestModels.Delete(uid);
-            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, formCatagory);
+            string catagory = "";
+            bool C1 = false, C2 = false, C3 = false, C4 = false;
 
+            if (formC1 == "1") C1 = true;
+            if (formC2 == "1") C2 = true;
+            if (formC3 == "1") C3 = true;
+            if (formC4 == "1") C4 = true;
+
+            //Handle ability to add catagorys to dropdown list.
+            if (formCatagory == "1")
+                catagory = newCatagory;
+            else
+                catagory = formCatagory;
+
+            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, C1, C2, C3, C4, catagory);
             return Redirect("~/Home/Edit");
         }
 

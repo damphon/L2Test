@@ -15,6 +15,14 @@ namespace L2Test.Models
         public string answer2 { get; set; }
         public string answer3 { get; set; }
         public string answer4 { get; set; }
+        public string aid1 { get; set; }
+        public string aid2 { get; set; }
+        public string aid3 { get; set; }
+        public string aid4 { get; set; }
+        public bool? c1 { get; set; } //0 = correct //1 = incorrect
+        public bool? c2 { get; set; }
+        public bool? c3 { get; set; }
+        public bool? c4 { get; set; }
         public string catagory { get; set; }
 
         public static List<TestModels> QuestionList()
@@ -44,15 +52,35 @@ namespace L2Test.Models
                 sb.Append(Question.key);
                 sb.Append("' class='TestEdit'>Edit</a><p class='TestQuestion'>");
                 sb.Append(Question.question);
-                sb.Append("</p><p class='TestCorrectAnswer'>A. ");
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c1);
+                sb.Append("'>A. ");
                 sb.Append(Question.answer1);
-                sb.Append("</p><p class='TestAnswer'>B. ");
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c2);
+                sb.Append("'>B. ");
                 sb.Append(Question.answer2);
-                sb.Append("</p><p class='TestAnswer'>C. ");
-                sb.Append(Question.answer3);
-                sb.Append("</p><p class='TestAnswer'>D. ");
-                sb.Append(Question.answer4);
-                sb.Append("</p><p class='TestCatagory'>Catagory: ");
+                sb.Append("</p>");
+
+                if (Question.answer3 != "") { 
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c3);
+                    sb.Append("'>C. ");
+                    sb.Append(Question.answer3);
+                    sb.Append("</p>");
+                }
+
+                if (Question.answer4 != "")
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c4);
+                    sb.Append("'>D. ");
+                    sb.Append(Question.answer4);
+                    sb.Append("</p>");
+                }
+
+
+                sb.Append("<p class='TestCatagory'>Catagory: ");
                 sb.Append(Question.catagory);
                 sb.Append("</p>");
                 QuestionString = sb.ToString();
@@ -69,17 +97,39 @@ namespace L2Test.Models
                 StringBuilder sb = new StringBuilder(QuestionString);
                 sb.Append("<li class='well'><p class='TestQuestion'>");
                 sb.Append(Question.question);
-                sb.Append("</p><p class='TestCorrectAnswer'>A. ");
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c1);
+                sb.Append("'>A. ");
                 sb.Append(Question.answer1);
-                sb.Append("</p><p class='TestAnswer'>B. ");
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c2);
+                sb.Append("'>B. ");
                 sb.Append(Question.answer2);
-                sb.Append("</p><p class='TestAnswer'>C. ");
-                sb.Append(Question.answer3);
-                sb.Append("</p><p class='TestAnswer'>D. ");
-                sb.Append(Question.answer4);
-                sb.Append("</p><p class='TestCatagory'>Catagory: ");
+                sb.Append("</p>");
+
+                if (Question.answer3 != null)
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c3);
+                    sb.Append("'>C. ");
+                    sb.Append(Question.answer3);
+                    sb.Append("</p>");
+                }
+
+                if (Question.answer4 != null)
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c4);
+                    sb.Append("'>C. ");
+                    sb.Append(Question.answer4);
+                    sb.Append("</p>");
+                }
+
+                sb.Append("<p class='TestCatagory'>Catagory: ");
                 sb.Append(Question.catagory);
-                sb.Append("</p><div id='TestData' question='");//creates a hidden element with all game data so the JS can fill out edit form automaticly.
+                sb.Append("</p>");
+                //creates a hidden element with all game data so the JS can fill out edit form automaticly.
+                sb.Append("<div id='TestData' question='");
                 sb.Append(Question.question);
                 sb.Append("' answer1='");
                 sb.Append(Question.answer1);
