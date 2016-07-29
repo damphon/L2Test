@@ -135,12 +135,29 @@ namespace L2Test.Models
                 sb.Append(Question.answer1);
                 sb.Append("' answer2='");
                 sb.Append(Question.answer2);
-                sb.Append("' answer3='");
-                sb.Append(Question.answer3);
-                sb.Append("' answer4='");
-                sb.Append(Question.answer4);
+                sb.Append("' correct1='");
+                sb.Append(Question.c1);
+                sb.Append("' correct2='");
+                sb.Append(Question.c2);
                 sb.Append("' catagory='");
                 sb.Append(Question.catagory);
+
+                if (Question.answer3 != null)
+                {
+                    sb.Append("' answer3='");
+                    sb.Append(Question.answer3);
+                    sb.Append("' correct3='");
+                    sb.Append(Question.c3);
+                }
+
+                if (Question.answer4 != null)
+                {
+                    sb.Append("' answer4='");
+                    sb.Append(Question.answer4);
+                    sb.Append("' correct4='");
+                    sb.Append(Question.c4);
+                }
+
                 sb.Append("'' style='display: none;'/></li>");
                 QuestionString = sb.ToString();
             }
