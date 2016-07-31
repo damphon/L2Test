@@ -210,25 +210,85 @@ namespace L2Test.Models
             string QuestionString = "";
             foreach (var Question in Test)
             {
-                string[] A = {Question.answer1, Question.answer2, Question.answer3, Question.answer4};
-                A = A.OrderBy(x => rnd.Next()).ToArray();
+                List<SortModel> SortedAnswers = new List<SortModel>();
+
+                SortedAnswers.Add(new SortModel(Question.answer1, Question.aid1));
+                SortedAnswers.Add(new SortModel(Question.answer2, Question.aid2));
+                if (Question.answer3 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer3, Question.aid3));
+                if (Question.answer4 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer4, Question.aid4));
+
+                SortedAnswers = SortedAnswers.OrderBy(x => rnd.Next()).ToList();
+                //Build String.
                 StringBuilder sb = new StringBuilder(QuestionString);
-                sb.Append("<li class='well'><p class='TestQuestion'>");
-                sb.Append(Question.question);
-                sb.Append("</p><p class='TestAnswer'>A. ");
-                sb.Append(A[0]);
-                sb.Append("</p><p class='TestAnswer'>B. ");
-                sb.Append(A[1]);
-                sb.Append("</p><p class='TestAnswer'>C. ");
-                sb.Append(A[2]);
-                sb.Append("</p><p class='TestAnswer'>D. ");
-                sb.Append(A[3]);
-                sb.Append("</p><div id='TestData' QID='");
+                sb.Append("<li class='well' id='");
                 sb.Append(Question.key);
-                sb.Append("'' style='display: none;'/></li>");
+                sb.Append("'><p class='TestQuestion'>");
+                sb.Append(Question.question);
+                sb.Append("</p>");
+
+                sb.Append("<p class='TestAnswer' id='");
+                sb.Append(SortedAnswers[0].answerKey);
+                sb.Append("'>A. ");
+                sb.Append(SortedAnswers[0].answer);
+                sb.Append("</p>");
+
+                sb.Append("<p class='TestAnswer' id='");
+                sb.Append(SortedAnswers[1].answerKey);
+                sb.Append("'>B. ");
+                sb.Append(SortedAnswers[1].answer);
+                sb.Append("</p>");
+
+                if (Question.answer3 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[2].answerKey);
+                    sb.Append("'>C. ");
+                    sb.Append(SortedAnswers[2].answer);
+                    sb.Append("</p>");
+                }
+
+                if (Question.answer4 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[3].answerKey);
+                    sb.Append("'>D. ");
+                    sb.Append(SortedAnswers[3].answer);
+                    sb.Append("</p>");
+                }
+                
+                sb.Append("</li>");
                 QuestionString = sb.ToString();
             }
             return QuestionString;
+        }
+    }
+
+    public class SortModel
+    {
+        public string answer { get; set; }
+        public string answerKey { get; set; }
+
+        public SortModel(string answer1, string aid1)
+        {
+            this.answer = answer1;
+            this.answerKey = aid1;
+        }
+    }
+
+    public class TestResultModel
+    {
+        public string tech { get; set; }
+        public string question { get; set; }
+        public string[] answer { get; set; }
+
+        public static void Submit(IEnumerable<TestResultModel> json)
+        {
+            foreach (var answer in json)
+            {
+                //Do a thing
+            }
         }
     }
 }

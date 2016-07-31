@@ -3,6 +3,7 @@
     L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
     string TechID = Path.GetFileName(Request.Url.ToString());
     ViewBag.TechID = TechID;
+    ViewBag.ResultsURL = Url.Action("TestResults", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
 
 <!DOCTYPE html>
@@ -17,7 +18,7 @@
 </head>
 <body>
     <div class="SubmitFloat">
-        <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info">Submit Test for Grading</button></center>
+        <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
     </div>
     <div> 
         <ul class="Test" style="list-style-type:none">
@@ -34,6 +35,35 @@
         $('.SelectedAnswer').click(function () {
             $(this).toggleClass('TestAnswer');
         });
+
+        function SendAnswers() {
+            var tech = '@(ViewBag.TechID)';
+            var list = []; //create list of objects to pass as json data
+            for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
+                var answer = {};
+                var question = document.getElementsByTagName("li")[i]; //get the ID of the question
+                answer.tech = tech; //get the tech ID
+                answer.question = document.getElementsByTagName("li")[i].getAttribute("id");
+                for (var n = 0; n < question.childNodes.length; n++) {
+                    var answers = [];
+                    if (question.childNodes[n].className == "TestAnswer SelectedAnswer") {
+                        answers.push(question.childNodes[n].id);//Get the selected answeres ID as a list.
+                    }
+                    answer.answers = answers;
+                }
+                list.push(answer);
+            }
+            $.ajax({
+                url: "@(ViewBag.ResultsURL)",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(list),
+                success: function (data) {
+                    alert("Test submitted");
+                }
+            })
+        }
     </script>
 </body>
 </html>

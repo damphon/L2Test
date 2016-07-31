@@ -18,6 +18,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   07/30/2016 - Test page works with new database structure.
 #   07/29/2016 - Fixed auto fill options on question edit screen.
 #   07/28/2016 - Updated Question Edit form to work with new Database structure, needs auto fill options fixed. 
 #   07/23/2016 - Remade database to allow for T/F questions, and multiple correct answeres. Also updated add question form to work with the new DB structure.

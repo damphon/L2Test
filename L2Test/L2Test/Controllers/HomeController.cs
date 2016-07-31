@@ -141,5 +141,20 @@ namespace L2Test.Controllers
             tech.CreateNew(formTechName);
             return View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult VoteResults()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult VoteResults(IEnumerable<TestResultModel> jsonData)
+        {
+            TestResultModel.Submit(jsonData);
+            return Json(new { success = true });
+        }
     }
 }
