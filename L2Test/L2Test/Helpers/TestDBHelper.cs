@@ -11,10 +11,11 @@ namespace L2Test.Helpers
     {
         public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, bool c1, bool c2, bool c3, bool c4, string catagory)
         {
-            string id1 = Password.Generate();
-            string id2 = Password.Generate();
-            string id3 = Password.Generate();
-            string id4 = Password.Generate();
+            Password pass = new Password();
+            string id1 = pass.Generate();
+            string id2 = pass.Generate();
+            string id3 = pass.Generate();
+            string id4 = pass.Generate();
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {

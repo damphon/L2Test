@@ -144,14 +144,14 @@ namespace L2Test.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult VoteResults()
+        public ActionResult TestResults()
         {
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult VoteResults(IEnumerable<TestResultModel> jsonData)
+        public ActionResult TestResults(IEnumerable<TestResultModel> jsonData)
         {
             TestResultModel.Submit(jsonData);
             return Json(new { success = true });

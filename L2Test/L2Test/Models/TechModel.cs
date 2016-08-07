@@ -32,7 +32,8 @@ namespace L2Test.Models
         public void CreateNew(string tech)
         {
             TechDBHelper dbhelp = new TechDBHelper();
-            string techID = Password.Generate();
+            Password pass = new Password();
+            string techID = pass.Generate();
             dbhelp.NewID(tech, techID);
         }
 

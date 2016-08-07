@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using L2Test.Models;
+using System;
 
 namespace L2Test.Helpers
 {
@@ -16,9 +17,10 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO ReportCard (Tech, Test) VALUES (@Name, @URL)";
+                    command.CommandText = "INSERT INTO ReportCard (Tech, Test, Time) VALUES (@Name, @URL, @time)";
                     command.Parameters.AddWithValue("@Name", tech);
                     command.Parameters.AddWithValue("@URL", testURL);
+                    command.Parameters.AddWithValue("@time", DateTime.Now);
 
                     try
                     {

@@ -106,25 +106,15 @@ namespace L2Test.Models
                 sb.Append("'>B. ");
                 sb.Append(Question.answer2);
                 sb.Append("</p>");
-
-                if (Question.answer3 != null)
-                {
-                    sb.Append("</p><p class='TestAnswer");
-                    sb.Append(Question.c3);
-                    sb.Append("'>C. ");
-                    sb.Append(Question.answer3);
-                    sb.Append("</p>");
-                }
-
-                if (Question.answer4 != null)
-                {
-                    sb.Append("</p><p class='TestAnswer");
-                    sb.Append(Question.c4);
-                    sb.Append("'>C. ");
-                    sb.Append(Question.answer4);
-                    sb.Append("</p>");
-                }
-
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c3);
+                sb.Append("'>C. ");
+                sb.Append(Question.answer3);
+                sb.Append("</p>");
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c4);
+                sb.Append("'>D. ");
+                sb.Append(Question.answer4);
                 sb.Append("<p class='TestCatagory'>Catagory: ");
                 sb.Append(Question.catagory);
                 sb.Append("</p>");
@@ -285,10 +275,13 @@ namespace L2Test.Models
 
         public static void Submit(IEnumerable<TestResultModel> json)
         {
+            List<TestResultModel> TechsAnswers = new List<TestResultModel>();
+            GradeTest TestHelp = new GradeTest();
             foreach (var answer in json)
             {
-                //Do a thing
+                TechsAnswers.Add(answer);
             }
+            TestHelp.Grading(TechsAnswers);
         }
     }
 }
