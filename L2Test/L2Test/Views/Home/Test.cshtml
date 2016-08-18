@@ -36,24 +36,24 @@
             $(this).toggleClass('TestAnswer');
         });
 
-        function SendAnswers() {
+        function SendAnswers() { //This creates the proper list of objects but once posted the 'answers' are nulled.
             var tech = '@(ViewBag.TechID)';
-            var list = []; //create list of objects to pass as json data
+            var list = []; 
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
                 var answer = {};
-                var question = document.getElementsByTagName("li")[i]; //get the ID of the question
-                answer.tech = tech; //get the tech ID
-                answer.question = document.getElementsByTagName("li")[i].getAttribute("id");
-                for (var n = 0; n < question.childNodes.length; n++) {
-                    var answers = [];
-                    if (question.childNodes[n].className == "TestAnswer SelectedAnswer") {
-                        answers.push(question.childNodes[n].id);//Get the selected answeres ID as a list.
+                var answers = [];
+                var currentQuestion = document.getElementsByTagName("li")[i];
+                answer.tech = tech; 
+                answer.question = currentQuestion.getAttribute("id");
+                for (var n = 0; n < currentQuestion.childNodes.length; n++) {
+                    if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
+                        answers.push(currentQuestion.childNodes[n].id);
                     }
-                    answer.answers = answers;
                 }
+                answer.answers = answers;
                 list.push(answer);
-                alert("Grading");
             }
+            alert(JSON.stringify(list));
             $.ajax({
                 url: "@(ViewBag.ResultsURL)",
                 type: "POST",
