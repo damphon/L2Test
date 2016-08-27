@@ -20,7 +20,7 @@
     <div class="SubmitFloat">
         <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
     </div>
-    <div> 
+    <div>
         <ul class="Test" style="list-style-type:none">
             @Html.Raw(ListHelp.TakeTest())
         </ul>
@@ -38,12 +38,12 @@
 
         function SendAnswers() { //This creates the proper list of objects but once posted the 'answers' are nulled.
             var tech = '@(ViewBag.TechID)';
-            var list = []; 
+            var list = [];
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
                 var answer = {};
                 var answers = [];
                 var currentQuestion = document.getElementsByTagName("li")[i];
-                answer.tech = tech; 
+                answer.tech = tech;
                 answer.question = currentQuestion.getAttribute("id");
                 for (var n = 0; n < currentQuestion.childNodes.length; n++) {
                     if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {

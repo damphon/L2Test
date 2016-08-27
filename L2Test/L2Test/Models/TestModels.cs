@@ -271,7 +271,7 @@ namespace L2Test.Models
     {
         public string tech { get; set; }
         public string question { get; set; }
-        public string[] answer { get; set; }
+        public string[] answers { get; set; }
 
         public static void Submit(IEnumerable<TestResultModel> json)
         {

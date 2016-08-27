@@ -30,7 +30,7 @@ namespace L2Test.Helpers
             string URL = SaveResults(Results, TName, TID);
 
             RCdbhelp.NewReportCard(TName, URL);
-            
+
         }
 
         public List<TestModels> GetTestQuestions(List<TestResultModel> TechAnswers)
@@ -39,12 +39,12 @@ namespace L2Test.Helpers
             List<TestModels> TestQuestions = FullTest.ToList();
             List<string> TempString = new List<string>();
 
-            foreach(var QID in TechAnswers)
+            foreach (var QID in TechAnswers)
             {
                 TempString.Add(QID.question);
             }
 
-            foreach(var Question in FullTest)
+            foreach (var Question in FullTest)
             {
                 if (!(TempString.Any(x => x.Contains(Question.key.ToString()))))
                 {
@@ -57,7 +57,7 @@ namespace L2Test.Helpers
         public string PrintResults(List<TestResultModel> TechAnswers)
         {
             List<TestModels> TestQuestions = GetTestQuestions(TechAnswers);
-            Dictionary<string, string[]> AnswerDict = TechAnswers.ToDictionary(x => x.question, x => x.answer); //string[] remains null
+            Dictionary<string, string[]> AnswerDict = TechAnswers.ToDictionary(x => x.question, x => x.answers); //string[] remains null
 
             //foreach (var question in TechAnswers)
             //{
@@ -82,7 +82,7 @@ namespace L2Test.Helpers
                 PossibleAnswers++;
 
                 //Check answeres
-                foreach(var A in AnswerDict[Question.key.ToString()])
+                foreach (var A in AnswerDict[Question.key.ToString()])
                 {
                     if (Question.c1 == true)
                     {
@@ -166,11 +166,11 @@ namespace L2Test.Helpers
                 sb.Append("'>B. ");
                 sb.Append(Question.answer2);
                 sb.Append("</p>");
-                
+
 
                 //Answer 3
                 if (Question.answer3 != "")
-                    {
+                {
                     switch (Answer3Status)
                     {
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
@@ -225,7 +225,7 @@ namespace L2Test.Helpers
             sb.Append("<\br>Score:");
             sb.Append(CorrectAnswers);
             sb.Append("<\br>Grade:");
-            sb.Append(CorrectAnswers/PossibleAnswers);
+            sb.Append(CorrectAnswers / PossibleAnswers);
             sb.Append("%<\br>Results below:");
             sb.Append("<div><ul class='Test' style='list-style-type:none'>");
             sb.Append(Results);
@@ -235,6 +235,7 @@ namespace L2Test.Helpers
 
             string path = "~/Tests/" + Tech + ID;
             System.IO.File.WriteAllText(path, WebPageString);
+            //Additional information: Could not find a part of the path 'C:\Program Files (x86)\IIS Express\~\Tests\test3aobcXvUEj1'.
 
             return path;
         }
