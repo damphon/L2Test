@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using L2Test.Helpers;
 using System.Text;
+using System.IO;
 
 namespace L2Test.Models
 {
@@ -282,6 +283,37 @@ namespace L2Test.Models
                 TechsAnswers.Add(answer);
             }
             TestHelp.Grading(TechsAnswers);
+        }
+
+        //Save a copy of the test as it was when the submit button was pressed, prior to grading.
+        internal static void Archive(string html, string tech)
+        {
+            string TName = "Unknown Tech";
+            TechDBHelper Tdbhelp = new TechDBHelper();
+            var TechDB = Tdbhelp.ListAll();
+            ReportCardDBHelper RCdbhelp = new ReportCardDBHelper();
+
+            foreach (var ID in TechDB)
+            {
+                if (ID.TechID == tech)
+                    TName = ID.TechName;
+            }
+
+            string WebPageString = "";
+            String TestPath = HttpContext.Current.Server.MapPath("~/Tests/Ungraded/" + TName + tech + ".html");
+            String CssPath = HttpContext.Current.Server.MapPath("~/Content/Site.css");
+            StringBuilder sb = new StringBuilder(WebPageString);
+
+            sb.Append("<!DOCTYPE html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width'/><link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'><link rel='stylesheet' type='text/css' href='");
+            sb.Append(CssPath);
+            sb.Append("'><title>L2 Test</title></head><body>");
+            sb.Append(html);
+            sb.Append("</body></html>");
+
+            WebPageString = sb.ToString();
+
+            File.WriteAllText(TestPath, WebPageString);
+            RCdbhelp.NewReportCard(TName, TestPath);
         }
     }
 }

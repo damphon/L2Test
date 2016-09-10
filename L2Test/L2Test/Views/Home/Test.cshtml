@@ -4,6 +4,7 @@
     string TechID = Path.GetFileName(Request.Url.ToString());
     ViewBag.TechID = TechID;
     ViewBag.ResultsURL = Url.Action("TestResults", "Home", routeValues: null, protocol: Request.Url.Scheme);
+    ViewBag.ArchiveURL = Url.Action("TestArchive", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
 
 <!DOCTYPE html>
@@ -36,8 +37,22 @@
             $(this).toggleClass('TestAnswer');
         });
 
-        function SendAnswers() { //This creates the proper list of objects but once posted the 'answers' are nulled.
+        function SendAnswers() {
+
             var tech = '@(ViewBag.TechID)';
+            var htmlString = document.documentElement.innerHTML;
+
+            $.ajax({
+                url: "@(ViewBag.ArchiveURL)",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({html: htmlString, tech: tech}),
+                success: function (data) {
+                    alert("Test archived");
+                }
+            })
+
             var list = [];
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
                 var answer = {};

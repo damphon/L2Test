@@ -156,5 +156,12 @@ namespace L2Test.Controllers
             TestResultModel.Submit(jsonData);
             return Json(new { success = true });
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public void TestArchive(string html, string tech)
+        {
+            TestResultModel.Archive(html, tech);
+        }
     }
 }

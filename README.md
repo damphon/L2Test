@@ -2,13 +2,14 @@
 #
 #TODO
 #
-#Save ungraded test in case grading is wrong
+#
 #Show What Tech Selected on grade page
 #Show Questions catagory on grade page
 #Grade each catagory, show on grade page
 #Format grade page
 #Make test reditect to Results (Only final score and catagorys)
 #Make lead page that lets them select history of tests both ungraded and graded
+#Increase number of potential answeres to 8
 #Add bulk import tool to test edit page
 #Make password reset page
 #
@@ -25,7 +26,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
-#   09/09/2016 - Test now grades correctly even if no answeres are selected. Showed test to Levi, updated TODO list.
+#   09/10/2016 - Test now saves an archive of the test page exactly as it was when the test was submitted prior to grading the test.
+#   09/10/2016 - Test now grades correctly even if no answeres are selected. Showed test to Levi, updated TODO list.
 #   09/09/2016 - Test now grades correctly but fails if there are no answeres selected.
 #   08/28/2016 - Test now grades itself and saves page as html page. The grading and formatting need to be worked on.
 #   08/27/2016 - Post goes through successfuly, no longer posting [null] for selected answeres.
