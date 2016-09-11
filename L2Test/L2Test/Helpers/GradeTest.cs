@@ -73,27 +73,34 @@ namespace L2Test.Helpers
 
             foreach (var Question in TestQuestions)
             {
+                //Save status of each answer for grading and to print with correct/incorrect color scheme
                 //0 netural, 1 correct, 2 wrong;
                 int Answer1Status = 0;
                 int Answer2Status = 0;
                 int Answer3Status = 0;
                 int Answer4Status = 0;
+
+                //Tells which answeres were selected for printout
+                bool Answer1Selected = false;
+                bool Answer2Selected = false;
+                bool Answer3Selected = false;
+                bool Answer4Selected = false;
+
                 PossibleAnswers++;
 
                 //Check answeres
-                //Is there a way to save a raw version of the test that was just submitted?
-                foreach (var A in AnswerDict[Question.key.ToString()])// if no answer is selected null referance error
+                foreach (var A in AnswerDict[Question.key.ToString()])
                 {
                     if (Answer1Status != 1)
                     {
                         if (Question.c1 == true)
                         {
-                            if (A.Contains(Question.aid1)) { Answer1Status = 1; }
-                            else { Answer1Status = 2;}
+                            if (A.Contains(Question.aid1)) { Answer1Status = 1; Answer1Selected = true; }
+                            else { Answer1Status = 2; }
                         }
                         else
                         {
-                                if (A.Contains(Question.aid1)) { Answer1Status = 2; }
+                                if (A.Contains(Question.aid1)) { Answer1Status = 2; Answer1Selected = true; }
                         }
                     }
 
@@ -101,12 +108,12 @@ namespace L2Test.Helpers
                     {
                         if (Question.c2 == true)
                         {
-                            if (A.Contains(Question.aid2)) { Answer2Status = 1; }
+                            if (A.Contains(Question.aid2)) { Answer2Status = 1; Answer2Selected = true; }
                             else { Answer2Status = 2; }
                         }
                         else
                         {
-                            if (A.Contains(Question.aid2)) { Answer2Status = 2; }
+                            if (A.Contains(Question.aid2)) { Answer2Status = 2; Answer2Selected = true; }
                         }
                     }
 
@@ -114,12 +121,12 @@ namespace L2Test.Helpers
                     {
                         if (Question.c3 == true)
                         {
-                            if (A.Contains(Question.aid3)) { Answer3Status = 1; }
+                            if (A.Contains(Question.aid3)) { Answer3Status = 1; Answer3Selected = true; }
                             else { Answer3Status = 2;  }
                         }
                         else
                         {
-                            if (A.Contains(Question.aid3)) { Answer3Status = 2; }
+                            if (A.Contains(Question.aid3)) { Answer3Status = 2; Answer3Selected = true; }
                         }
                     }
 
@@ -127,12 +134,12 @@ namespace L2Test.Helpers
                     {
                         if (Question.c4 == true)
                         {
-                            if (A.Contains(Question.aid4)) { Answer4Status = 1; }
+                            if (A.Contains(Question.aid4)) { Answer4Status = 1; Answer4Selected = true; }
                             else { Answer4Status = 2; }
                         }
                         else
                         {
-                            if (A.Contains(Question.aid4)) { Answer4Status = 2; }
+                            if (A.Contains(Question.aid4)) { Answer4Status = 2; Answer4Selected = true; }
                         }
                     }
                 }
@@ -156,7 +163,11 @@ namespace L2Test.Helpers
                     default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
                 }
                 sb.Append(Question.aid1);
-                sb.Append("'>A. ");
+                if (Answer1Selected)
+                    sb.Append("'><img src='selected.png' height='20' width='20'>");
+                else
+                    sb.Append("'>");
+                sb.Append("A. ");
                 sb.Append(Question.answer1);
                 sb.Append("</p>");
 
@@ -169,7 +180,11 @@ namespace L2Test.Helpers
                     default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
                 }
                 sb.Append(Question.aid2);
-                sb.Append("'>B. ");
+                if (Answer2Selected)
+                    sb.Append("'><img src='selected.png' height='20' width='20'>");
+                else
+                    sb.Append("'>");
+                sb.Append("B. ");
                 sb.Append(Question.answer2);
                 sb.Append("</p>");
 
@@ -185,7 +200,11 @@ namespace L2Test.Helpers
                         default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
                     }
                     sb.Append(Question.aid3);
-                    sb.Append("'>C. ");
+                    if (Answer3Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("C. ");
                     sb.Append(Question.answer3);
                     sb.Append("</p>");
                 }
@@ -201,7 +220,11 @@ namespace L2Test.Helpers
                         default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
                     }
                     sb.Append(Question.aid4);
-                    sb.Append("'>D. ");
+                    if (Answer4Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("D. ");
                     sb.Append(Question.answer4);
                     sb.Append("</p>");
                 }
