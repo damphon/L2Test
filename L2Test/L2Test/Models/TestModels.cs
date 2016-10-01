@@ -286,16 +286,26 @@ namespace L2Test.Models
             Dictionary<string, float> results = TestHelp.Grading(TechsAnswers);
             StringBuilder sb = new StringBuilder(grades);
 
-            sb.Append("<div><ul class='Test' style='list - style - type:none'>");
+            sb.Append("<div class='TechViewResults'>");
             foreach(var grade in results)
-            {
-                sb.Append("<li><p>");
+            {   //Color the results
+                if (grade.Value > 85)  {sb.Append("<p class='greenResult'");}
+                else if (grade.Value > 50) {sb.Append("<p class='yellowResult'");}
+                else {sb.Append("<p class='redResult'");}
+
+                //Change font size for overall score
+                if (grade.Key == "FinalScore")
+                    sb.Append("style='font-size:3em'");
+
+                //Finish listing the catagory scores
+                sb.Append(">");
                 sb.Append(grade.Key);
                 sb.Append(": ");
                 sb.Append(grade.Value);
-                sb.Append("%</p></li>");
+                sb.Append("%</p>");
+
             }
-            sb.Append("</ul></div>");
+            sb.Append("</div>");
             grades = sb.ToString();
 
             return grades;
