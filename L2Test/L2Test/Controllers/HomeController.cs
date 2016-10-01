@@ -48,12 +48,6 @@ namespace L2Test.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        public ActionResult Results()
-        {
-            return View();
-        }
-
         [HttpGet]
         [Authorize]
         public ActionResult Edit()
@@ -142,19 +136,11 @@ namespace L2Test.Controllers
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult TestResults()
-        {
-            return View();
-        }
-
         [HttpPost]
         [AllowAnonymous]
         public ActionResult TestResults(IEnumerable<TestResultModel> jsonData)
         {
-            TestResultModel.Submit(jsonData);
-            return Json(new { success = true });
+            return Content(TestResultModel.Submit(jsonData));
         }
 
         [HttpPost]

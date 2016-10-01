@@ -12,8 +12,9 @@ namespace L2Test.Helpers
     {
         public float CorrectAnswers = 0f;
         public float PossibleAnswers = 0f;
+        public List<GradeCatagories> CatagoryGrades = new List<GradeCatagories>();
 
-        public void Grading(List<TestResultModel> TechAnswers)
+        public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
         {
             string TID = TechAnswers[0].tech;
             string TName = "Unknown Tech";
@@ -29,8 +30,8 @@ namespace L2Test.Helpers
 
             string Results = PrintResults(TechAnswers);
             string URL = SaveResults(Results, TName, TID);
-
             RCdbhelp.NewReportCard(TName, URL);
+            return FinalScore();
 
         }
 
@@ -143,8 +144,51 @@ namespace L2Test.Helpers
                         }
                     }
                 }
-                if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2 )
+
+                //If all answeres are correct Add one to correct answeres and update catagory list
+                if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2)
+                {
                     CorrectAnswers++;
+                    if (CatagoryGrades.Exists(x => x.Catagory == Question.catagory))
+                    {
+                        foreach (var c in CatagoryGrades)
+                        {
+                            if (c.Catagory == Question.catagory)
+                            {
+                                c.CorrectAnswers++;
+                                c.PossibleAnsweres++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var CatList = new GradeCatagories();
+                        CatList.Catagory = Question.catagory;
+                        CatList.CorrectAnswers = 1f;
+                        CatList.PossibleAnsweres = 1f;
+                        CatagoryGrades.Add(CatList);
+                    }
+                }
+                else //If this question was answered incorrectly 
+                {
+                    if (CatagoryGrades.Exists(x => x.Catagory == Question.catagory))
+                    {
+                        foreach (var c in CatagoryGrades)
+                        {
+                            if (c.Catagory == Question.catagory)
+                            {
+                                c.PossibleAnsweres++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var CatList = new GradeCatagories();
+                        CatList.Catagory = Question.catagory;
+                        CatList.PossibleAnsweres = 1f;
+                        CatagoryGrades.Add(CatList);
+                    }
+                }
 
                 StringBuilder sb = new StringBuilder(ResultString);
                 //Question block
@@ -152,6 +196,8 @@ namespace L2Test.Helpers
                 sb.Append(Question.key);
                 sb.Append("'><p class='TestQuestion'>");
                 sb.Append(Question.question);
+                sb.Append("</p><p class='TestCatagory'>");
+                sb.Append(Question.catagory);
                 sb.Append("</p>");
 
                 //Answer 1
@@ -252,6 +298,15 @@ namespace L2Test.Helpers
             sb.Append(" </title></head><body>");
 
             //Body 
+            sb.Append("Catagorys</br>");
+            foreach (var c in CatagoryGrades)
+            {
+                sb.Append(c.Catagory);
+                sb.Append(": ");
+                sb.Append((c.CorrectAnswers / c.PossibleAnsweres) * 100);
+                sb.Append("%</br>");
+            }
+
             sb.Append("Possible:");
             sb.Append(PossibleAnswers);
             sb.Append("</br>Score:");
@@ -269,5 +324,23 @@ namespace L2Test.Helpers
 
             return TestPath;
         }
+
+        private Dictionary<string, float> FinalScore()
+        {
+            Dictionary<string, float> results = new Dictionary<string, float>();
+            results.Add("FinalScore", (CorrectAnswers / PossibleAnswers) * 100f);
+            foreach (var catagory in CatagoryGrades)
+            {
+                results.Add(catagory.Catagory, (catagory.CorrectAnswers / catagory.PossibleAnsweres) * 100f);
+            }
+            return results;
+        }
+    }
+
+    public class GradeCatagories
+    {
+       public string Catagory { get; set; }
+       public float PossibleAnsweres { get; set; }
+       public float CorrectAnswers { get; set; }
     }
 }

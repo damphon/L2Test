@@ -274,15 +274,31 @@ namespace L2Test.Models
         public string question { get; set; }
         public string[] answers { get; set; }
 
-        public static void Submit(IEnumerable<TestResultModel> json)
+        public static string Submit(IEnumerable<TestResultModel> json)
         {
             List<TestResultModel> TechsAnswers = new List<TestResultModel>();
             GradeTest TestHelp = new GradeTest();
+            string grades = "";
             foreach (var answer in json)
             {
                 TechsAnswers.Add(answer);
             }
-            TestHelp.Grading(TechsAnswers);
+            Dictionary<string, float> results = TestHelp.Grading(TechsAnswers);
+            StringBuilder sb = new StringBuilder(grades);
+
+            sb.Append("<div><ul class='Test' style='list - style - type:none'>");
+            foreach(var grade in results)
+            {
+                sb.Append("<li><p>");
+                sb.Append(grade.Key);
+                sb.Append(": ");
+                sb.Append(grade.Value);
+                sb.Append("%</p></li>");
+            }
+            sb.Append("</ul></div>");
+            grades = sb.ToString();
+
+            return grades;
         }
 
         //Save a copy of the test as it was when the submit button was pressed, prior to grading.

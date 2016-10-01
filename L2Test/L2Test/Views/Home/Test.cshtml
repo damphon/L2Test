@@ -18,14 +18,16 @@
     <title>L2 Test</title>
 </head>
 <body>
-    <div class="SubmitFloat">
-        <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
-    </div>
-    <div>
-        <ul class="Test" style="list-style-type:none">
-            @Html.Raw(ListHelp.TakeTest())
-        </ul>
-    </div>
+    <section class="TestPageContent">
+        <div class="SubmitFloat">
+            <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
+        </div>
+        <div>
+            <ul class="Test" style="list-style-type:none">
+                @Html.Raw(ListHelp.TakeTest())
+            </ul>
+        </div>
+    </section>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script>
@@ -47,11 +49,8 @@
                 type: "POST",
                 contentType: "application/json",
                 dataType: "json",
-                data: JSON.stringify({html: htmlString, tech: tech}),
-                success: function (data) {
-                    alert("Test archived");
-                }
-            })
+                data: JSON.stringify({ html: htmlString, tech: tech })
+            });
 
             var list = [];
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
@@ -72,12 +71,16 @@
                 url: "@(ViewBag.ResultsURL)",
                 type: "POST",
                 contentType: "application/json",
-                dataType: "json",
+                dataType: "text",
                 data: JSON.stringify(list),
                 success: function (data) {
-                    alert("Test submitted");
+                    $('.TestPageContent').html(data);
+                },
+                error: function () {
+                    alert("Test not graded, a lead will need to manualy grade this test.");
                 }
-            })
+            });
+
         }
     </script>
 </body>
