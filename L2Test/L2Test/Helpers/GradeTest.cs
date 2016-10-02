@@ -194,10 +194,10 @@ namespace L2Test.Helpers
                 //Question block
                 sb.Append("<li class='well' id='");
                 sb.Append(Question.key);
-                sb.Append("'><p class='TestQuestion'>");
-                sb.Append(Question.question);
-                sb.Append("</p><p class='TestCatagory'>");
+                sb.Append("'><p class='TestResultQuestion'>Catagory:<b>");
                 sb.Append(Question.catagory);
+                sb.Append("</b> - ");
+                sb.Append(Question.question);
                 sb.Append("</p>");
 
                 //Answer 1
@@ -286,6 +286,7 @@ namespace L2Test.Helpers
         public string SaveResults(string Results, string Tech, string ID)
         {
             string WebPageString = "";
+            string Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
             String TestPath = HttpContext.Current.Server.MapPath("~/Tests/" + Tech + ID + ".html");
             String CssPath = HttpContext.Current.Server.MapPath("~/Content/Site.css");
             StringBuilder sb = new StringBuilder(WebPageString);
@@ -295,25 +296,51 @@ namespace L2Test.Helpers
             sb.Append(CssPath);
             sb.Append("'><title>");
             sb.Append(Tech);
-            sb.Append(" </title></head><body>");
+            sb.Append(" - ");
+            sb.Append(Date);
+            sb.Append("</title></head><body>");
 
             //Body 
-            sb.Append("Catagorys</br>");
+            sb.Append("<h2>Final results for ");
+            sb.Append(Tech);
+            sb.Append(". Test completed ");
+            sb.Append(Date);
+            sb.Append("</h2></br>");
+
+            //Final Score
+            sb.Append("<div class='LeadViewResults'>");
+            if ((CorrectAnswers / PossibleAnswers * 100f) > 85) { sb.Append("<p class='greenResult'>"); }
+            else { sb.Append("<p class='redResult'>"); }
+            sb.Append("<b>Final Score: ");
+            sb.Append((CorrectAnswers / PossibleAnswers * 100f));
+            sb.Append("%</b></br>Questions asked:");
+            sb.Append(PossibleAnswers);
+            sb.Append("  Correctly Answered:");
+            sb.Append(CorrectAnswers);
+            sb.Append("</p>");
+
+            //List the Catagorys
             foreach (var c in CatagoryGrades)
             {
+                if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 85) { sb.Append("<p class='greenResult'"); }
+                else if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 50) { sb.Append("<p class='yellowResult'"); }
+                else { sb.Append("<p class='redResult'"); }
+
+                sb.Append(">");
                 sb.Append(c.Catagory);
                 sb.Append(": ");
-                sb.Append((c.CorrectAnswers / c.PossibleAnsweres) * 100);
-                sb.Append("%</br>");
+                sb.Append((c.CorrectAnswers / c.PossibleAnsweres * 100f));
+                sb.Append("%</br>Questions asked:");
+                sb.Append(c.PossibleAnsweres);
+                sb.Append("  Correctly Answered:");
+                sb.Append(c.CorrectAnswers);
+                sb.Append("</p>");
             }
+            sb.Append("</div>");
 
-            sb.Append("Possible:");
-            sb.Append(PossibleAnswers);
-            sb.Append("</br>Score:");
-            sb.Append(CorrectAnswers);
-            sb.Append("</br>Grade:");
-            sb.Append((CorrectAnswers / PossibleAnswers) * 100f);
-            sb.Append("%</br>Results below:");
+            //Techs answered below
+
+            sb.Append("</br></br><h2>Answers selected by the technician are preceded by a white checkmark:</h2>");
             sb.Append("<ul class='Test' style='list-style-type:none'>");
             sb.Append(Results);
             sb.Append("</ul><script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script></body></html>");
