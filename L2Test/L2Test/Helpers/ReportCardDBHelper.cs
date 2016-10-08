@@ -48,6 +48,7 @@ namespace L2Test.Helpers
                             var Report = new ReportCardModels();
                             Report.tech = reader.GetString(reader.GetOrdinal("Tech"));
                             Report.testURL = reader.GetString(reader.GetOrdinal("Test"));
+                            Report.time = reader.GetDateTime(reader.GetOrdinal("Time"));
 
                             ReportCards.Add(Report);
                         }
@@ -55,31 +56,6 @@ namespace L2Test.Helpers
                 }
             }
             return ReportCards;
-        }
-
-        public List<ReportCardModels> GetReportCard()
-        {
-            var ReportCard = new List<ReportCardModels>();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
-            {
-                connection.Open();
-                string query = "SELECT * FROM ReportCard";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var Report = new ReportCardModels();
-                            Report.tech = reader.GetString(reader.GetOrdinal("Tech"));
-                            Report.testURL = reader.GetString(reader.GetOrdinal("Test"));
-
-                            ReportCard.Add(Report);
-                        }
-                    }
-                }
-            }
-            return ReportCard;
         }
     }
 }

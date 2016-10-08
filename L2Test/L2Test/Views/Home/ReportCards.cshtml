@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ReportCards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test Results</h2>
+
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-lg-6">
+        <center>
+            <h3>Graded Tests</h3>
+            <ul class="Test">
+                @Html.Raw(ViewBag.GradedResults)
+            </ul>
+        </center>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-lg-6">
+        <center>
+            <h3>Not Graded Archive</h3>
+            <ul class="Test">
+                @Html.Raw(ViewBag.ArchiveResults)
+            </ul>
+        </center>
+    </div>
+</div>

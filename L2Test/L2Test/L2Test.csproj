@@ -173,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ReportCardHelper.cs" />
     <Compile Include="Helpers\GradeTest.cs" />
     <Compile Include="Helpers\Password.cs" />
     <Compile Include="Helpers\ReportCardDBHelper.cs" />
@@ -249,6 +250,7 @@
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Manage.cshtml" />
     <Content Include="Views\Home\EditQuestion.cshtml" />
+    <Content Include="Views\Home\ReportCards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

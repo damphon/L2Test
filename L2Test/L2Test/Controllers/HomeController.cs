@@ -149,5 +149,22 @@ namespace L2Test.Controllers
         {
             TestResultModel.Archive(html, tech);
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ReportCards()
+        {
+            ReportCardHelper helper = new ReportCardHelper();
+            ViewBag.GradedResults = helper.GetGradedReport();
+            ViewBag.ArchiveResults = helper.GetArchiveReport();
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ReportCards(string formTechName)
+        {
+            return View();
+        }
     }
 }

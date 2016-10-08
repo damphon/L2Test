@@ -3,6 +3,14 @@
     padding-bottom: 20px;
 }
 
+h2{
+   text-align: center; 
+}
+
+h3{
+   text-decoration:underline; 
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -114,9 +122,6 @@ textarea {
     font-size:2.5em;
     padding: 0px 150px;
 }
-h2{
-   text-align: center; 
-}
 
 .greenResult{
 	background-color: greenyellow;
@@ -156,4 +161,12 @@ h2{
 .passwordList{
     font-size:1.7em;
     color:orangered;
+}
+
+/*Displaying pats test URL's*/
+.record{
+    background-color: white;
+    font-size:1.5em;
+    margin-bottom:20px;
+    padding: 0px 5px;
 }

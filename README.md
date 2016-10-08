@@ -6,8 +6,8 @@
 #Prevent MySQL Password from expiering
 #
 #
-#Format grade page
-#Make test reditect to Results (Only final score and catagorys)
+#
+#
 #Make lead page that lets them select history of tests both ungraded and graded
 #Increase number of potential answeres to 8
 #Add bulk import tool to test edit page
@@ -26,6 +26,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   10/08/2016 - Created lead's review page for linking to the archived tests and graded tests.
+#   10/01/2016 - Test redirects techs to their obfuscated results and graded page is now properly formatted.
 #   09/24/2016 - Test now grades with the catagorys.
 #   09/10/2016 - Graded results page now indicates which answeres were selected by the tech.
 #   09/10/2016 - Test now saves an archive of the test page exactly as it was when the test was submitted prior to grading the test.
