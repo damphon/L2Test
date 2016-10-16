@@ -132,6 +132,54 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Get Answer5 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer5">Answer: </label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="formAnswer5" name="formAnswer5" class="form-control" type="text" maxlength="255">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" name="formC5" id="FC5" value="1">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Get Answer6 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer6">Answer: </label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="formAnswer6" name="formAnswer6" class="form-control" type="text" maxlength="255">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" name="formC6" id="FC6" value="1">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Get Answer7 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer7">Answer: </label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="formAnswer7" name="formAnswer7" class="form-control" type="text" maxlength="255">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" name="formC7" id="FC7" value="1">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Get Answer8 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="formAnswer8">Answer: </label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="formAnswer8" name="formAnswer8" class="form-control" type="text" maxlength="255">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" name="formC8" id="FC8" value="1">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Get Catagory -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="formCatagory">Select Catagory</label>
@@ -178,6 +226,10 @@
             document.getElementById('formAnswer2').value = testData.getAttribute("answer2");
             document.getElementById('formAnswer3').value = testData.getAttribute("answer3");
             document.getElementById('formAnswer4').value = testData.getAttribute("answer4");
+            document.getElementById('formAnswer5').value = testData.getAttribute("answer5");
+            document.getElementById('formAnswer6').value = testData.getAttribute("answer6");
+            document.getElementById('formAnswer7').value = testData.getAttribute("answer7");
+            document.getElementById('formAnswer8').value = testData.getAttribute("answer8");
 
             if (testData.getAttribute("correct1") == "True") {
                 document.getElementById('FC1').checked = true;
@@ -191,6 +243,18 @@
             if (testData.getAttribute("correct4") == "True") {
                 document.getElementById('FC4').checked = true;
             }
+            if (testData.getAttribute("correct5") == "True") {
+                document.getElementById('FC5').checked = true;
+            }
+            if (testData.getAttribute("correct6") == "True") {
+                document.getElementById('FC6').checked = true;
+            }
+            if (testData.getAttribute("correct7") == "True") {
+                document.getElementById('FC7').checked = true;
+            }
+            if (testData.getAttribute("correct8") == "True") {
+                document.getElementById('FC8').checked = true;
+            }
             
             for (var i = 0; i < document.getElementById('formCatagory').length; i++) {
                 if(document.getElementById('formCatagory').options[i].value == testData.getAttribute("catagory"))
@@ -198,6 +262,7 @@
             }
         })
 
+        //Is this even used?
         function textCounter(field, field2, maxlimit) {
             //Counts text entered in form and does not allow more than the maxlimit to be entered
             var countfield = document.getElementById(field2);

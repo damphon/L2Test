@@ -30,7 +30,7 @@ namespace L2Test.Helpers
 
             string Results = PrintResults(TechAnswers);
             string URL = SaveResults(Results, TName, TID);
-            RCdbhelp.NewReportCard(TName, URL);
+            RCdbhelp.NewReportCard(TName, URL, 1);
             return FinalScore();
 
         }
@@ -80,12 +80,20 @@ namespace L2Test.Helpers
                 int Answer2Status = 0;
                 int Answer3Status = 0;
                 int Answer4Status = 0;
+                int Answer5Status = 0;
+                int Answer6Status = 0;
+                int Answer7Status = 0;
+                int Answer8Status = 0;
 
                 //Tells which answeres were selected for printout
                 bool Answer1Selected = false;
                 bool Answer2Selected = false;
                 bool Answer3Selected = false;
                 bool Answer4Selected = false;
+                bool Answer5Selected = false;
+                bool Answer6Selected = false;
+                bool Answer7Selected = false;
+                bool Answer8Selected = false;
 
                 PossibleAnswers++;
 
@@ -143,10 +151,62 @@ namespace L2Test.Helpers
                             if (A.Contains(Question.aid4)) { Answer4Status = 2; Answer4Selected = true; }
                         }
                     }
+
+                    if (Answer5Status != 1)
+                    {
+                        if (Question.c5 == true)
+                        {
+                            if (A.Contains(Question.aid5)) { Answer5Status = 1; Answer5Selected = true; }
+                            else { Answer5Status = 2; }
+                        }
+                        else
+                        {
+                            if (A.Contains(Question.aid5)) { Answer5Status = 2; Answer5Selected = true; }
+                        }
+                    }
+
+                    if (Answer6Status != 1)
+                    {
+                        if (Question.c6 == true)
+                        {
+                            if (A.Contains(Question.aid6)) { Answer6Status = 1; Answer6Selected = true; }
+                            else { Answer6Status = 2; }
+                        }
+                        else
+                        {
+                            if (A.Contains(Question.aid6)) { Answer6Status = 2; Answer6Selected = true; }
+                        }
+                    }
+
+                    if (Answer7Status != 1)
+                    {
+                        if (Question.c7 == true)
+                        {
+                            if (A.Contains(Question.aid7)) { Answer7Status = 1; Answer7Selected = true; }
+                            else { Answer3Status = 2; }
+                        }
+                        else
+                        {
+                            if (A.Contains(Question.aid7)) { Answer7Status = 2; Answer7Selected = true; }
+                        }
+                    }
+
+                    if (Answer8Status != 1)
+                    {
+                        if (Question.c8 == true)
+                        {
+                            if (A.Contains(Question.aid8)) { Answer4Status = 8; Answer8Selected = true; }
+                            else { Answer8Status = 2; }
+                        }
+                        else
+                        {
+                            if (A.Contains(Question.aid8)) { Answer4Status = 8; Answer8Selected = true; }
+                        }
+                    }
                 }
 
                 //If all answeres are correct Add one to correct answeres and update catagory list
-                if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2)
+                if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2 && Answer5Status != 2 && Answer6Status != 2 && Answer7Status != 2 && Answer8Status != 2)
                 {
                     CorrectAnswers++;
                     if (CatagoryGrades.Exists(x => x.Catagory == Question.catagory))
@@ -272,6 +332,84 @@ namespace L2Test.Helpers
                         sb.Append("'>");
                     sb.Append("D. ");
                     sb.Append(Question.answer4);
+                    sb.Append("</p>");
+                }
+                //Answer 5
+                if (Question.answer5 != "")
+                {
+                    switch (Answer5Status)
+                    {
+                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
+                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
+                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
+                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    }
+                    sb.Append(Question.aid5);
+                    if (Answer5Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("C. ");
+                    sb.Append(Question.answer5);
+                    sb.Append("</p>");
+                }
+
+                //Answer 6
+                if (Question.answer6 != "")
+                {
+                    switch (Answer6Status)
+                    {
+                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
+                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
+                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
+                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    }
+                    sb.Append(Question.aid6);
+                    if (Answer6Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("D. ");
+                    sb.Append(Question.answer6);
+                    sb.Append("</p>");
+                }
+                //Answer 7
+                if (Question.answer7 != "")
+                {
+                    switch (Answer7Status)
+                    {
+                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
+                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
+                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
+                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    }
+                    sb.Append(Question.aid7);
+                    if (Answer7Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("C. ");
+                    sb.Append(Question.answer7);
+                    sb.Append("</p>");
+                }
+
+                //Answer 8
+                if (Question.answer8 != "")
+                {
+                    switch (Answer8Status)
+                    {
+                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
+                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
+                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
+                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    }
+                    sb.Append(Question.aid8);
+                    if (Answer8Selected)
+                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    else
+                        sb.Append("'>");
+                    sb.Append("D. ");
+                    sb.Append(Question.answer8);
                     sb.Append("</p>");
                 }
 

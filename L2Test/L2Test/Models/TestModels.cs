@@ -16,14 +16,26 @@ namespace L2Test.Models
         public string answer2 { get; set; }
         public string answer3 { get; set; }
         public string answer4 { get; set; }
+        public string answer5 { get; set; }
+        public string answer6 { get; set; }
+        public string answer7 { get; set; }
+        public string answer8 { get; set; }
         public string aid1 { get; set; }
         public string aid2 { get; set; }
         public string aid3 { get; set; }
         public string aid4 { get; set; }
+        public string aid5 { get; set; }
+        public string aid6 { get; set; }
+        public string aid7 { get; set; }
+        public string aid8 { get; set; }
         public bool? c1 { get; set; } //0 = correct //1 = incorrect
         public bool? c2 { get; set; }
         public bool? c3 { get; set; }
         public bool? c4 { get; set; }
+        public bool? c5 { get; set; }
+        public bool? c6 { get; set; }
+        public bool? c7 { get; set; }
+        public bool? c8 { get; set; }
         public string catagory { get; set; }
 
         public static List<TestModels> QuestionList()
@@ -79,6 +91,40 @@ namespace L2Test.Models
                     sb.Append(Question.answer4);
                     sb.Append("</p>");
                 }
+                if (Question.answer5 != "")
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c5);
+                    sb.Append("'>C. ");
+                    sb.Append(Question.answer5);
+                    sb.Append("</p>");
+                }
+
+                if (Question.answer6 != "")
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c6);
+                    sb.Append("'>D. ");
+                    sb.Append(Question.answer6);
+                    sb.Append("</p>");
+                }
+                if (Question.answer7 != "")
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c7);
+                    sb.Append("'>C. ");
+                    sb.Append(Question.answer7);
+                    sb.Append("</p>");
+                }
+
+                if (Question.answer8 != "")
+                {
+                    sb.Append("</p><p class='TestAnswer");
+                    sb.Append(Question.c8);
+                    sb.Append("'>D. ");
+                    sb.Append(Question.answer8);
+                    sb.Append("</p>");
+                }
 
 
                 sb.Append("<p class='TestCatagory'>Catagory: ");
@@ -106,16 +152,31 @@ namespace L2Test.Models
                 sb.Append(Question.c2);
                 sb.Append("'>B. ");
                 sb.Append(Question.answer2);
-                sb.Append("</p>");
                 sb.Append("</p><p class='TestAnswer");
                 sb.Append(Question.c3);
                 sb.Append("'>C. ");
                 sb.Append(Question.answer3);
-                sb.Append("</p>");
                 sb.Append("</p><p class='TestAnswer");
                 sb.Append(Question.c4);
                 sb.Append("'>D. ");
                 sb.Append(Question.answer4);
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c5);
+                sb.Append("'>E. ");
+                sb.Append(Question.answer5);
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c6);
+                sb.Append("'>F. ");
+                sb.Append(Question.answer6);
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c7);
+                sb.Append("'>G. ");
+                sb.Append(Question.answer7);
+                sb.Append("</p><p class='TestAnswer");
+                sb.Append(Question.c8);
+                sb.Append("'>H. ");
+                sb.Append(Question.answer8);
+                sb.Append("</p>");
                 sb.Append("<p class='TestCatagory'>Catagory: ");
                 sb.Append(Question.catagory);
                 sb.Append("</p>");
@@ -147,6 +208,34 @@ namespace L2Test.Models
                     sb.Append(Question.answer4);
                     sb.Append("' correct4='");
                     sb.Append(Question.c4);
+                }
+                if (Question.answer5 != null)
+                {
+                    sb.Append("' answer5='");
+                    sb.Append(Question.answer5);
+                    sb.Append("' correct5='");
+                    sb.Append(Question.c5);
+                }
+                if (Question.answer6 != null)
+                {
+                    sb.Append("' answer6='");
+                    sb.Append(Question.answer6);
+                    sb.Append("' correct6='");
+                    sb.Append(Question.c6);
+                }
+                if (Question.answer7 != null)
+                {
+                    sb.Append("' answer7='");
+                    sb.Append(Question.answer7);
+                    sb.Append("' correct7='");
+                    sb.Append(Question.c7);
+                }
+                if (Question.answer8 != null)
+                {
+                    sb.Append("' answer8='");
+                    sb.Append(Question.answer8);
+                    sb.Append("' correct8='");
+                    sb.Append(Question.c8);
                 }
 
                 sb.Append("'' style='display: none;'/></li>");
@@ -209,6 +298,14 @@ namespace L2Test.Models
                     SortedAnswers.Add(new SortModel(Question.answer3, Question.aid3));
                 if (Question.answer4 != "")
                     SortedAnswers.Add(new SortModel(Question.answer4, Question.aid4));
+                if (Question.answer5 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer5, Question.aid5));
+                if (Question.answer6 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer6, Question.aid6));
+                if (Question.answer7 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer7, Question.aid7));
+                if (Question.answer8 != "")
+                    SortedAnswers.Add(new SortModel(Question.answer8, Question.aid8));
 
                 SortedAnswers = SortedAnswers.OrderBy(x => rnd.Next()).ToList();
                 //Build String.
@@ -248,7 +345,39 @@ namespace L2Test.Models
                     sb.Append(SortedAnswers[3].answer);
                     sb.Append("</p>");
                 }
-                
+                if (Question.answer5 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[4].answerKey);
+                    sb.Append("'>C. ");
+                    sb.Append(SortedAnswers[4].answer);
+                    sb.Append("</p>");
+                }
+                if (Question.answer6 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[5].answerKey);
+                    sb.Append("'>D. ");
+                    sb.Append(SortedAnswers[5].answer);
+                    sb.Append("</p>");
+                }
+                if (Question.answer7 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[6].answerKey);
+                    sb.Append("'>C. ");
+                    sb.Append(SortedAnswers[6].answer);
+                    sb.Append("</p>");
+                }
+                if (Question.answer8 != "")
+                {
+                    sb.Append("<p class='TestAnswer' id='");
+                    sb.Append(SortedAnswers[7].answerKey);
+                    sb.Append("'>D. ");
+                    sb.Append(SortedAnswers[7].answer);
+                    sb.Append("</p>");
+                }
+
                 sb.Append("</li>");
                 QuestionString = sb.ToString();
             }
@@ -339,7 +468,7 @@ namespace L2Test.Models
             WebPageString = sb.ToString();
 
             File.WriteAllText(TestPath, WebPageString);
-            RCdbhelp.NewReportCard(TName, TestPath);
+            RCdbhelp.NewReportCard(TName, TestPath, 0);
         }
     }
 }

@@ -4,11 +4,11 @@
 #
 #Purge TechListDB entrys that are too old
 #Prevent MySQL Password from expiering
+#Make links on results page clickable. 
 #
 #
 #
 #
-#Make lead page that lets them select history of tests both ungraded and graded
 #Increase number of potential answeres to 8
 #Add bulk import tool to test edit page
 #Make password reset page
@@ -26,6 +26,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   10/15/2016 - Modified database for more stability and to add up to 8 answeres per question, It errors when grading now.
 #   10/08/2016 - Created lead's review page for linking to the archived tests and graded tests.
 #   10/01/2016 - Test redirects techs to their obfuscated results and graded page is now properly formatted.
 #   09/24/2016 - Test now grades with the catagorys.

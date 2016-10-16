@@ -9,7 +9,7 @@ namespace L2Test.Helpers
 {
     public class ReportCardDBHelper
     {
-        public void NewReportCard(string tech, string testURL)
+        public void NewReportCard(string tech, string testURL, int graded)//Bool is based on if graded, True is graded and False is not graded
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -17,9 +17,10 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO ReportCard (Tech, Test, Time) VALUES (@Name, @URL, @time)";
+                    command.CommandText = "INSERT INTO ReportCard (Tech, Test, Type_Bool, Time_Stamp) VALUES (@Name, @URL, @type, @time)";
                     command.Parameters.AddWithValue("@Name", tech);
                     command.Parameters.AddWithValue("@URL", testURL);
+                    command.Parameters.AddWithValue("@type", graded);
                     command.Parameters.AddWithValue("@time", DateTime.Now);
 
                     try
@@ -32,13 +33,13 @@ namespace L2Test.Helpers
             }
         }
 
-        public List<ReportCardModels> GetReportCards()
+        public List<ReportCardModels> GetReportCards(int graded)
         {
             var ReportCards = new List<ReportCardModels>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 connection.Open();
-                string query = "SELECT * FROM ReportCard";
+                string query = String.Format("SELECT * FROM ReportCard WHERE Type_Bool = {0}", graded);
                 using (var command = new SqlCommand(query, connection))
                 {
                     using (var reader = command.ExecuteReader())
@@ -48,7 +49,7 @@ namespace L2Test.Helpers
                             var Report = new ReportCardModels();
                             Report.tech = reader.GetString(reader.GetOrdinal("Tech"));
                             Report.testURL = reader.GetString(reader.GetOrdinal("Test"));
-                            Report.time = reader.GetDateTime(reader.GetOrdinal("Time"));
+                            Report.time = reader.GetDateTime(reader.GetOrdinal("Time_Stamp"));
 
                             ReportCards.Add(Report);
                         }

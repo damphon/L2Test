@@ -12,7 +12,7 @@ namespace L2Test.Helpers
         public string GetGradedReport()
         {
             ReportCardDBHelper DBhelper = new ReportCardDBHelper();
-            List<ReportCardModels> Temp = DBhelper.GetReportCards();
+            List<ReportCardModels> Temp = DBhelper.GetReportCards(1);
             var ReportCardList = Temp.OrderByDescending(x => x.time).ToList();
             string ReportCards = "";
 
@@ -20,7 +20,8 @@ namespace L2Test.Helpers
 
             foreach (var ReportCard in ReportCardList)
             {
-                if(!ReportCard.testURL.Contains("ungraded")){
+                if (!ReportCard.testURL.Contains("Ungraded"))//The file path for the archives is the same as the graded except for a directory named ungraded.
+                {
                     sb.Append("<li class='Record'><a href='");
                     sb.Append(ReportCard.testURL);
                     sb.Append("'>");
@@ -38,7 +39,7 @@ namespace L2Test.Helpers
         public string GetArchiveReport()
         {
             ReportCardDBHelper DBhelper = new ReportCardDBHelper();
-            List<ReportCardModels> Temp = DBhelper.GetReportCards();
+            List<ReportCardModels> Temp = DBhelper.GetReportCards(0);
             var ReportCardList = Temp.OrderByDescending(x => x.time).ToList();
             string ReportCards = "";
 
@@ -63,3 +64,4 @@ namespace L2Test.Helpers
         }
     }
 }
+
