@@ -183,7 +183,7 @@ namespace L2Test.Helpers
                         if (Question.c7 == true)
                         {
                             if (A.Contains(Question.aid7)) { Answer7Status = 1; Answer7Selected = true; }
-                            else { Answer3Status = 2; }
+                            else { Answer7Status = 2; }
                         }
                         else
                         {
@@ -195,12 +195,12 @@ namespace L2Test.Helpers
                     {
                         if (Question.c8 == true)
                         {
-                            if (A.Contains(Question.aid8)) { Answer4Status = 8; Answer8Selected = true; }
+                            if (A.Contains(Question.aid8)) { Answer8Status = 1; Answer8Selected = true; }
                             else { Answer8Status = 2; }
                         }
                         else
                         {
-                            if (A.Contains(Question.aid8)) { Answer4Status = 8; Answer8Selected = true; }
+                            if (A.Contains(Question.aid8)) { Answer8Status = 2; Answer8Selected = true; }
                         }
                     }
                 }
@@ -349,7 +349,7 @@ namespace L2Test.Helpers
                         sb.Append("'><img src='selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
-                    sb.Append("C. ");
+                    sb.Append("E. ");
                     sb.Append(Question.answer5);
                     sb.Append("</p>");
                 }
@@ -369,7 +369,7 @@ namespace L2Test.Helpers
                         sb.Append("'><img src='selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
-                    sb.Append("D. ");
+                    sb.Append("F. ");
                     sb.Append(Question.answer6);
                     sb.Append("</p>");
                 }
@@ -388,7 +388,7 @@ namespace L2Test.Helpers
                         sb.Append("'><img src='selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
-                    sb.Append("C. ");
+                    sb.Append("G. ");
                     sb.Append(Question.answer7);
                     sb.Append("</p>");
                 }
@@ -408,7 +408,7 @@ namespace L2Test.Helpers
                         sb.Append("'><img src='selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
-                    sb.Append("D. ");
+                    sb.Append("H. ");
                     sb.Append(Question.answer8);
                     sb.Append("</p>");
                 }
