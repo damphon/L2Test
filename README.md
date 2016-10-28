@@ -6,6 +6,7 @@
 ###How long techs have to enter their UID
 ###How long techs have to take the test
 ###Change what percentage constitutes a passing score (change the color shown for grades)
+#Stop techs from being able to refresh for a different test.
 #
 #TODO list for Alpha build
 #Purge TechListDB entrys that are too old
@@ -14,7 +15,7 @@
 #Add timer to test.
 #Add bulk import tool to test edit page
 #Make password reset page
-#Move Test JS to external file so that it is not usable in archive
+#Spell check all code on the test page/leave a message
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -29,6 +30,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   10/28/2016 - Added timer to page, timer needs to auto submit test when it reaches 00:00.
 #   10/22/2016 - Fixed grading errors that occured after increasing number of answeres per question.
 #   10/15/2016 - Modified database for more stability and to add up to 8 answeres per question, It errors when grading now.
 #   10/08/2016 - Created lead's review page for linking to the archived tests and graded tests.

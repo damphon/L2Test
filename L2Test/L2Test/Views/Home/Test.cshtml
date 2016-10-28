@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 
 <html>
+<!--Your test is timed, dont waste that time trying to find a way to cheat in the source code.-->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -19,6 +20,9 @@
 </head>
 <body>
     <section class="TestPageContent">
+        <div class="TimerFloat">
+            <center><div id="timer"></div></center>
+        </div>
         <div class="SubmitFloat">
             <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
         </div>
@@ -30,7 +34,10 @@
     </section>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="C:\Users\jtoler\Source\Repos\L2Test\L2Test\L2Test\Views\Home\Test.js"></script>
     <script>
+        //This script section needs to use jquery so that the above file paths are broken when archived preventing the selected answers from being changed and the test from being submitted.
+
         //Toggel which answer is selected
         $('.TestAnswer').click(function () {
             $(this).toggleClass('SelectedAnswer');
@@ -38,6 +45,36 @@
         $('.SelectedAnswer').click(function () {
             $(this).toggleClass('TestAnswer');
         });
+
+        //Count down time left before test auto submits
+        var timeInMinutes = 2;
+        var currentTime = Date.parse(new Date());
+        var deadline = new Date(currentTime + timeInMinutes * 60000);//60000 milliseconds in a minute
+
+        $(document).ready(startTimer(deadline));
+
+        function startTimer(endtime) {
+            var timer = document.getElementById('timer');
+            setInterval(function changeTime() {
+                var timeRemaining = getTimeRemaining(endtime);
+                timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + timeRemaining.seconds;
+                if (timeRemaining.total <= 0) {
+                    clearInterval(changeTime);
+                }
+            }, 1000);
+        }
+
+        function getTimeRemaining(endtime) {
+            var timeRemaining = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((timeRemaining / 1000) % 60); //1000 milliseconds in second, modulus 60 to only get remaider after minutes have been accounted for.
+            var minutes = Math.floor((timeRemaining / 60000)); //60000 milliseconds in a minute
+
+            return {
+                'total': timeRemaining,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
 
         function SendAnswers() {
 
