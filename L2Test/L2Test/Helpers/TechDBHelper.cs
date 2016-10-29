@@ -13,6 +13,7 @@ namespace L2Test.Helpers
     {
         public void NewID(string tech, string techID)
         {
+            PurgeTechs();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 using (SqlCommand command = new SqlCommand())
@@ -86,6 +87,29 @@ namespace L2Test.Helpers
                 }
             }
             return TechID;
+        }
+
+        public void PurgeTechs()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText ="DELETE FROM Login WHERE Time < DATEADD(day, -120, GETDATE())";
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine("TechDBHelper.PurgeTechs Error: " + e.Message);
+                    }
+                }
+            }
         }
     }
 }

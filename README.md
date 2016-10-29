@@ -9,13 +9,12 @@
 #Stop techs from being able to refresh for a different test.
 #
 #TODO list for Alpha build
-#Purge TechListDB entrys that are too old
 #Prevent MySQL Password from expiering
 #Make links on results page clickable. 
-#Add timer to test.
 #Add bulk import tool to test edit page
 #Make password reset page
 #Spell check all code on the test page/leave a message
+#add text to main page and spell check that shit
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -30,6 +29,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   10/29/2016 - When a new tech is added to the login database all entries over 120 days old get purged to keep the database runing smothly. This is ok since that DB only actualy needs to hold the entry for a few hours. 
 #   10/29/2016 - Test now auto submits when timer reaches 0 and archive saves the time remaining at the time the test is submitted.
 #   10/28/2016 - Added timer to page, timer needs to auto submit test when it reaches 0.
 #   10/22/2016 - Fixed grading errors that occured after increasing number of answeres per question.
