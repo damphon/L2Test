@@ -49,7 +49,7 @@ namespace L2Test.Helpers
             {
                 if (ReportCard.testURL.Contains("Ungraded"))//The file path for the archives is the same as the graded except for a directory named ungraded.
                 {
-                    sb.Append("<li class='Record'><a href='");
+                    sb.Append("<li class='Record'><a target='_blank' href='");
                     sb.Append(ReportCard.testURL);
                     sb.Append("'>");
                     sb.Append(ReportCard.tech);

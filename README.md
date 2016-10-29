@@ -6,11 +6,12 @@
 ###How long techs have to enter their UID
 ###How long techs have to take the test
 ###Change what percentage constitutes a passing score (change the color shown for grades)
+###Text feild leads can use for L2 Test explanation on front page.
+###How many questions are on the test.
 #Stop techs from being able to refresh for a different test.
 #
 #TODO list for Alpha build
 #Prevent MySQL Password from expiering
-#Make links on results page clickable. 
 #Add bulk import tool to test edit page
 #Make password reset page
 #Spell check all code on the test page/leave a message
