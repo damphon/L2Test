@@ -30,7 +30,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
-#   10/28/2016 - Added timer to page, timer needs to auto submit test when it reaches 00:00.
+#   10/29/2016 - Test now auto submits when timer reaches 0 and archive saves the time remaining at the time the test is submitted.
+#   10/28/2016 - Added timer to page, timer needs to auto submit test when it reaches 0.
 #   10/22/2016 - Fixed grading errors that occured after increasing number of answeres per question.
 #   10/15/2016 - Modified database for more stability and to add up to 8 answeres per question, It errors when grading now.
 #   10/08/2016 - Created lead's review page for linking to the archived tests and graded tests.

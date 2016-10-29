@@ -55,12 +55,13 @@
 
         function startTimer(endtime) {
             var timer = document.getElementById('timer');
-            setInterval(function changeTime() {
+            var changeTime = setInterval(function myTimer() {
                 var timeRemaining = getTimeRemaining(endtime);
                 timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + timeRemaining.seconds;
                 if (timeRemaining.total <= 0) {
                     clearInterval(changeTime);
-                }
+                    SendAnswers();
+                } 
             }, 1000);
         }
 

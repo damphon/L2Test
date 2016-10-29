@@ -408,7 +408,8 @@ namespace L2Test.Models
             List<TestResultModel> TechsAnswers = new List<TestResultModel>();
             GradeTest TestHelp = new GradeTest();
             string grades = "";
-            foreach (var answer in json)
+            foreach (var answer in 
+                json)
             {
                 TechsAnswers.Add(answer);
             }
