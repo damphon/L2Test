@@ -21,7 +21,7 @@
 <body>
     <section class="TestPageContent">
         <div class="TimerFloat">
-            <center><div id="timer"></div></center>
+            <center><div id="timer">...Starting Timer</div></center>
         </div>
         <div class="SubmitFloat">
             <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
@@ -57,7 +57,7 @@
             var timer = document.getElementById('timer');
             var changeTime = setInterval(function myTimer() {
                 var timeRemaining = getTimeRemaining(endtime);
-                timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + timeRemaining.seconds;
+                timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + ('0' + timeRemaining.seconds).slice(-2);
                 if (timeRemaining.total <= 0) {
                     clearInterval(changeTime);
                     SendAnswers();
