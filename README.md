@@ -11,10 +11,9 @@
 #Stop techs from being able to refresh for a different test.
 #
 #TODO list for Alpha build
-#Prevent MySQL Password from expiering
 #Add bulk import tool to test edit page
 #Make password reset page
-#Spell check all code on the test page/leave a message
+#Spell check all code on the test page/leave a message/ascii art
 #add text to main page and spell check that shit
 #
 #Areas of Focus
