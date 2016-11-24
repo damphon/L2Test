@@ -8,13 +8,14 @@
 ###Change what percentage constitutes a passing score (change the color shown for grades)
 ###Text feild leads can use for L2 Test explanation on front page.
 ###How many questions are on the test.
+###Allow different settings for different sites
+#####Change what catagorys appear on test (no shuttle questions for non-phoenix sites)
 #Stop techs from being able to refresh for a different test.
 #
 #TODO list for Alpha build
 #Add bulk import tool to test edit page
 #Make password reset page
-#Spell check all code on the test page/leave a message/ascii art
-#add text to main page and spell check that shit
+#change gallry button on manage/edit pages
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -29,6 +30,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   11/12/2016 - Added text to index page that explains L2 test requierments and instructions for completing the test.
+#   11/04/2016 - Spell checked all code while on flight
 #   10/29/2016 - When a new tech is added to the login database all entries over 120 days old get purged to keep the database runing smothly. This is ok since that DB only actualy needs to hold the entry for a few hours. 
 #   10/29/2016 - Test now auto submits when timer reaches 0 and archive saves the time remaining at the time the test is submitted.
 #   10/28/2016 - Added timer to page, timer needs to auto submit test when it reaches 0.

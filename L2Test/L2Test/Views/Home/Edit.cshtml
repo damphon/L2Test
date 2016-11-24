@@ -3,6 +3,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
 }
+<!--
+ _____           _           _     _         _      _____   _____         _
+|  __ \         | |         | |   | |       | |    / __  \ |_   _|       | |
+| |  \/ ___   __| | __ _  __| | __| |_   _  | |    `' / /'   | | ___  ___| |_
+| | __ / _ \ / _` |/ _` |/ _` |/ _` | | | | | |      / /     | |/ _ \/ __| __|
+| |_\ \ (_) | (_| | (_| | (_| | (_| | |_| | | |____./ /___   | |  __/\__ \ |_
+ \____/\___/ \__,_|\__,_|\__,_|\__,_|\__, | \_____/\_____/   \_/\___||___/\__|
+                                      __/ |
+                                     |___/
+-->
+
 <h2>@ViewBag.Title</h2>
 
 <!--************************Add Question*****************************-->
@@ -18,7 +29,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" id="gallerybtn" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" id="editbtn" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title">Add New Question</h2>
             </div>
             <div class="modal-body">
@@ -131,21 +142,21 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Get Catagory -->
+                        <!-- Get Category -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="formCatagory">Select Catagory</label>
+                            <label class="col-md-4 control-label" for="formCategory">Select Category</label>
                             <div class="col-md-4">
-                                <select id="formCatagory" name="formCatagory" class="form-control">
+                                <select id="formCategory" name="formCategory" class="form-control">
                                     <option value="1">New Catagoy</option>
-                                    @Html.Raw(ListHelp.CatagoryList())
+                                    @Html.Raw(ListHelp.CategoryList())
                                 </select>
                             </div>
                         </div>
-                        <!-- New Catagory-->
+                        <!-- New Category-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="newCatagory">New Catagory</label>
+                            <label class="col-md-4 control-label" for="newCategory">New Category</label>
                             <div class="col-md-4">
-                                <input id="newCatagory" name="newCatagory" type="text" placeholder="" class="form-control input-md">
+                                <input id="newCategory" name="newCategory" type="text" placeholder="" class="form-control input-md">
                             </div>
 
                         </div>

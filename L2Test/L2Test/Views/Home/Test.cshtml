@@ -21,7 +21,7 @@
                                       __/ |                                   
                                      |___/                                    
     
-Your test is timed, dont waste that time looking at source code!
+Your test is timed, don't waste that time looking at source code!
 -->
 <head>
     <meta charset="utf-8" />
@@ -79,7 +79,7 @@ Your test is timed, dont waste that time looking at source code!
 
         function getTimeRemaining(endtime) {
             var timeRemaining = Date.parse(endtime) - Date.parse(new Date());
-            var seconds = Math.floor((timeRemaining / 1000) % 60); //1000 milliseconds in second, modulus 60 to only get remaider after minutes have been accounted for.
+            var seconds = Math.floor((timeRemaining / 1000) % 60); //1000 milliseconds in second, modulus 60 to only get remainder  after minutes have been accounted for.
             var minutes = Math.floor((timeRemaining / 60000)); //60000 milliseconds in a minute
 
             return {
@@ -127,7 +127,7 @@ Your test is timed, dont waste that time looking at source code!
                     $('.TestPageContent').html(data);
                 },
                 error: function () {
-                    alert("Test not graded, a lead will need to manualy grade this test.");
+                    alert("Test not graded, a lead will need to manually grade this test.");
                 }
             });
 

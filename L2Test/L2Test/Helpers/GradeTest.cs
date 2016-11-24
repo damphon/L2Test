@@ -12,7 +12,7 @@ namespace L2Test.Helpers
     {
         public float CorrectAnswers = 0f;
         public float PossibleAnswers = 0f;
-        public List<GradeCatagories> CatagoryGrades = new List<GradeCatagories>();
+        public List<GradeCatagories> categoryGrades = new List<GradeCatagories>();
 
         public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
         {
@@ -66,7 +66,7 @@ namespace L2Test.Helpers
             {
                 if (AnswerDict[Question.key.ToString()] == null)
                 {
-                    AnswerDict[Question.key.ToString()] = new string[] {"Unanswed"}; //Unanswered is 8 charicters, all valid keys are 10 so this can never be a correct answer
+                    AnswerDict[Question.key.ToString()] = new string[] { "Unanswered" }; //Unanswered is 8 characters, all valid keys are 10 so this can never be a correct answer
                 }
             }
 
@@ -75,7 +75,7 @@ namespace L2Test.Helpers
             foreach (var Question in TestQuestions)
             {
                 //Save status of each answer for grading and to print with correct/incorrect color scheme
-                //0 netural, 1 correct, 2 wrong;
+                //0 neutral, 1 correct, 2 wrong;
                 int Answer1Status = 0;
                 int Answer2Status = 0;
                 int Answer3Status = 0;
@@ -85,7 +85,7 @@ namespace L2Test.Helpers
                 int Answer7Status = 0;
                 int Answer8Status = 0;
 
-                //Tells which answeres were selected for printout
+                //Tells which answers were selected for printout
                 bool Answer1Selected = false;
                 bool Answer2Selected = false;
                 bool Answer3Selected = false;
@@ -205,15 +205,15 @@ namespace L2Test.Helpers
                     }
                 }
 
-                //If all answeres are correct Add one to correct answeres and update catagory list
+                //If all answers are correct Add one to correct answers and update category list
                 if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2 && Answer5Status != 2 && Answer6Status != 2 && Answer7Status != 2 && Answer8Status != 2)
                 {
                     CorrectAnswers++;
-                    if (CatagoryGrades.Exists(x => x.Catagory == Question.catagory))
+                    if (categoryGrades.Exists(x => x.category == Question.category))
                     {
-                        foreach (var c in CatagoryGrades)
+                        foreach (var c in categoryGrades)
                         {
-                            if (c.Catagory == Question.catagory)
+                            if (c.category == Question.category)
                             {
                                 c.CorrectAnswers++;
                                 c.PossibleAnsweres++;
@@ -223,19 +223,19 @@ namespace L2Test.Helpers
                     else
                     {
                         var CatList = new GradeCatagories();
-                        CatList.Catagory = Question.catagory;
+                        CatList.category = Question.category;
                         CatList.CorrectAnswers = 1f;
                         CatList.PossibleAnsweres = 1f;
-                        CatagoryGrades.Add(CatList);
+                        categoryGrades.Add(CatList);
                     }
                 }
                 else //If this question was answered incorrectly 
                 {
-                    if (CatagoryGrades.Exists(x => x.Catagory == Question.catagory))
+                    if (categoryGrades.Exists(x => x.category == Question.category))
                     {
-                        foreach (var c in CatagoryGrades)
+                        foreach (var c in categoryGrades)
                         {
-                            if (c.Catagory == Question.catagory)
+                            if (c.category == Question.category)
                             {
                                 c.PossibleAnsweres++;
                             }
@@ -244,9 +244,9 @@ namespace L2Test.Helpers
                     else
                     {
                         var CatList = new GradeCatagories();
-                        CatList.Catagory = Question.catagory;
+                        CatList.category = Question.category;
                         CatList.PossibleAnsweres = 1f;
-                        CatagoryGrades.Add(CatList);
+                        categoryGrades.Add(CatList);
                     }
                 }
 
@@ -254,8 +254,8 @@ namespace L2Test.Helpers
                 //Question block
                 sb.Append("<li class='well' id='");
                 sb.Append(Question.key);
-                sb.Append("'><p class='TestResultQuestion'>Catagory:<b>");
-                sb.Append(Question.catagory);
+                sb.Append("'><p class='TestResultQuestion'>category:<b>");
+                sb.Append(Question.category);
                 sb.Append("</b> - ");
                 sb.Append(Question.question);
                 sb.Append("</p>");
@@ -266,7 +266,7 @@ namespace L2Test.Helpers
                     case 0: sb.Append("<p class='TestAnswer' id='"); break;
                     case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                     case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                    default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                 }
                 sb.Append(Question.aid1);
                 if (Answer1Selected)
@@ -283,7 +283,7 @@ namespace L2Test.Helpers
                     case 0: sb.Append("<p class='TestAnswer' id='"); break;
                     case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                     case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                    default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                    default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                 }
                 sb.Append(Question.aid2);
                 if (Answer2Selected)
@@ -303,7 +303,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid3);
                     if (Answer3Selected)
@@ -323,7 +323,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid4);
                     if (Answer4Selected)
@@ -342,7 +342,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid5);
                     if (Answer5Selected)
@@ -362,7 +362,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid6);
                     if (Answer6Selected)
@@ -381,7 +381,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid7);
                     if (Answer7Selected)
@@ -401,7 +401,7 @@ namespace L2Test.Helpers
                         case 0: sb.Append("<p class='TestAnswer' id='"); break;
                         case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
                         case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manualy.");
+                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
                     }
                     sb.Append(Question.aid8);
                     if (Answer8Selected)
@@ -457,15 +457,15 @@ namespace L2Test.Helpers
             sb.Append(CorrectAnswers);
             sb.Append("</p>");
 
-            //List the Catagorys
-            foreach (var c in CatagoryGrades)
+            //List the categorys
+            foreach (var c in categoryGrades)
             {
                 if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 85) { sb.Append("<p class='greenResult'"); }
                 else if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 50) { sb.Append("<p class='yellowResult'"); }
                 else { sb.Append("<p class='redResult'"); }
 
                 sb.Append(">");
-                sb.Append(c.Catagory);
+                sb.Append(c.category);
                 sb.Append(": ");
                 sb.Append((c.CorrectAnswers / c.PossibleAnsweres * 100f));
                 sb.Append("%</br>Questions asked:");
@@ -494,9 +494,9 @@ namespace L2Test.Helpers
         {
             Dictionary<string, float> results = new Dictionary<string, float>();
             results.Add("FinalScore", (CorrectAnswers / PossibleAnswers) * 100f);
-            foreach (var catagory in CatagoryGrades)
+            foreach (var category in categoryGrades)
             {
-                results.Add(catagory.Catagory, (catagory.CorrectAnswers / catagory.PossibleAnsweres) * 100f);
+                results.Add(category.category, (category.CorrectAnswers / category.PossibleAnsweres) * 100f);
             }
             return results;
         }
@@ -504,7 +504,7 @@ namespace L2Test.Helpers
 
     public class GradeCatagories
     {
-       public string Catagory { get; set; }
+       public string category { get; set; }
        public float PossibleAnsweres { get; set; }
        public float CorrectAnswers { get; set; }
     }

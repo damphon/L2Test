@@ -9,7 +9,7 @@ namespace L2Test.Helpers
 {
     public class TestDBHelper
     {
-        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7, string answer8, bool c1, bool c2, bool c3, bool c4, bool c5, bool c6, bool c7, bool c8, string catagory)
+        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7, string answer8, bool c1, bool c2, bool c3, bool c4, bool c5, bool c6, bool c7, bool c8, string Category)
         {
             Password pass = new Password();
             string id1 = pass.Generate();
@@ -27,7 +27,7 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Test (Question, A1, A2, A3, A4, A5, A6, A7, A8, A1ID, A2ID, A3ID, A4ID, A5ID, A6ID, A7ID, A8ID, C1, C2, C3, C4, C5, C6, C7, C8, Catagory) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @answer5, @answer6, @answer7, @answer8, @id1, @id2, @id3, @id4, @id5, @id6, @id7, @id8, @c1, @c2, @c3, @c4, @c5, @c6, @c7, @c8, @catagory)";
+                    command.CommandText = "INSERT INTO Test (Question, A1, A2, A3, A4, A5, A6, A7, A8, A1ID, A2ID, A3ID, A4ID, A5ID, A6ID, A7ID, A8ID, C1, C2, C3, C4, C5, C6, C7, C8, Category) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @answer5, @answer6, @answer7, @answer8, @id1, @id2, @id3, @id4, @id5, @id6, @id7, @id8, @c1, @c2, @c3, @c4, @c5, @c6, @c7, @c8, @Category)";
                     command.Parameters.AddWithValue("@question", question);
                     command.Parameters.AddWithValue("@answer1", answer1);
                     command.Parameters.AddWithValue("@answer2", answer2);
@@ -53,7 +53,7 @@ namespace L2Test.Helpers
                     command.Parameters.AddWithValue("@c6", c6);
                     command.Parameters.AddWithValue("@c7", c7);
                     command.Parameters.AddWithValue("@c8", c8);
-                    command.Parameters.AddWithValue("@catagory", catagory);
+                    command.Parameters.AddWithValue("@Category", Category);
 
                     try
                     {
@@ -105,7 +105,7 @@ namespace L2Test.Helpers
                             Test.c6 = (bool)reader["C6"];
                             Test.c7 = (bool)reader["C7"];
                             Test.c8 = (bool)reader["C8"];
-                            Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
+                            Test.category = reader.GetString(reader.GetOrdinal("Category"));
 
                             Questions.Add(Test);
                         }
@@ -156,7 +156,7 @@ namespace L2Test.Helpers
                             Test.c6 = (bool)reader["C6"];
                             Test.c7 = (bool)reader["C7"];
                             Test.c8 = (bool)reader["C8"];
-                            Test.catagory = reader.GetString(reader.GetOrdinal("Catagory"));
+                            Test.category = reader.GetString(reader.GetOrdinal("Category"));
 
                             Question.Add(Test);
                         }

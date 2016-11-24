@@ -36,7 +36,7 @@ namespace L2Test.Models
         public bool? c6 { get; set; }
         public bool? c7 { get; set; }
         public bool? c8 { get; set; }
-        public string catagory { get; set; }
+        public string category { get; set; }
 
         public static List<TestModels> QuestionList()
         {
@@ -127,8 +127,8 @@ namespace L2Test.Models
                 }
 
 
-                sb.Append("<p class='TestCatagory'>Catagory: ");
-                sb.Append(Question.catagory);
+                sb.Append("<p class='Testcategory'>category: ");
+                sb.Append(Question.category);
                 sb.Append("</p>");
                 QuestionString = sb.ToString();
             }
@@ -177,10 +177,10 @@ namespace L2Test.Models
                 sb.Append("'>H. ");
                 sb.Append(Question.answer8);
                 sb.Append("</p>");
-                sb.Append("<p class='TestCatagory'>Catagory: ");
-                sb.Append(Question.catagory);
+                sb.Append("<p class='Testcategory'>category: ");
+                sb.Append(Question.category);
                 sb.Append("</p>");
-                //creates a hidden element with all game data so the JS can fill out edit form automaticly.
+                //creates a hidden element with all game data so the JS can fill out edit form automatically.
                 sb.Append("<div id='TestData' question='");
                 sb.Append(Question.question);
                 sb.Append("' answer1='");
@@ -191,8 +191,8 @@ namespace L2Test.Models
                 sb.Append(Question.c1);
                 sb.Append("' correct2='");
                 sb.Append(Question.c2);
-                sb.Append("' catagory='");
-                sb.Append(Question.catagory);
+                sb.Append("' category='");
+                sb.Append(Question.category);
 
                 if (Question.answer3 != null)
                 {
@@ -244,35 +244,35 @@ namespace L2Test.Models
             return QuestionString;
         }
 
-        public List<string> CatagoryArray()
+        public List<string> categoryArray()
         {
             var List = QuestionList();
-            List<string> Catagorys = new List<string>();
+            List<string> categorys = new List<string>();
             foreach(var Question in List)
             {
-                if(Catagorys.Contains(Question.catagory) == false)
+                if(categorys.Contains(Question.category) == false)
                 {
-                    Catagorys.Add(Question.catagory);
+                    categorys.Add(Question.category);
                 }
             }
-            return Catagorys;
+            return categorys;
         }
 
-        public string CatagoryList()
+        public string categoryList()
         {
-            var List = CatagoryArray();
-            string CatagoryString = "";
-            foreach (var Catagory in List)
+            var List = categoryArray();
+            string categoryString = "";
+            foreach (var category in List)
             {
-                StringBuilder sb = new StringBuilder(CatagoryString);
+                StringBuilder sb = new StringBuilder(categoryString);
                 sb.Append("<option value='");
-                sb.Append(Catagory);
+                sb.Append(category);
                 sb.Append("'>");
-                sb.Append(Catagory);
+                sb.Append(category);
                 sb.Append("</option>");
-                CatagoryString = sb.ToString();
+                categoryString = sb.ToString();
             }
-            return CatagoryString;
+            return categoryString;
         }
 
         public static void Delete(string uid)
@@ -427,7 +427,7 @@ namespace L2Test.Models
                 if (grade.Key == "FinalScore")
                     sb.Append("style='font-size:3em'");
 
-                //Finish listing the catagory scores
+                //Finish listing the category scores
                 sb.Append(">");
                 sb.Append(grade.Key);
                 sb.Append(": ");
