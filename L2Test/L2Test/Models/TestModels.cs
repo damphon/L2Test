@@ -258,7 +258,7 @@ namespace L2Test.Models
             return categorys;
         }
 
-        public string categoryList()
+        public string CategoryList()
         {
             var List = categoryArray();
             string categoryString = "";

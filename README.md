@@ -15,7 +15,9 @@
 #TODO list for Alpha build
 #Add bulk import tool to test edit page
 #Make password reset page
-#change gallry button on manage/edit pages
+#Make install easier and configurabe
+##Installer chooses admin login + Password
+##Installer chooses DB password
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -30,6 +32,7 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   11/25/2016 - Added new user creation to Manage Users page and am looking into how to reset passwords ect..
 #   11/12/2016 - Added text to index page that explains L2 test requierments and instructions for completing the test.
 #   11/04/2016 - Spell checked all code while on flight
 #   10/29/2016 - When a new tech is added to the login database all entries over 120 days old get purged to keep the database runing smothly. This is ok since that DB only actualy needs to hold the entry for a few hours. 

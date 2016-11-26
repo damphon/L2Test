@@ -1,8 +1,9 @@
-﻿
+﻿@model L2Test.Models.RegisterViewModel
 @{
     ViewBag.Title = "Manage Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    L2Test.Models.TechModels ListHelp = new L2Test.Models.TechModels();
+    L2Test.Models.TechModels TechList = new L2Test.Models.TechModels();
+    L2Test.Models.UserMgmt UserList = new L2Test.Models.UserMgmt();
 }
 <!--
  _____           _           _     _         _      _____   _____         _
@@ -14,31 +15,82 @@
                                       __/ |
                                      |___/
 -->
-
-<h3>Active Authentication</h3>
-<ul class="ActiveTechs" style="list-style-type:none">
-    @Html.Raw(ListHelp.GetValid())
-</ul>
-<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-    <fieldset>
-
-        <!-- Form Name -->
-        <legend>Create New Test Login</legend>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="formTechName">Tech Jomax Login Name</label>
-            <div class="col-md-4">
-                <input id="formTechName" name="formTechName" type="text" placeholder="jtoler" class="form-control input-md" required="">
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5 col-sm-offset-1">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h3>Create New Management Login for a Lead</h3><br />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-5">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-5">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-5">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-10">
+                            <input type="submit" class="btn btn-primary" value="Register" />
+                        </div>
+                    </div>
+                }
+                </div>
+                <div class="col-md-5 col-sm-offset-1">
+                    <h3>List of leads:</h3>
+                    <ul class="ActiveTechs" style="list-style-type:none">
+                        @Html.Raw(UserList.UserList())
+                    </ul>
+                </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5 col-sm-offset-1">
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <fieldset>
+                        <h3>Create New Test Login for a Tech</h3>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="formTechName">Tech Jomax Login Name</label>
+                            <div class="col-md-5">
+                                <input id="formTechName" name="formTechName" type="text" placeholder="jtoler" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label" for="submit"></label>
+                            <div class="col-md-5">
+                                <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-md-5 col-sm-offset-1">
+                <h3>List of techs with active logins:</h3>
+                <ul class="ActiveTechs" style="list-style-type:none">
+                    @Html.Raw(TechList.GetValid())
+                </ul>
             </div>
         </div>
-
-        <!-- Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="submit"></label>
-            <div class="col-md-4">
-                <button id="submit" name="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+    </div>
+</div>
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
