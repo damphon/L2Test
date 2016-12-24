@@ -18,8 +18,10 @@ namespace L2Test.Models
             foreach (var User in List)
             {
                 StringBuilder sb = new StringBuilder(UserString);
-                sb.Append("<li>");
+                sb.Append("<li class='well'>");
                 sb.Append(User.Email);
+                sb.Append("<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>Delete User</button>");
+                sb.Append("<button type='button' class='btn btn-info' data-toggle='modal' data-target='#editModal'>Reset Password</button>");
                 sb.Append("</li>");
                 UserString = sb.ToString();
             }
