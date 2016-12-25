@@ -17,11 +17,13 @@ namespace L2Test.Models
             string UserString = "";
             foreach (var User in List)
             {
+                string jsfixD = '"' + "deleteUser('" + User.UserName + "' , '" + User.Id + "')" + '"'; //Added this because otherwise stringbuilder cannot format the variable in a way that Javascript can accept.
+                string jsfixR = '"' + "editUser('" + User.UserName + "')" + '"';
                 StringBuilder sb = new StringBuilder(UserString);
                 sb.Append("<li class='well'>");
                 sb.Append(User.Email);
-                sb.Append("<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>Delete User</button>");
-                sb.Append("<button type='button' class='btn btn-info' data-toggle='modal' data-target='#editModal'>Reset Password</button>");
+                sb.AppendFormat("<button type='button' class='btn btn-danger' onclick={0}>Delete User</button>", jsfixD);
+                sb.AppendFormat("<button type='button' class='btn btn-info' onclick={0}>Reset Password</button>", jsfixR);
                 sb.Append("</li>");
                 UserString = sb.ToString();
             }
@@ -30,10 +32,15 @@ namespace L2Test.Models
 
         public static void Delete(string key)
         {
-            //Delete account
+            using (var db = new IdentityDbContext())
+            {
+                var user = db.Users.Find(key);
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }
         }
 
-        public static void PaswordUpdate(string key)
+        public static void PaswordUpdate(string key, string newPassword)
         {
             //Change Password
         }

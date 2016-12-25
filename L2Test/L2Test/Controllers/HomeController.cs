@@ -145,6 +145,22 @@ namespace L2Test.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        public ActionResult ManageDelete(string uid)
+        {
+            UserMgmt.Delete(uid);
+            return Redirect("~/Home/Manage");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ManageEdit(string uid, string password)
+        {
+            UserMgmt.PaswordUpdate(uid, password);
+            return Redirect("~/Home/Manage");
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         public ActionResult TestResults(IEnumerable<TestResultModel> jsonData)
         {
