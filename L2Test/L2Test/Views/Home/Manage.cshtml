@@ -54,7 +54,7 @@
             <!--************************List active admin/users*****************************-->
                 <div class="col-md-5 col-sm-offset-1">
                     <h3>List of leads:</h3>
-                    <ul class="ActiveTechs" style="list-style-type:none">
+                    <ul class="ActiveLeads" style="list-style-type:none">
                         @Html.Raw(UserList.UserList())
                     </ul>
                 </div>
@@ -104,7 +104,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" id="deletebtn" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title" id="deleteTitle">Error please cancel and try again.</h3>
+                <h2 class="modal-title" id="deleteTitle">Error please cancel and try again.</h2>
             </div>
             <div class="modal-body">
 
@@ -112,7 +112,6 @@
                 <form action="@Url.Action("ManageDelete", "Home")" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <fieldset>
                         <input type="hidden" id="deleteValue" name="uid" value="invalid">
-                        <!-- Delete Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="submitButton"></label>
                             <div class="col-md-8">
@@ -136,14 +135,28 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" id="gallerybtn" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Reset Password:</h3>
+                <h2 class="modal-title" id="resetTitle">Error please try again</h2>
             </div>
             <div class="modal-body">
 
                 <!--FORM STARTS HERE-->
                 <form id="editForm" action="@Url.Action("ManageEdit", "Home")" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <fieldset>
-                        <!-- ///////////////////////Password reset script/////////////////////// -->
+                        <input type="hidden" id="resetID" name="uid" value="invalid">
+                        <!-- Password input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="newPassword">New Password</label>
+                            <div class="col-md-4">
+                                <input id="newPassword" name="newPassword" type="password" placeholder="" class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="submitButton"></label>
+                            <div class="col-md-8">
+                                <button id="submitButton" name="submitButton" class="btn btn-success">Reset Password</button>
+                                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
                     </fieldset>
                 </form> <!--FORM ENDS HERE-->
             </div>  <!--Modal Body-->
@@ -157,7 +170,9 @@
         document.getElementById('deleteValue').value = id;
         $("#deleteModal").modal("show");
     }
-    function editUser(id) {
+    function editUser(user, id) {
+        document.getElementById('resetTitle').innerHTML = "Reset password for " + user;
+        document.getElementById('resetID').value = id;
         $("#editModal").modal("show");
     }
 </script>

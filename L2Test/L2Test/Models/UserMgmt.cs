@@ -5,6 +5,7 @@ using System.Web;
 using L2Test.Helpers;
 using System.Text;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace L2Test.Models
 {
@@ -18,9 +19,9 @@ namespace L2Test.Models
             foreach (var User in List)
             {
                 string jsfixD = '"' + "deleteUser('" + User.UserName + "' , '" + User.Id + "')" + '"'; //Added this because otherwise stringbuilder cannot format the variable in a way that Javascript can accept.
-                string jsfixR = '"' + "editUser('" + User.UserName + "')" + '"';
+                string jsfixR = '"' + "editUser('" + User.UserName + "' , '" + User.Id + "')" + '"';
                 StringBuilder sb = new StringBuilder(UserString);
-                sb.Append("<li class='well'>");
+                sb.Append("<li>");
                 sb.Append(User.Email);
                 sb.AppendFormat("<button type='button' class='btn btn-danger' onclick={0}>Delete User</button>", jsfixD);
                 sb.AppendFormat("<button type='button' class='btn btn-info' onclick={0}>Reset Password</button>", jsfixR);
@@ -42,7 +43,9 @@ namespace L2Test.Models
 
         public static void PaswordUpdate(string key, string newPassword)
         {
-            //Change Password
+            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+            userManager.RemovePassword(key);
+            userManager.AddPassword(key, newPassword);
         }
     }
 }

@@ -164,7 +164,30 @@ textarea {
     padding: 0px 150px;
 }
 
-/*Tech user management*/
+/*User management*/
+
+.modal-title{
+    list-style:none;
+    font-size:1.8em;
+}
+
+.ActiveLeads{
+    list-style:none;
+    padding-left:0px;
+}
+
+.ActiveLeads li {
+    padding:10px 5px;
+    background-color:#f9f9f9;
+    margin: 2px 0px;
+    border-radius: 8px;
+}
+
+.ActiveLeads button{
+    padding: 3px 5px;
+    margin: -3px 3px;
+    float: right;
+}
 
 .ActiveTechs{
     list-style:none;
@@ -172,8 +195,10 @@ textarea {
 }
 
 .passwordList{
-    font-size:1.7em;
-    color:orangered;
+    padding:10px 5px;
+    background-color:#f9f9f9;
+    margin: 2px 0px;
+    border-radius: 8px;
 }
 
 /*Displaying pats test URL's*/

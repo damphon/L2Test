@@ -154,9 +154,9 @@ namespace L2Test.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult ManageEdit(string uid, string password)
+        public ActionResult ManageEdit(string uid, string newPassword)
         {
-            UserMgmt.PaswordUpdate(uid, password);
+            UserMgmt.PaswordUpdate(uid, newPassword);
             return Redirect("~/Home/Manage");
         }
 
