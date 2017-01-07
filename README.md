@@ -17,7 +17,6 @@
 #1 button backups of all important data
 #
 #TODO list for Alpha build
-#Add bulk import tool to test edit page
 #Make install easier and configurabe
 ##Installer chooses admin login + Password
 ##Installer chooses DB password

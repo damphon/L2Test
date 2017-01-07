@@ -384,74 +384,6 @@ namespace L2Test.Models
             return QuestionString;
         }
 
-        public string ExportAsCSV()
-        {
-            var List = QuestionList();
-            string Result = "P_Id,Question,A1,A2,A3,A4,A5,A6,A7,A8,A1ID,A2ID,A3ID,A4ID,A5ID,A6ID,A7ID,A8ID,C1,C2,C3,C4,C5,C6,C7,C8,Category\n";//Header line of the CSV
-            string TempString = "";
-            foreach(var question in List)
-            {
-                StringBuilder sb = new StringBuilder(TempString);
-                sb.Append(question.key);
-                sb.Append(",");
-                sb.Append(question.question);
-                sb.Append(",");
-                sb.Append(question.answer1);
-                sb.Append(",");
-                sb.Append(question.answer2);
-                sb.Append(",");
-                sb.Append(question.answer3);
-                sb.Append(",");
-                sb.Append(question.answer4);
-                sb.Append(",");
-                sb.Append(question.answer5);
-                sb.Append(",");
-                sb.Append(question.answer6);
-                sb.Append(",");
-                sb.Append(question.answer7);
-                sb.Append(",");
-                sb.Append(question.answer8);
-                sb.Append(",");
-                sb.Append(question.aid1);
-                sb.Append(",");
-                sb.Append(question.aid2);
-                sb.Append(",");
-                sb.Append(question.aid3);
-                sb.Append(",");
-                sb.Append(question.aid4);
-                sb.Append(",");
-                sb.Append(question.aid5);
-                sb.Append(",");
-                sb.Append(question.aid6);
-                sb.Append(",");
-                sb.Append(question.aid7);
-                sb.Append(",");
-                sb.Append(question.aid8);
-                sb.Append(",");
-                sb.Append(question.c1);
-                sb.Append(",");
-                sb.Append(question.c2);
-                sb.Append(",");
-                sb.Append(question.c3);
-                sb.Append(",");
-                sb.Append(question.c4);
-                sb.Append(",");
-                sb.Append(question.c5);
-                sb.Append(",");
-                sb.Append(question.c6);
-                sb.Append(",");
-                sb.Append(question.c7);
-                sb.Append(",");
-                sb.Append(question.c8);
-                sb.Append(",");
-                sb.Append(question.category);
-                sb.Append("\n");
-                TempString = sb.ToString();
-            }
-            
-            return Result + TempString;
-        }
-
     }
 
     public class SortModel
@@ -504,7 +436,7 @@ namespace L2Test.Models
                 sb.Append("%</p>");
 
             }
-            sb.Append("</div>");
+            sb.Append("</br><center><H3>A copy of the test has been saved for management.</H3></center></div>");
             grades = sb.ToString();
 
             return grades;

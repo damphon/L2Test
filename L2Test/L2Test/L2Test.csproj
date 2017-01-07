@@ -173,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CSVHelper.cs" />
     <Compile Include="Helpers\ReportCardHelper.cs" />
     <Compile Include="Helpers\GradeTest.cs" />
     <Compile Include="Helpers\Password.cs" />

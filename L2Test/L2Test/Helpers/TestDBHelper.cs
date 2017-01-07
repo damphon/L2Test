@@ -186,5 +186,54 @@ namespace L2Test.Helpers
                 }
             }
         }
+
+        public static string UploadCSV(DataTable dt)
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                using (var copy = new SqlBulkCopy(con))
+                {
+                    con.Open();
+
+                    ///Set target table and tell the number of rows
+                    copy.DestinationTableName = "Test";
+                    copy.BatchSize = dt.Rows.Count;
+                    try
+                    {
+                        copy.WriteToServer(dt);
+                    }
+                    catch (Exception ex)
+                    {
+                       return ex.Message;
+                    }
+                }
+            }
+
+            return "";
+        }
+
+        public static string PurgeTest()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM TEST";
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        return "Test DB PurgeTest Error: " + e.Message;
+                    }
+                }
+                return "";
+            }
+        }
     }
 }

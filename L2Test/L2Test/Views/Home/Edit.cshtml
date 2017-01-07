@@ -13,8 +13,7 @@
                                       __/ |
                                      |___/
 -->
-
-<h2>@ViewBag.Title</h2>
+<h1 style="color:orangered;">@ViewBag.Err</h1>
 
 
 <!--Modal Buttons-->
@@ -70,11 +69,40 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" id="editbtn" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Title Text</h2>
+                <h2 class="modal-title">Upload CSV File</h2>
             </div>
             <div class="modal-body">
-                <!--Content Of Modal Here-->
-            </div>  <!--Modal Body-->
+                <form action="/Home/UploadCSV" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <br />
+                        <input type="file" name="FileUpload" id="file" />
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="CSVAppend">Import Option</label>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label for="CSVAppend-0">
+                                    <input type="radio" name="CSVAppend" id="CSVAppend-0" value="1" checked="checked">
+                                    Append to Test
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label for="CSVAppend-1">
+                                    <input type="radio" name="CSVAppend" id="CSVAppend-1" value="2">
+                                    Replace Test
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-info"/>
+                            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <p class="help-block">See about page for help formatting the CSV.</p>
+                        </div>
+                    </div>
+                </form>
+             </div>  <!--Modal Body-->
         </div> <!--Modal Content-->
     </div> <!--Modal Dialog-->
 </div><!--Modal-->
@@ -233,10 +261,8 @@
     </div> <!--Modal Dialog-->
 </div>
 
-<!--************************Edit/Delete Games*****************************-->
-
-<h2>Edit Games</h2>
-
+<!--************************List Questions*****************************-->
+</br>
 <ul class="Test" style="list-style-type:none">
     @Html.Raw(ListHelp.EditListString())
 </ul>

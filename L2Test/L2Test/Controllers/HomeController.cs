@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using L2Test.Helpers;
 using L2Test.Models;
 using System.IO;
+using System.Data;
 
 namespace L2Test.Controllers
 {
@@ -50,10 +51,10 @@ namespace L2Test.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit()
+        public ActionResult Edit(string Error = "")
         {
+            ViewBag.Err = Error;
             TestModels List = new TestModels();
-            //ViewBag.TestQuestions = List.EditListString();
             return View();
         }
 
@@ -195,17 +196,38 @@ namespace L2Test.Controllers
         [Authorize]
         public FileContentResult DownloadCSV()
         {
-            TestModels help = new TestModels();
+            CSVHelper help = new CSVHelper();
             string csv = help.ExportAsCSV();
             string fileName = "L2TestDB_" + DateTime.Now.ToString("dd-MM-yy") + ".csv";
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", fileName);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public FileContentResult UploadCSV()
-        //{
-        //    //Upload script
-        //}
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadCSV(HttpPostedFileBase FileUpload, int CSVAppend)
+        {
+            DataTable dt = new DataTable();
+            string ErrMessage = "";
+
+            if (FileUpload != null && FileUpload.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(FileUpload.FileName);
+                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                try
+                {
+                    FileUpload.SaveAs(path);
+                    //Proccess CSV file and save result to DataTable.
+                    dt = CSVHelper.ProcessCSV(path);
+                    //If "replace test" is selected the DB is purged before the new test is imported.
+                    if(CSVAppend == 2) ErrMessage += TestDBHelper.PurgeTest();
+                    ErrMessage += TestDBHelper.UploadCSV(dt);
+                }
+                catch (Exception ex) {ErrMessage = ex.Message;}
+            }
+            else {ErrMessage = "Invalid file, or no file selected";}
+
+            dt.Dispose();
+            return RedirectToAction("Edit", new { Error = ErrMessage});
+        }
     }
 }
