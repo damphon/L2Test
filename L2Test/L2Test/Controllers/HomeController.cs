@@ -198,7 +198,7 @@ namespace L2Test.Controllers
         {
             CSVHelper help = new CSVHelper();
             string csv = help.ExportAsCSV();
-            string fileName = "L2TestDB_" + DateTime.Now.ToString("dd-MM-yy") + ".csv";
+            string fileName = "L2TestDB_" + DateTime.Now.ToString("yyyy-MM-dd") + ".csv";
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", fileName);
         }
 

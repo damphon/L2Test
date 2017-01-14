@@ -1,10 +1,11 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#Change all Database feilds to be more human readable for CSV backups
 #Change test and archive filenames to be more human readabl
 #Change from 8 answeres to any number of answeres
-#Allow leads to add images to test
+##Change all Database feilds to be more human readable for CSV backups
+##Make CSV import without the need to add random charicters to the answer ID's
+#Allow leads to add images to test 
 #Add config page with the following values for leads to change
 ###How long techs have to enter their UID
 ###How long techs have to take the test
