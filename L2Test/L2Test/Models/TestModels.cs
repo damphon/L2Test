@@ -403,6 +403,7 @@ namespace L2Test.Models
         public string tech { get; set; }
         public string question { get; set; }
         public string[] answers { get; set; }
+        public static int PassingScore = 85;
 
         public static string Submit(IEnumerable<TestResultModel> json)
         {
@@ -420,8 +421,8 @@ namespace L2Test.Models
             sb.Append("<div class='TechViewResults'>");
             foreach(var grade in results)
             {   //Color the results
-                if (grade.Value > 85)  {sb.Append("<p class='greenResult'");}
-                else if (grade.Value > 50) {sb.Append("<p class='yellowResult'");}
+                if (grade.Value >= PassingScore)  {sb.Append("<p class='greenResult'");}
+                else if (grade.Value > PassingScore - 10) {sb.Append("<p class='yellowResult'");}
                 else {sb.Append("<p class='redResult'");}
 
                 //Change font size for overall score

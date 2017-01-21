@@ -12,6 +12,7 @@ namespace L2Test.Helpers
     {
         public float CorrectAnswers = 0f;
         public float PossibleAnswers = 0f;
+        public static int PassingScore = 85; //this is out of 100.
         public List<GradeCatagories> categoryGrades = new List<GradeCatagories>();
 
         public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
@@ -447,7 +448,7 @@ namespace L2Test.Helpers
 
             //Final Score
             sb.Append("<div class='LeadViewResults'>");
-            if ((CorrectAnswers / PossibleAnswers * 100f) > 85) { sb.Append("<p class='greenResult'>"); }
+            if ((CorrectAnswers / PossibleAnswers * 100f) >= PassingScore) { sb.Append("<p class='greenResult'>"); }
             else { sb.Append("<p class='redResult'>"); }
             sb.Append("<b>Final Score: ");
             sb.Append((CorrectAnswers / PossibleAnswers * 100f));
@@ -460,8 +461,8 @@ namespace L2Test.Helpers
             //List the categorys
             foreach (var c in categoryGrades)
             {
-                if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 85) { sb.Append("<p class='greenResult'"); }
-                else if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > 50) { sb.Append("<p class='yellowResult'"); }
+                if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) >= PassingScore) { sb.Append("<p class='greenResult'"); }
+                else if ((c.CorrectAnswers / c.PossibleAnsweres * 100f) > (PassingScore - 10)) { sb.Append("<p class='yellowResult'"); }
                 else { sb.Append("<p class='redResult'"); }
 
                 sb.Append(">");

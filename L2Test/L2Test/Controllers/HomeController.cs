@@ -218,16 +218,24 @@ namespace L2Test.Controllers
                     FileUpload.SaveAs(path);
                     //Proccess CSV file and save result to DataTable.
                     dt = CSVHelper.ProcessCSV(path);
-                    //If "replace test" is selected the DB is purged before the new test is imported.
-                    if(CSVAppend == 2) ErrMessage += TestDBHelper.PurgeTest();
-                    ErrMessage += TestDBHelper.UploadCSV(dt);
                 }
                 catch (Exception ex) {ErrMessage = ex.Message;}
             }
             else {ErrMessage = "Invalid file, or no file selected";}
 
+            //If "replace test" is selected the DB is purged before the new test is imported.
+            if (CSVAppend == 2) ErrMessage += TestDBHelper.PurgeTest();
+            ErrMessage += TestDBHelper.UploadCSV(dt);
+
             dt.Dispose();
             return RedirectToAction("Edit", new { Error = ErrMessage});
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

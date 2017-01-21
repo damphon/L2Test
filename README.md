@@ -4,8 +4,8 @@
 #Change test and archive filenames to be more human readabl
 #Change from 8 answeres to any number of answeres
 ##Change all Database feilds to be more human readable for CSV backups
+##Allow leads to add images to test 
 ##Make CSV import without the need to add random charicters to the answer ID's
-#Allow leads to add images to test 
 #Add config page with the following values for leads to change
 ###How long techs have to enter their UID
 ###How long techs have to take the test
@@ -16,8 +16,11 @@
 #####Change what catagorys appear on test (no shuttle questions for non-phoenix sites)
 #Stop techs from being able to refresh for a different test.
 #1 button backups of all important data
+#Get rid or report card database, just read all files in test folder to make a list of links. 
+##Make file names human readable and with a leading date for easy sorting.
 #
 #TODO list for Alpha build
+#Change test timer
 #Make install easier and configurabe
 ##Installer chooses admin login + Password
 ##Installer chooses DB password
@@ -35,6 +38,8 @@
 #   10 - The results should be saved and easily retrievable at a later date by management for anyone who has taken the test.
 #
 #Development Notes
+#   01/21/2017 - Created About Page that explains how to use this test. 
+#   11/14/2017 - Leads can now import and export the test as a CSV file.
 #   12/25/2016 - Added ability to change passwords and remove users to the user management page.
 #   11/25/2016 - Added new user creation to Manage Users page and am looking into how to reset passwords ect..
 #   11/12/2016 - Added text to index page that explains L2 test requierments and instructions for completing the test.
