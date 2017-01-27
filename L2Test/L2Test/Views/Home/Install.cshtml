@@ -1,4 +1,4 @@
-﻿
+﻿@model L2Test.Models.RegisterViewModel
 @{
     Layout = null;
 }
@@ -8,10 +8,51 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Install</title>
+    <title>L2 Test Initial Setup</title>
 </head>
 <body>
-    <div> 
+    <!--************************Add new Admin/User*****************************-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-5 col-sm-offset-1">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h3>Create New Management Login for a Lead</h3><br />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-5">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-5">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-10">
+                                <input type="submit" class="btn btn-primary" value="Register" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!--************************Database Settings*****************************-->
+                <div class="col-md-5 col-sm-offset-1">
+                    <!--*********Stuff goes here***********-->
+                </div>
+            </div>
+        </div>
     </div>
+    <br />
 </body>
 </html>

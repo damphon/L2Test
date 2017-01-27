@@ -53,8 +53,6 @@ namespace L2Test.Controllers
             TechModels Check = new TechModels();
             TestModels List = new TestModels();
 
-            //ViewBag.TestQuestions = List.EditListString();
-
             string URL = Request.Url.ToString();
             string TechID = Path.GetFileName(URL);
 
