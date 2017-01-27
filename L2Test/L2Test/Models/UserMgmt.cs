@@ -47,5 +47,14 @@ namespace L2Test.Models
             userManager.RemovePassword(key);
             userManager.AddPassword(key, newPassword);
         }
+
+        //Checks to see if there are any managment users. If there are not then it runs the install view.
+        public bool isInstalled() 
+        {
+            var context = new IdentityDbContext();
+            var List = context.Users.ToList();
+            if (List.Count > 0) return true;
+            else return false;
+        }
     }
 }

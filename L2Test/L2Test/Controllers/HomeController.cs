@@ -14,7 +14,23 @@ namespace L2Test.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Install()
+        {
+            UserMgmt check = new UserMgmt();
+            if(check.isInstalled()) return RedirectToAction("Home"); //Verifies that there is no management accounts then returns the Install page. This is to make sure that no one can go to the install page to hack the system once the page is set up.
+            else return View();
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Index() 
+        {
+            UserMgmt check = new UserMgmt();
+            if (check.isInstalled()) return RedirectToAction("Home"); //If no management accounts exist this takes you to the install page.
+            else return RedirectToAction("Install");
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Home()
         {
             if (TempData["error"] == null)
                 ViewBag.Error = "";
@@ -25,7 +41,7 @@ namespace L2Test.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Index(string formTechID)
+        public ActionResult Home(string formTechID)
         {
             return Redirect("~/Home/Test/" + formTechID);
         }
@@ -46,7 +62,7 @@ namespace L2Test.Controllers
                 return View();
 
             TempData["error"] = "ERROR: Invalid ID. Please verify you entered the ID correctly. ID is only valid for 90 minutes, ask lead to create a new ID for you if your ID is not working.";
-            return RedirectToAction("Index");
+            return RedirectToAction("Home");
         }
 
         [HttpGet]
