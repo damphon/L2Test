@@ -20,10 +20,10 @@
 ##Make file names human readable and with a leading date for easy sorting.
 #
 #TODO list for Alpha build
-#Change test timer
 #Make install easier and configurabe
 ##Installer chooses admin login + Password
 ##Installer chooses DB password
+##Make Account registration auth only.
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.

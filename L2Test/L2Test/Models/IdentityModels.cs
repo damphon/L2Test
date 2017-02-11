@@ -4,14 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Configuration;
 
 namespace L2Test.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public bool isLead { get; set; } //add custom feilds here
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -24,13 +23,17 @@ namespace L2Test.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("L2TestConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public ApplicationDbContext(string nameOrConnectionString) : base(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString())
         {
         }
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new ApplicationDbContext(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString());
         }
     }
 }

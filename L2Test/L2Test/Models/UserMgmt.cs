@@ -6,6 +6,9 @@ using L2Test.Helpers;
 using System.Text;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace L2Test.Models
 {
@@ -13,7 +16,7 @@ namespace L2Test.Models
     {
         public string UserList()
         {
-            var context = new IdentityDbContext();
+            var context = new IdentityDbContext(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString());
             var List = context.Users.ToList();
             string UserString = "";
             foreach (var User in List)
@@ -33,7 +36,7 @@ namespace L2Test.Models
 
         public static void Delete(string key)
         {
-            using (var db = new IdentityDbContext())
+            using (var db = new IdentityDbContext(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 var user = db.Users.Find(key);
                 db.Users.Remove(user);
@@ -43,7 +46,7 @@ namespace L2Test.Models
 
         public static void PaswordUpdate(string key, string newPassword)
         {
-            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(new IdentityDbContext(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString())));
             userManager.RemovePassword(key);
             userManager.AddPassword(key, newPassword);
         }
@@ -51,10 +54,17 @@ namespace L2Test.Models
         //Checks to see if there are any managment users. If there are not then it runs the install view.
         public bool isInstalled() 
         {
-            var context = new IdentityDbContext();
-            var List = context.Users.ToList();
-            if (List.Count > 0) return true;
-            else return false;
+            var context = new IdentityDbContext(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString());
+            try
+            {
+                var List = context.Users.ToList();
+                if (List.Count > 0) return true;
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -25,15 +25,15 @@ namespace L2Test.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Install(string dbPath, string dbUser, string dbPassword)
+        public ActionResult ConfigDB(string dbPath, string dbName, string dbUser, string dbPassword)
         {
             Helpers.Install setup = new Helpers.Install();
-            TempData["DBCheckResult"] = setup.RunInstall(dbPath, dbUser, dbPassword);
+            TempData["DBCheckResult"] = setup.RunInstall(dbPath, dbName, dbUser, dbPassword);
             return RedirectToAction("Install");
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Check()
+        public ActionResult CheckDB()
         {
             Helpers.Install setup = new Helpers.Install();
             var urlHelper = new UrlHelper(HttpContext.Request.RequestContext);
@@ -173,7 +173,7 @@ namespace L2Test.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult Manage()
         {
             return View();

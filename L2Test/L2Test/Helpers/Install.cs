@@ -7,10 +7,10 @@ namespace L2Test.Helpers
 {
     public class Install
     {
-        public string RunInstall(string connection, string user, string password)
+        public string RunInstall(string connection, string name, string user, string password)
         {
             string Result = "Installation Results:<br/>";
-             Result += SetConnectionString(connection, user, password);
+             Result += SetConnectionString(connection, name, user, password);
              Result += SetTestDB();
              Result += SetTechDB();
              Result += SetGradeDB();
@@ -18,11 +18,11 @@ namespace L2Test.Helpers
             return Result;
         }
 
-        private string SetConnectionString(string connection, string user, string password)
+        private string SetConnectionString(string connection, string name, string user, string password)
         {
             var configuration = WebConfigurationManager.OpenWebConfiguration("~");
             var section = (ConnectionStringsSection)configuration.GetSection("connectionStrings");
-            section.ConnectionStrings["L2TestConnection"].ConnectionString = "Data Source=" + connection + ";Initial Catalog=L2TestDB;Persist Security Info=True;User ID=" + user + ";Password="+ password;
+            section.ConnectionStrings["L2TestConnection"].ConnectionString = "Data Source=" + connection + ";Initial Catalog=" + name + ";Persist Security Info=True;User ID=" + user + ";Password="+ password;
             try
             {
                 configuration.Save();
@@ -70,7 +70,7 @@ namespace L2Test.Helpers
                                             C6 BIT,
                                             C7 BIT,
                                             C8 BIT,
-                                            Catagory varchar(255) NOT NULL
+                                            Category varchar(255) NOT NULL
                                             )";
 
                     try
@@ -189,20 +189,48 @@ namespace L2Test.Helpers
 
         private bool TestDBExists()
         {
-            return true;
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))//work on this!!!!!!!!!!!!!!!!!!!!
+            {
+                using (var command = new SqlCommand($"SELECT db_id('Test')", connection))
+                {
+                    connection.Open();
+                    if (command.ExecuteScalar() == null/*System.DBNull.Value*/) return false;
+                    else return true;
+                    
+                }
+            }
         }
 
         private bool TechDBExists()
         {
-            return true;
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))//work on this!!!!!!!!!!!!!!!!!!!!
+            {
+                using (var command = new SqlCommand($"SELECT db_id('Login')", connection))
+                {
+                    connection.Open();
+                    if (command.ExecuteScalar() == null/*System.DBNull.Value*/) return false;
+                    else return true;
+
+                }
+            }
         }
 
         private bool ReportCardDBExists()
         {
-            return true;
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))//work on this!!!!!!!!!!!!!!!!!!!!
+            {
+                using (var command = new SqlCommand($"SELECT db_id('ReportCard')", connection))
+                {
+                    connection.Open();
+                    if (command.ExecuteScalar() == null/*System.DBNull.Value*/) return false;
+                    else return true;
+
+                }
+            }
         }
         private bool UserDBExists()
         {
+            //Update this by first pointing the context to the same DB the rest of the page uses.
             return true;
         }
     }
