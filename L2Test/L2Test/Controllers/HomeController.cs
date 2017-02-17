@@ -173,7 +173,7 @@ namespace L2Test.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Manage()
         {
             return View();
