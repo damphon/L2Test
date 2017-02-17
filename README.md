@@ -19,12 +19,6 @@
 #Get rid or report card database, just read all files in test folder to make a list of links. 
 ##Make file names human readable and with a leading date for easy sorting.
 #
-#TODO list for Alpha build
-#Make install easier and configurabe
-##Installer chooses admin login + Password
-##Installer chooses DB password
-##Make Account registration auth only.
-#
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
 #	2 - The Leads need a way to add, remove, and edit questions
