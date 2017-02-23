@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "ReportCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.ResultsURL = Url.Action("ReportCards", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
 <!--
  _____           _           _     _         _      _____   _____         _
@@ -19,7 +20,7 @@
         <center>
             <h3>Graded Tests</h3>
             <ul class="Test">
-               @Html.Raw(ViewBag.GradedResults)
+                @Html.Raw(ViewBag.GradedResults)
             </ul>
         </center>
     </div>
@@ -32,3 +33,16 @@
         </center>
     </div>
 </div>
+<form action="@ViewBag.ResultsURL" method="POST" id="formSubmit">
+    <div id="data"></div><input type="hidden" name="filepath" value="">
+</form>
+    @section scripts{
+        <script>
+            $('.getTest').click(function () {
+                var filepath = $(this).attr('id');
+                var data = document.getElementById('data');
+                data.innerHTML = '<input type="hidden" name="filepath" value="' + filepath + '">'
+                $('#formSubmit').submit();
+            });
+        </script>
+    }

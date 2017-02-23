@@ -230,9 +230,10 @@ namespace L2Test.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult ReportCards(string formTechName)
+        public ActionResult ReportCards(string filepath)
         {
-            return View();
+            //return new FilePathResult("path_and_file.html", "text/html");
+            return File(filepath, "text/html");
         }
 
         [HttpGet]

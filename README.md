@@ -1,11 +1,7 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#Change test and archive filenames to be more human readabl
-#Change from 8 answeres to any number of answeres
-##Change all Database feilds to be more human readable for CSV backups
-##Allow leads to add images to test 
-##Make CSV import without the need to add random charicters to the answer ID's
+#Change test and archive filenames to be more human readable
 #Add config page with the following values for leads to change
 ###How long techs have to enter their UID
 ###How long techs have to take the test
@@ -18,12 +14,11 @@
 #1 button backups of all important data
 #Get rid or report card database, just read all files in test folder to make a list of links. 
 ##Make file names human readable and with a leading date for easy sorting.
-#
-#TODO list for Alpha build
-#Make install easier and configurabe
-##Installer chooses admin login + Password
-##Installer chooses DB password
-##Make Account registration auth only.
+#Change from 8 answeres to any number of answeres
+##Change all Database feilds to be more human readable for CSV backups
+##Allow leads to add images to test 
+##Make CSV import without the need to add random charicters to the answer ID's
+#Make the install proccess significantly easier and more stable. 
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.

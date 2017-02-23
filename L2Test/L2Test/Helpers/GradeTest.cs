@@ -30,7 +30,7 @@ namespace L2Test.Helpers
             }
 
             string Results = PrintResults(TechAnswers);
-            string URL = SaveResults(Results, TName, TID);
+            string URL = SaveResults(Results, TName);
             RCdbhelp.NewReportCard(TName, URL, 1);
             return FinalScore();
 
@@ -422,12 +422,13 @@ namespace L2Test.Helpers
             return ResultString;
         }
 
-        public string SaveResults(string Results, string Tech, string ID)
+        public string SaveResults(string Results, string Tech)
         {
             string WebPageString = "";
             string Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
-            String TestPath = HttpContext.Current.Server.MapPath("~/Tests/" + Tech + ID + ".html");
-            String CssPath = HttpContext.Current.Server.MapPath("~/Content/Site.css");
+            string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/" + Tech + FileDate + ".html");
+            String CssPath = "/Content/Site.css";
             StringBuilder sb = new StringBuilder(WebPageString);
 
             //Head

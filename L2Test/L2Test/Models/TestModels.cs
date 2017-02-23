@@ -458,7 +458,7 @@ namespace L2Test.Models
             }
 
             string WebPageString = "";
-            String TestPath = HttpContext.Current.Server.MapPath("~/Tests/Ungraded/" + TName + tech + ".html");
+            String TestPath = HttpContext.Current.Server.MapPath("~/Views/Tests/Ungraded/" + TName + tech + ".html");
             String CssPath = HttpContext.Current.Server.MapPath("~/Content/Site.css");
             StringBuilder sb = new StringBuilder(WebPageString);
 
