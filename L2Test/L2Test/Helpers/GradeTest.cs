@@ -271,7 +271,7 @@ namespace L2Test.Helpers
                 }
                 sb.Append(Question.aid1);
                 if (Answer1Selected)
-                    sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    sb.Append("'><img src='/selected.png' height='20' width='20'>");
                 else
                     sb.Append("'>");
                 sb.Append("A. ");
@@ -288,7 +288,7 @@ namespace L2Test.Helpers
                 }
                 sb.Append(Question.aid2);
                 if (Answer2Selected)
-                    sb.Append("'><img src='selected.png' height='20' width='20'>");
+                    sb.Append("'><img src='/selected.png' height='20' width='20'>");
                 else
                     sb.Append("'>");
                 sb.Append("B. ");
@@ -308,7 +308,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid3);
                     if (Answer3Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("C. ");
@@ -328,7 +328,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid4);
                     if (Answer4Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("D. ");
@@ -347,7 +347,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid5);
                     if (Answer5Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("E. ");
@@ -367,7 +367,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid6);
                     if (Answer6Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("F. ");
@@ -386,7 +386,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid7);
                     if (Answer7Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("G. ");
@@ -406,7 +406,7 @@ namespace L2Test.Helpers
                     }
                     sb.Append(Question.aid8);
                     if (Answer8Selected)
-                        sb.Append("'><img src='selected.png' height='20' width='20'>");
+                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
                         sb.Append("'>");
                     sb.Append("H. ");

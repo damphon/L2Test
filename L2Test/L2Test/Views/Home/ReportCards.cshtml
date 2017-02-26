@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "ReportCards";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.ResultsURL = Url.Action("ReportCards", "Home", routeValues: null, protocol: Request.Url.Scheme);
+    ViewBag.ResultsURL = Url.Action("ReportCards", "Archive", routeValues: null, protocol: Request.Url.Scheme);
 }
 <!--
  _____           _           _     _         _      _____   _____         _
@@ -33,7 +33,7 @@
         </center>
     </div>
 </div>
-<form action="@ViewBag.ResultsURL" method="POST" id="formSubmit">
+<form action="/L2Test/Complete/Archive/ReportCards" method="POST" id="formSubmit">
     <div id="data"></div><input type="hidden" name="filepath" value="">
 </form>
     @section scripts{

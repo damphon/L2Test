@@ -228,13 +228,12 @@ namespace L2Test.Controllers
             return View();
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult ReportCards(string filepath)
-        {
-            //return new FilePathResult("path_and_file.html", "text/html");
-            return File(filepath, "text/html");
-        }
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult ReportCards(string filepath)
+        //{
+        //    return File(filepath, "text/html");
+        //}
 
         [HttpGet]
         [Authorize]

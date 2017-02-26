@@ -18,6 +18,12 @@ namespace L2Test
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Archive",
+                url: "L2Test/Complete/{controller}/{action}/{id}",
+                defaults: new { controller = "Archive", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -458,8 +458,8 @@ namespace L2Test.Models
             }
 
             string WebPageString = "";
-            String TestPath = HttpContext.Current.Server.MapPath("~/Views/Tests/Ungraded/" + TName + tech + ".html");
-            String CssPath = HttpContext.Current.Server.MapPath("~/Content/Site.css");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Ungraded/" + TName + tech + ".html");
+            String CssPath = HttpContext.Current.Server.MapPath("/Content/Site.css");
             StringBuilder sb = new StringBuilder(WebPageString);
 
             sb.Append("<!DOCTYPE html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width'/><link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'><link rel='stylesheet' type='text/css' href='");
