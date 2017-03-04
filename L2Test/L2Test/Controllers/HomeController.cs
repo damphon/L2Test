@@ -13,8 +13,10 @@ namespace L2Test.Controllers
 {
     public class HomeController : Controller
     {
+        //AllowAnonymous means that users do not need to authenticate to use/see this page
+        //Authorize means that users have to be logged in to view the page.
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult Install()
         {
             UserMgmt check = new UserMgmt();
@@ -24,7 +26,7 @@ namespace L2Test.Controllers
             }
         }
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult ConfigDB(string dbPath, string dbName, string dbUser, string dbPassword)
         {
             Helpers.Install setup = new Helpers.Install();
@@ -32,7 +34,7 @@ namespace L2Test.Controllers
             return RedirectToAction("Install");
         }
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult CheckDB()
         {
             Helpers.Install setup = new Helpers.Install();
@@ -42,7 +44,7 @@ namespace L2Test.Controllers
             return RedirectToAction("Install");
         }
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult Install2()
         {
             UserMgmt check = new UserMgmt();
@@ -50,7 +52,7 @@ namespace L2Test.Controllers
             else return View();
         }
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous] //Redirects to Home if there is a Manager/Lead login
         public ActionResult Index() 
         {
             UserMgmt check = new UserMgmt();
@@ -58,7 +60,7 @@ namespace L2Test.Controllers
             else return RedirectToAction("Install");
         }
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous]//Techs need to access this page to start taking the test
         public ActionResult Home()
         {
             if (TempData["error"] == null)
@@ -69,14 +71,14 @@ namespace L2Test.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous]//Used to authenticate the techs temp ID
         public ActionResult Home(string formTechID)
         {
             return Redirect("~/Home/Test/" + formTechID);
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous]//Techs need access to this page
         public ActionResult Test()
         {
             TechModels Check = new TechModels();
@@ -205,14 +207,14 @@ namespace L2Test.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous] //Used to submit test
         public ActionResult TestResults(IEnumerable<TestResultModel> jsonData)
         {
             return Content(TestResultModel.Submit(jsonData));
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous] //Used to save snapshot of HTML at time the submit button was pressed.
         public void TestArchive(string html, string tech)
         {
             TestResultModel.Archive(html, tech);
@@ -227,13 +229,6 @@ namespace L2Test.Controllers
             ViewBag.ArchiveResults = helper.GetArchiveReport();
             return View();
         }
-
-        //[HttpPost]
-        //[Authorize]
-        //public ActionResult ReportCards(string filepath)
-        //{
-        //    return File(filepath, "text/html");
-        //}
 
         [HttpGet]
         [Authorize]

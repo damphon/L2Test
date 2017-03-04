@@ -10,7 +10,7 @@ using L2Test.Models;
 
 namespace L2Test.Controllers
 {
-    [Authorize]
+    [Authorize] //Entire class is Authorize.
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -52,6 +52,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/Index
+        
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -101,6 +102,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        
         public ActionResult AddPhoneNumber()
         {
             return View();
@@ -162,6 +164,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -196,6 +199,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/RemovePhoneNumber
+        
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -213,6 +217,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        
         public ActionResult ChangePassword()
         {
             return View();
@@ -244,6 +249,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/SetPassword
+        
         public ActionResult SetPassword()
         {
             return View();
@@ -276,6 +282,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/ManageLogins
+        
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -309,6 +316,7 @@ namespace L2Test.Controllers
 
         //
         // GET: /Manage/LinkLoginCallback
+        
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
