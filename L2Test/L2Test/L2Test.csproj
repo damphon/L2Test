@@ -179,7 +179,6 @@
     <Compile Include="Helpers\ReportCardHelper.cs" />
     <Compile Include="Helpers\GradeTest.cs" />
     <Compile Include="Helpers\Password.cs" />
-    <Compile Include="Helpers\ReportCardDBHelper.cs" />
     <Compile Include="Helpers\TechDBHelper.cs" />
     <Compile Include="Helpers\TestDBHelper.cs" />
     <Compile Include="Migrations\201607021359228_isLead.cs" />

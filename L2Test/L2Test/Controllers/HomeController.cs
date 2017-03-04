@@ -225,8 +225,8 @@ namespace L2Test.Controllers
         public ActionResult ReportCards()
         {
             ReportCardHelper helper = new ReportCardHelper();
-            ViewBag.GradedResults = helper.GetGradedReport();
-            ViewBag.ArchiveResults = helper.GetArchiveReport();
+            ViewBag.GradedResults = helper.GetGradedReport(@"C:\Users\jtoler\Source\Repos\L2Test\L2Test\L2Test\Views\Tests");
+            ViewBag.ArchiveResults = helper.GetGradedReport(@"C:\Users\jtoler\Source\Repos\L2Test\L2Test\L2Test\Views\Tests\Ungraded");
             return View();
         }
 

@@ -449,7 +449,6 @@ namespace L2Test.Models
             string TName = "Unknown Tech";
             TechDBHelper Tdbhelp = new TechDBHelper();
             var TechDB = Tdbhelp.ListAll();
-            ReportCardDBHelper RCdbhelp = new ReportCardDBHelper();
 
             foreach (var ID in TechDB)
             {
@@ -458,7 +457,8 @@ namespace L2Test.Models
             }
 
             string WebPageString = "";
-            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Ungraded/" + TName + tech + ".html");
+            string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Ungraded/" + FileDate + "_" + TName + ".html");
             String CssPath = HttpContext.Current.Server.MapPath("/Content/Site.css");
             StringBuilder sb = new StringBuilder(WebPageString);
 
@@ -471,7 +471,6 @@ namespace L2Test.Models
             WebPageString = sb.ToString();
 
             File.WriteAllText(TestPath, WebPageString);
-            RCdbhelp.NewReportCard(TName, TestPath, 0);
         }
     }
 }

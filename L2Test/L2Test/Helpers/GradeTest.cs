@@ -21,7 +21,6 @@ namespace L2Test.Helpers
             string TName = "Unknown Tech";
             TechDBHelper Tdbhelp = new TechDBHelper();
             var TechDB = Tdbhelp.ListAll();
-            ReportCardDBHelper RCdbhelp = new ReportCardDBHelper();
 
             foreach (var ID in TechDB)
             {
@@ -30,8 +29,7 @@ namespace L2Test.Helpers
             }
 
             string Results = PrintResults(TechAnswers);
-            string URL = SaveResults(Results, TName);
-            RCdbhelp.NewReportCard(TName, URL, 1);
+            SaveResults(Results, TName);
             return FinalScore();
 
         }
@@ -427,7 +425,7 @@ namespace L2Test.Helpers
             string WebPageString = "";
             string Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
             string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
-            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/" + Tech + FileDate + ".html");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/" + FileDate + "_" + Tech + ".html");
             String CssPath = "/Content/Site.css";
             StringBuilder sb = new StringBuilder(WebPageString);
 

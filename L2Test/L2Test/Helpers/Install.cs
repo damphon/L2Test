@@ -13,7 +13,6 @@ namespace L2Test.Helpers
              Result += SetConnectionString(connection, name, user, password);
              Result += SetTestDB();
              Result += SetTechDB();
-             Result += SetGradeDB();
             Result += "If installation was successful please test the database";
             return Result;
         }
@@ -117,37 +116,6 @@ namespace L2Test.Helpers
             return "Tech table created and configured<br/>";
         }
 
-        private string SetGradeDB()
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = @"CREATE TABLE ReportCard
-                                            (
-                                            P_Id int IDENTITY NOT NULL PRIMARY KEY,
-                                            Tech varchar(255) NOT NULL,
-                                            Test varchar(255) NOT NULL,
-                                            Type_Bool bit NOT NULL,
-                                            Time_Stamp SMALLDATETIME DEFAULT (getdate())
-                                            )";
-
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
-                        return "The following error occured while creating the ReportCard database: " + e.Message + "<br/>";
-                    }
-                }
-            }
-            return "ReportCard table created and configured<br/>";
-        }
-
         public string TestDB(string URL)
         {
             string Result = "";
@@ -157,22 +125,14 @@ namespace L2Test.Helpers
                 if (TechDBExists())
                 {
                     Result += "Tech Database exists<br/>";
-                    if (ReportCardDBExists())
+                    if (UserDBExists())
                     {
-                        Result += "ReportCard Database exists<br/>";
-                        if (UserDBExists())
-                        {
-                            Result += "User Management Database exists<br/>";
-                            Result += "<a href='" + URL + "'> Complete  Installation</a>";
-                        }
-                        else
-                        {
-                            Result += "ERROR:User Management Database Does not exist<br/>";
-                        }
+                        Result += "User Management Database exists<br/>";
+                        Result += "<a href='" + URL + "'> Complete  Installation</a>";
                     }
                     else
                     {
-                        Result += "ERROR:Report Card Database Does not exist<br/>";
+                        Result += "ERROR:User Management Database Does not exist<br/>";
                     }
                 }
                 else
@@ -215,19 +175,6 @@ namespace L2Test.Helpers
             }
         }
 
-        private bool ReportCardDBExists()
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))//work on this!!!!!!!!!!!!!!!!!!!!
-            {
-                using (var command = new SqlCommand($"SELECT db_id('ReportCard')", connection))
-                {
-                    connection.Open();
-                    if (command.ExecuteScalar() == null/*System.DBNull.Value*/) return false;
-                    else return true;
-
-                }
-            }
-        }
         private bool UserDBExists()
         {
             //Update this by first pointing the context to the same DB the rest of the page uses.
