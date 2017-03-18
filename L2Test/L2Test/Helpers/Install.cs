@@ -3,6 +3,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
+//TODO Add Config DB install and default values.
+
 namespace L2Test.Helpers
 {
     public class Install

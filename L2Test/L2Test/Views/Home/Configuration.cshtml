@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Configuration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <fieldset>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formQuestions">Number of questions on test</label>
+            <div class="col-md-4">
+                <input id="formQuestions" name="formQuestions" type="text" placeholder="@ViewBag.NumberOfQuestions" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formScore">Minimum score to pass</label>
+            <div class="col-md-4">
+                <input id="formScore" name="formScore" type="text" placeholder="@ViewBag.PassingScore" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formTimeToTake">Time in minutes to take test</label>
+            <div class="col-md-4">
+                <input id="formTimeToTake" name="formTimeToTake" type="text" placeholder="@ViewBag.TimeToTakeTest" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formStart">Time in minutes before test login ID expires</label>
+            <div class="col-md-4">
+                <input id="formStart" name="formStart" type="text" placeholder="@ViewBag.TimeToStartTest" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formRequirements">L2 Requirements</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="formRequirements" name="formRequirements" placeholder="@ViewBag.L2Requirements" rows="10"></textarea>
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formInstructions">Test Instructions</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="formInstructions" name="formInstructions" placeholder="@ViewBag.TestInstructions" rows="10"></textarea>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submitButton"></label>
+            <div class="col-md-4">
+                <button id="submitButton" name="submitButton" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+@section scripts{
+    <script>
+
+    </script>
+}

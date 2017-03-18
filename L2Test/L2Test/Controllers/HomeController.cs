@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using L2Test.Helpers;
 using L2Test.Models;
 using System.IO;
 using System.Data;
-using System.Web.Routing;
 
 namespace L2Test.Controllers
 {
@@ -15,6 +13,7 @@ namespace L2Test.Controllers
     {
         //AllowAnonymous means that users do not need to authenticate to use/see this page
         //Authorize means that users have to be logged in to view the page.
+
         [HttpGet]
         [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult Install()
@@ -25,6 +24,7 @@ namespace L2Test.Controllers
                 return View();
             }
         }
+
         [HttpPost]
         [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult ConfigDB(string dbPath, string dbName, string dbUser, string dbPassword)
@@ -34,6 +34,7 @@ namespace L2Test.Controllers
             return RedirectToAction("Install");
         }
         [HttpPost]
+
         [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult CheckDB()
         {
@@ -44,6 +45,7 @@ namespace L2Test.Controllers
             return RedirectToAction("Install");
         }
         [HttpGet]
+
         [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult Install2()
         {
@@ -52,6 +54,7 @@ namespace L2Test.Controllers
             else return View();
         }
         [HttpGet]
+
         [AllowAnonymous] //Redirects to Home if there is a Manager/Lead login
         public ActionResult Index() 
         {
@@ -60,13 +63,18 @@ namespace L2Test.Controllers
             else return RedirectToAction("Install");
         }
         [HttpGet]
+
         [AllowAnonymous]//Techs need to access this page to start taking the test
         public ActionResult Home()
         {
+            ViewBag.L2Requirements = Config.GetString("L2Requirements");
+            ViewBag.TestInstructions = Config.GetString("TestInstructions");
+
             if (TempData["error"] == null)
                 ViewBag.Error = "";
             else
                 ViewBag.Error = TempData["error"].ToString();
+
             return View();
         }
 
@@ -84,6 +92,7 @@ namespace L2Test.Controllers
             TechModels Check = new TechModels();
             TestModels List = new TestModels();
 
+            ViewBag.TimeToTakeTest = Config.GetInt("TimeToTakeTest");
             string URL = Request.Url.ToString();
             string TechID = Path.GetFileName(URL);
 
@@ -103,7 +112,7 @@ namespace L2Test.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [Authorize]
         public ActionResult Edit(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formAnswer5, string formAnswer6, string formAnswer7, string formAnswer8, string formC1, string formC2, string formC3, string formC4, string formC5, string formC6, string formC7, string formC8, string formCategory, string newCategory)
         {
@@ -138,7 +147,7 @@ namespace L2Test.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [Authorize]
         public ActionResult EditQuestion(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formAnswer5, string formAnswer6, string formAnswer7, string formAnswer8, string formC1, string formC2, string formC3, string formC4, string formC5, string formC6, string formC7, string formC8, string formCategory, string newCategory, string uid)
         {
@@ -274,6 +283,45 @@ namespace L2Test.Controllers
         public ActionResult About()
         {
             return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Configuration()
+        {
+            ViewBag.L2Requirements = Config.GetString("L2Requirements");
+            ViewBag.TestInstructions = Config.GetString("TestInstructions");
+            ViewBag.NumberOfQuestions = Config.GetInt("NumberOfQuestions");
+            ViewBag.PassingScore = Config.GetInt("PassingScore");
+            ViewBag.TimeToTakeTest = Config.GetInt("TimeToTakeTest");
+            ViewBag.TimeToStartTest = Config.GetInt("TimeToStartTest");
+
+            return View();
+        }
+
+        [HttpPost, ValidateInput(false)]
+        [Authorize] 
+        public ActionResult Configuration(int formQuestions = -1, int formScore = -1, int formTimeToTake = -1, int formStart = -1, string formRequirements = "", string formInstructions = "")
+        {
+            //Get all the current values
+            string L2Requirements = Config.GetString("L2Requirements");
+            string TestInstructions = Config.GetString("TestInstructions");
+            int NumberOfQuestions = Config.GetInt("NumberOfQuestions");
+            int PassingScore = Config.GetInt("PassingScore");
+            int TimeToTakeTest = Config.GetInt("TimeToTakeTest");
+            int TimeToStartTest = Config.GetInt("TimeToStartTest");
+
+            //Only update values if entry is valid and was changed/submitted
+            if (formQuestions > 0) { NumberOfQuestions = formQuestions; }
+            if (formScore > 0) { PassingScore = formScore; }
+            if (formTimeToTake > 0) { TimeToTakeTest = formTimeToTake; }
+            if (formStart > 0) { TimeToStartTest = formStart; }
+            if (formRequirements != "") { L2Requirements = formRequirements; }
+            if (formInstructions != "") { TestInstructions = formInstructions; }
+
+            Config.Update(L2Requirements, TestInstructions, NumberOfQuestions, PassingScore, TimeToTakeTest, TimeToStartTest);
+
+            return Redirect("~/Home/Configuration");
         }
     }
 }

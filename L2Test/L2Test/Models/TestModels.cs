@@ -284,9 +284,10 @@ namespace L2Test.Models
 
         public string TakeTest()
         {
+            int NumberOfQuestions = Config.GetInt("NumberOfQuestions");
             var List = QuestionList();
             Random rnd = new Random();
-            var Test = List.OrderBy(x => rnd.Next()).ToList().Take(100);
+            var Test = List.OrderBy(x => rnd.Next()).ToList().Take(NumberOfQuestions);
             string QuestionString = "";
             foreach (var Question in Test)
             {
@@ -403,7 +404,7 @@ namespace L2Test.Models
         public string tech { get; set; }
         public string question { get; set; }
         public string[] answers { get; set; }
-        public static int PassingScore = 85;
+        public static int PassingScore = Config.GetInt("PassingScore"); //this is out of 100.
 
         public static string Submit(IEnumerable<TestResultModel> json)
         {

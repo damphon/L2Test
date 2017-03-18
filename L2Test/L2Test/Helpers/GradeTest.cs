@@ -12,7 +12,7 @@ namespace L2Test.Helpers
     {
         public float CorrectAnswers = 0f;
         public float PossibleAnswers = 0f;
-        public static int PassingScore = 85; //this is out of 100.
+        public int PassingScore = Config.GetInt("PassingScore"); //this is out of 100.
         public List<GradeCatagories> categoryGrades = new List<GradeCatagories>();
 
         public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
@@ -31,7 +31,6 @@ namespace L2Test.Helpers
             string Results = PrintResults(TechAnswers);
             SaveResults(Results, TName);
             return FinalScore();
-
         }
 
         public List<TestModels> GetTestQuestions(List<TestResultModel> TechAnswers)

@@ -91,13 +91,14 @@ namespace L2Test.Helpers
 
         public void PurgeTechs()
         {
+            int Timeout = Config.GetInt("TimeToStartTest");
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText ="DELETE FROM Login WHERE Time < DATEADD(day, -120, GETDATE())";
+                    command.CommandText ="DELETE FROM Login WHERE Time < DATEADD(day, -" + Timeout + ", GETDATE())";
 
                     try
                     {

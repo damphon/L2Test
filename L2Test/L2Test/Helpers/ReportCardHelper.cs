@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.IO;
+using System;
 
 namespace L2Test.Helpers
 {
@@ -9,6 +10,7 @@ namespace L2Test.Helpers
         {
             DirectoryInfo d = new DirectoryInfo(PathToArchive);
             FileInfo[] ReportCardList = d.GetFiles("*.html");
+            Array.Reverse(ReportCardList);
             string ReportCards = "";
 
             StringBuilder sb = new StringBuilder(ReportCards);
