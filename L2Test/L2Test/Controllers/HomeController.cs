@@ -6,6 +6,7 @@ using L2Test.Helpers;
 using L2Test.Models;
 using System.IO;
 using System.Data;
+using Ionic.Zip;
 
 namespace L2Test.Controllers
 {
@@ -33,8 +34,8 @@ namespace L2Test.Controllers
             TempData["DBCheckResult"] = setup.RunInstall(dbPath, dbName, dbUser, dbPassword);
             return RedirectToAction("Install");
         }
-        [HttpPost]
 
+        [HttpPost]
         [AllowAnonymous]//Cannot require login if no logins have been created yet
         public ActionResult CheckDB()
         {
@@ -53,8 +54,8 @@ namespace L2Test.Controllers
             if (check.isInstalled()) return RedirectToAction("Home"); //Verifies that there is no management accounts then returns the Install page. This is to make sure that no one can go to the install page to hack the system once the page is set up.
             else return View();
         }
-        [HttpGet]
 
+        [HttpGet]
         [AllowAnonymous] //Redirects to Home if there is a Manager/Lead login
         public ActionResult Index() 
         {
@@ -62,8 +63,8 @@ namespace L2Test.Controllers
             if (check.isInstalled()) return RedirectToAction("Home"); //If no management accounts exist this takes you to the install page.
             else return RedirectToAction("Install");
         }
-        [HttpGet]
 
+        [HttpGet]
         [AllowAnonymous]//Techs need to access this page to start taking the test
         public ActionResult Home()
         {
@@ -234,9 +235,28 @@ namespace L2Test.Controllers
         public ActionResult ReportCards()
         {
             ReportCardHelper helper = new ReportCardHelper();
-            ViewBag.GradedResults = helper.GetGradedReport(@"C:\Users\jtoler\Source\Repos\L2Test\L2Test\L2Test\Views\Tests");
-            ViewBag.ArchiveResults = helper.GetGradedReport(@"C:\Users\jtoler\Source\Repos\L2Test\L2Test\L2Test\Views\Tests\Ungraded");
+            ViewBag.GradedResults = helper.GetGradedReport(Server.MapPath(@"~\Views\Tests"));
+            ViewBag.ArchiveResults = helper.GetGradedReport(Server.MapPath(@"~\Views\Tests\Ungraded"));
             return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public FilePathResult Backup()
+        {
+            string fileName = "L2Test_Backup_" + DateTime.Now.ToString("yyyy-MM-dd") + ".zip";
+
+            CSVHelper help = new CSVHelper();
+            string csv = help.ExportAsCSV();
+            if (System.IO.File.Exists(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"))) { System.IO.File.Delete(Server.MapPath(@"~\Views\Tests\L2TestDB.csv")); }
+            System.IO.File.WriteAllText(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"), csv);
+
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.AddDirectory(Server.MapPath(@"~\Views\Tests"));
+                zip.Save(Server.MapPath(@"~\App_Data\Backup.zip"));
+            }
+            return new FilePathResult(Server.MapPath(@"~\App_Data\Backup.zip"), "application/zip");
         }
 
         [HttpGet]

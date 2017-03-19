@@ -188,6 +188,6 @@ namespace L2Test.Helpers
             string paragraphSeparator = ((char)0x2029).ToString();
 
             return text.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(lineSeparator, string.Empty).Replace(paragraphSeparator, string.Empty);
-        }
+        } 
     }
 }

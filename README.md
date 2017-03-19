@@ -1,8 +1,6 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#Stop techs from being able to refresh for a different test.
-#1 button backups of all important data
 #Change from 8 answeres to any number of answeres
 ##Change all Database feilds to be more human readable for CSV backups
 ##Allow leads to add images to test 
@@ -23,5 +21,3 @@
 #	8 - Techs can flag questions they think need improvement while taking the test, for leads to review
 #	9 - Leads should be able to remove poorly worded questions (from taken tests) and have the test automatically re-score.
 
-
-Make config page post work, it should only update feilds that have been updated. 
