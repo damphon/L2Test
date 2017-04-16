@@ -15,6 +15,7 @@ namespace L2Test.Helpers
         public int PassingScore = Config.GetInt("PassingScore"); //this is out of 100.
         public List<GradeCatagories> categoryGrades = new List<GradeCatagories>();
 
+        //Control the grading proccess
         public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
         {
             string TID = TechAnswers[0].tech;
@@ -33,10 +34,11 @@ namespace L2Test.Helpers
             return FinalScore();
         }
 
-        public List<TestModels> GetTestQuestions(List<TestResultModel> TechAnswers)
+        //Get a list of the questions that were on the techs test.
+        public List<TestQuestions> GetTestQuestions(List<TestResultModel> TechAnswers)
         {
-            List<TestModels> FullTest = TestModels.QuestionList();
-            List<TestModels> TestQuestions = FullTest.ToList();
+            List<TestQuestions> FullTest = Test.QuestionList();
+            List<TestQuestions> TestQuestions = FullTest.ToList();
             List<string> TempString = new List<string>();
 
             foreach (var QID in TechAnswers)
@@ -46,7 +48,7 @@ namespace L2Test.Helpers
 
             foreach (var Question in FullTest)
             {
-                if (!(TempString.Any(x => x.Contains(Question.key.ToString()))))
+                if (!(TempString.Any(x => x.Contains(Question.Key.ToString()))))
                 {
                     TestQuestions.Remove(Question);
                 }
@@ -54,371 +56,146 @@ namespace L2Test.Helpers
             return TestQuestions;
         }
 
+        //grades test and writes results of each answer to HTML string
         public string PrintResults(List<TestResultModel> TechAnswers)
         {
-            List<TestModels> TestQuestions = GetTestQuestions(TechAnswers);
+            List<TestQuestions> TestQuestions = GetTestQuestions(TechAnswers);
             Dictionary<string, string[]> AnswerDict = TechAnswers.ToDictionary(x => x.question, x => x.answers);
-            
+            string ResultString = "";
+
             //Account for unanswered questions so that there are no null values and unanswered questions are marked incorrect
-            foreach(var Question in TestQuestions)
+            foreach (var Question in TestQuestions)
             {
-                if (AnswerDict[Question.key.ToString()] == null)
+                if (AnswerDict[Question.Key.ToString()] == null)
                 {
-                    AnswerDict[Question.key.ToString()] = new string[] { "Unanswered" }; //Unanswered is 8 characters, all valid keys are 10 so this can never be a correct answer
+                    AnswerDict[Question.Key.ToString()] = new string[] { "Unanswered" }; //Unanswered is 8 characters, all valid keys are 10 so this can never be a correct answer
                 }
             }
 
-            string ResultString = "";
+            StringBuilder sb = new StringBuilder(ResultString);
 
             foreach (var Question in TestQuestions)
             {
-                //Save status of each answer for grading and to print with correct/incorrect color scheme
-                //0 neutral, 1 correct, 2 wrong;
-                int Answer1Status = 0;
-                int Answer2Status = 0;
-                int Answer3Status = 0;
-                int Answer4Status = 0;
-                int Answer5Status = 0;
-                int Answer6Status = 0;
-                int Answer7Status = 0;
-                int Answer8Status = 0;
-
-                //Tells which answers were selected for printout
-                bool Answer1Selected = false;
-                bool Answer2Selected = false;
-                bool Answer3Selected = false;
-                bool Answer4Selected = false;
-                bool Answer5Selected = false;
-                bool Answer6Selected = false;
-                bool Answer7Selected = false;
-                bool Answer8Selected = false;
-
                 PossibleAnswers++;
+                int TempPossible = 0;
+                int TempCorrect = 0;
 
-                //Check answeres
-                foreach (var A in AnswerDict[Question.key.ToString()])
-                {
-                    if (Answer1Status != 1)
-                    {
-                        if (Question.c1 == true)
-                        {
-                            if (A.Contains(Question.aid1)) { Answer1Status = 1; Answer1Selected = true; }
-                            else { Answer1Status = 2; }
-                        }
-                        else
-                        {
-                                if (A.Contains(Question.aid1)) { Answer1Status = 2; Answer1Selected = true; }
-                        }
-                    }
-
-                    if (Answer2Status != 1)
-                    {
-                        if (Question.c2 == true)
-                        {
-                            if (A.Contains(Question.aid2)) { Answer2Status = 1; Answer2Selected = true; }
-                            else { Answer2Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid2)) { Answer2Status = 2; Answer2Selected = true; }
-                        }
-                    }
-
-                    if (Answer3Status != 1)
-                    {
-                        if (Question.c3 == true)
-                        {
-                            if (A.Contains(Question.aid3)) { Answer3Status = 1; Answer3Selected = true; }
-                            else { Answer3Status = 2;  }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid3)) { Answer3Status = 2; Answer3Selected = true; }
-                        }
-                    }
-
-                    if (Answer4Status != 1)
-                    {
-                        if (Question.c4 == true)
-                        {
-                            if (A.Contains(Question.aid4)) { Answer4Status = 1; Answer4Selected = true; }
-                            else { Answer4Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid4)) { Answer4Status = 2; Answer4Selected = true; }
-                        }
-                    }
-
-                    if (Answer5Status != 1)
-                    {
-                        if (Question.c5 == true)
-                        {
-                            if (A.Contains(Question.aid5)) { Answer5Status = 1; Answer5Selected = true; }
-                            else { Answer5Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid5)) { Answer5Status = 2; Answer5Selected = true; }
-                        }
-                    }
-
-                    if (Answer6Status != 1)
-                    {
-                        if (Question.c6 == true)
-                        {
-                            if (A.Contains(Question.aid6)) { Answer6Status = 1; Answer6Selected = true; }
-                            else { Answer6Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid6)) { Answer6Status = 2; Answer6Selected = true; }
-                        }
-                    }
-
-                    if (Answer7Status != 1)
-                    {
-                        if (Question.c7 == true)
-                        {
-                            if (A.Contains(Question.aid7)) { Answer7Status = 1; Answer7Selected = true; }
-                            else { Answer7Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid7)) { Answer7Status = 2; Answer7Selected = true; }
-                        }
-                    }
-
-                    if (Answer8Status != 1)
-                    {
-                        if (Question.c8 == true)
-                        {
-                            if (A.Contains(Question.aid8)) { Answer8Status = 1; Answer8Selected = true; }
-                            else { Answer8Status = 2; }
-                        }
-                        else
-                        {
-                            if (A.Contains(Question.aid8)) { Answer8Status = 2; Answer8Selected = true; }
-                        }
-                    }
-                }
-
-                //If all answers are correct Add one to correct answers and update category list
-                if (Answer1Status != 2 && Answer2Status != 2 && Answer3Status != 2 && Answer4Status != 2 && Answer5Status != 2 && Answer6Status != 2 && Answer7Status != 2 && Answer8Status != 2)
-                {
-                    CorrectAnswers++;
-                    if (categoryGrades.Exists(x => x.category == Question.category))
-                    {
-                        foreach (var c in categoryGrades)
-                        {
-                            if (c.category == Question.category)
-                            {
-                                c.CorrectAnswers++;
-                                c.PossibleAnsweres++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var CatList = new GradeCatagories();
-                        CatList.category = Question.category;
-                        CatList.CorrectAnswers = 1f;
-                        CatList.PossibleAnsweres = 1f;
-                        categoryGrades.Add(CatList);
-                    }
-                }
-                else //If this question was answered incorrectly 
-                {
-                    if (categoryGrades.Exists(x => x.category == Question.category))
-                    {
-                        foreach (var c in categoryGrades)
-                        {
-                            if (c.category == Question.category)
-                            {
-                                c.PossibleAnsweres++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var CatList = new GradeCatagories();
-                        CatList.category = Question.category;
-                        CatList.PossibleAnsweres = 1f;
-                        categoryGrades.Add(CatList);
-                    }
-                }
-
-                StringBuilder sb = new StringBuilder(ResultString);
                 //Question block
                 sb.Append("<li class='well' id='");
-                sb.Append(Question.key);
+                sb.Append(Question.Key);
                 sb.Append("'><p class='TestResultQuestion'>category:<b>");
-                sb.Append(Question.category);
+                sb.Append(Question.Category);
                 sb.Append("</b> - ");
-                sb.Append(Question.question);
+                sb.Append(Question.Question);
                 sb.Append("</p>");
 
-                //Answer 1
-                switch (Answer1Status)
+                foreach (var A in Question.Answers)
                 {
-                    case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                    case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                    case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                    default: throw new Exception("Invalid Answer Status. Please grade results manually.");
-                }
-                sb.Append(Question.aid1);
-                if (Answer1Selected)
-                    sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                else
-                    sb.Append("'>");
-                sb.Append("A. ");
-                sb.Append(Question.answer1);
-                sb.Append("</p>");
+                    char Index = 'A';
+                    TempPossible++;
+                    string[] Selected = AnswerDict[A.AnswerID];
 
-                //Answer 2
-                switch (Answer2Status)
-                {
-                    case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                    case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                    case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                    default: throw new Exception("Invalid Answer Status. Please grade results manually.");
-                }
-                sb.Append(Question.aid2);
-                if (Answer2Selected)
-                    sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                else
-                    sb.Append("'>");
-                sb.Append("B. ");
-                sb.Append(Question.answer2);
-                sb.Append("</p>");
-
-
-                //Answer 3
-                if (Question.answer3 != "")
-                {
-                    switch (Answer3Status)
+                    if(A.IsCorrect == true)
                     {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
-                    }
-                    sb.Append(Question.aid3);
-                    if (Answer3Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                    else
-                        sb.Append("'>");
-                    sb.Append("C. ");
-                    sb.Append(Question.answer3);
-                    sb.Append("</p>");
-                }
+                        if (Selected.Contains(A.AnswerID)) //Correct answer selected
+                        {
+                            TempCorrect++;
+                            sb.Append("<p class='CorrectAnswer' id='");
+                            sb.Append(A.AnswerID);
+                            sb.Append("'><img src='/selected.png' height='20' width='20'>");
+                            sb.Append(Index);
+                            sb.Append(". ");
+                            sb.Append(A.Answer);
+                            sb.Append("</p>");
 
-                //Answer 4
-                if (Question.answer4 != "")
-                {
-                    switch (Answer4Status)
-                    {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
+                        }
+                        else { //Correct answer not selected
+                            sb.Append("<p class='WrongAnswer' id='");
+                            sb.Append(A.AnswerID);
+                            sb.Append("'>");
+                            sb.Append(Index);
+                            sb.Append(". ");
+                            sb.Append(A.Answer);
+                            sb.Append("</p>");
+                        }
                     }
-                    sb.Append(Question.aid4);
-                    if (Answer4Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
-                        sb.Append("'>");
-                    sb.Append("D. ");
-                    sb.Append(Question.answer4);
-                    sb.Append("</p>");
-                }
-                //Answer 5
-                if (Question.answer5 != "")
-                {
-                    switch (Answer5Status)
                     {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
+                        if (Selected.Contains(A.AnswerID)) //Incorrect answer selected
+                        {
+                            sb.Append("<p class='WrongAnswer' id='");
+                            sb.Append(A.AnswerID);
+                            sb.Append("'><img src='/selected.png' height='20' width='20'>");
+                            sb.Append(Index);
+                            sb.Append(". ");
+                            sb.Append(A.Answer);
+                            sb.Append("</p>");
+                        }
+                        else { //Incorrect answer not selected
+                            TempCorrect++;
+                            sb.Append("<p class='TestAnswer' id='");
+                            sb.Append(A.AnswerID);
+                            sb.Append("'>");
+                            sb.Append(Index);
+                            sb.Append(". ");
+                            sb.Append(A.Answer);
+                            sb.Append("</p>");
+                        }
                     }
-                    sb.Append(Question.aid5);
-                    if (Answer5Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                    else
-                        sb.Append("'>");
-                    sb.Append("E. ");
-                    sb.Append(Question.answer5);
-                    sb.Append("</p>");
-                }
+                    if (Index != 'Z') Index++;
 
-                //Answer 6
-                if (Question.answer6 != "")
-                {
-                    switch (Answer6Status)
+                    if (TempPossible == TempCorrect)
                     {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
+                        CorrectAnswers++;
+                        if (categoryGrades.Exists(x => x.category == Question.Category))
+                        {
+                            foreach (var c in categoryGrades)
+                            {
+                                if (c.category == Question.Category)
+                                {
+                                    c.CorrectAnswers++;
+                                    c.PossibleAnsweres++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var CatList = new GradeCatagories();
+                            CatList.category = Question.Category;
+                            CatList.CorrectAnswers = 1f;
+                            CatList.PossibleAnsweres = 1f;
+                            categoryGrades.Add(CatList);
+                        }
                     }
-                    sb.Append(Question.aid6);
-                    if (Answer6Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
                     else
-                        sb.Append("'>");
-                    sb.Append("F. ");
-                    sb.Append(Question.answer6);
-                    sb.Append("</p>");
-                }
-                //Answer 7
-                if (Question.answer7 != "")
-                {
-                    switch (Answer7Status)
                     {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
+                        if (categoryGrades.Exists(x => x.category == Question.Category))
+                        {
+                            foreach (var c in categoryGrades)
+                            {
+                                if (c.category == Question.Category)
+                                {
+                                    c.PossibleAnsweres++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var CatList = new GradeCatagories();
+                            CatList.category = Question.Category;
+                            CatList.PossibleAnsweres = 1f;
+                            categoryGrades.Add(CatList);
+                        }
                     }
-                    sb.Append(Question.aid7);
-                    if (Answer7Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                    else
-                        sb.Append("'>");
-                    sb.Append("G. ");
-                    sb.Append(Question.answer7);
-                    sb.Append("</p>");
                 }
-
-                //Answer 8
-                if (Question.answer8 != "")
-                {
-                    switch (Answer8Status)
-                    {
-                        case 0: sb.Append("<p class='TestAnswer' id='"); break;
-                        case 1: sb.Append("<p class='CorrectAnswer' id='"); break;
-                        case 2: sb.Append("<p class='WrongAnswer' id='"); break;
-                        default: throw new Exception("Invalid Answer Status. Please grade results manually.");
-                    }
-                    sb.Append(Question.aid8);
-                    if (Answer8Selected)
-                        sb.Append("'><img src='/selected.png' height='20' width='20'>");
-                    else
-                        sb.Append("'>");
-                    sb.Append("H. ");
-                    sb.Append(Question.answer8);
-                    sb.Append("</p>");
-                }
-
-                //End question block
-                sb.Append("</li>");
-                ResultString = sb.ToString();
-
             }
-            return ResultString;
-        }
+        //End question block
+        sb.Append("</li>");
+        ResultString = sb.ToString();
+        return ResultString;
+    }
 
+        //Save a copy of the graded test
         public string SaveResults(string Results, string Tech)
         {
             string WebPageString = "";
@@ -489,6 +266,7 @@ namespace L2Test.Helpers
             return TestPath;
         }
 
+        //Gets the final score of the test
         private Dictionary<string, float> FinalScore()
         {
             Dictionary<string, float> results = new Dictionary<string, float>();
@@ -499,12 +277,74 @@ namespace L2Test.Helpers
             }
             return results;
         }
-    }
 
-    public class GradeCatagories
-    {
-       public string category { get; set; }
-       public float PossibleAnsweres { get; set; }
-       public float CorrectAnswers { get; set; }
+        //Create HTML to show tech after test is graded
+        public string Submit(IEnumerable<TestResultModel> json)
+        {
+            List<TestResultModel> TechsAnswers = new List<TestResultModel>();
+            GradeTest TestHelp = new GradeTest();
+            string grades = "";
+            foreach (var answer in
+                json)
+            {
+                TechsAnswers.Add(answer);
+            }
+            Dictionary<string, float> results = TestHelp.Grading(TechsAnswers);
+            StringBuilder sb = new StringBuilder(grades);
+
+            sb.Append("<div class='TechViewResults'>");
+            foreach (var grade in results)
+            {   //Color the results
+                if (grade.Value >= PassingScore) { sb.Append("<p class='greenResult'"); }
+                else if (grade.Value > PassingScore - 10) { sb.Append("<p class='yellowResult'"); }
+                else { sb.Append("<p class='redResult'"); }
+
+                //Change font size for overall score
+                if (grade.Key == "FinalScore")
+                    sb.Append("style='font-size:3em'");
+
+                //Finish listing the category scores
+                sb.Append(">");
+                sb.Append(grade.Key);
+                sb.Append(": ");
+                sb.Append(grade.Value);
+                sb.Append("%</p>");
+
+            }
+            sb.Append("</br><center><H3>A copy of the test has been saved for management.</H3></center></div>");
+            grades = sb.ToString();
+
+            return grades;
+        }
+
+        //Save a copy of the test as it was when the submit button was pressed, prior to grading.
+        public void Archive(string html, string tech)
+        {
+            string TName = "Unknown Tech";
+            TechDBHelper Tdbhelp = new TechDBHelper();
+            var TechDB = Tdbhelp.ListAll();
+
+            foreach (var ID in TechDB)
+            {
+                if (ID.TechID == tech)
+                    TName = ID.TechName;
+            }
+
+            string WebPageString = "";
+            string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Ungraded/" + FileDate + "_" + TName + ".html");
+            String CssPath = HttpContext.Current.Server.MapPath("/Content/Site.css");
+            StringBuilder sb = new StringBuilder(WebPageString);
+
+            sb.Append("<!DOCTYPE html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width'/><link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'><link rel='stylesheet' type='text/css' href='");
+            sb.Append(CssPath);
+            sb.Append("'><title>L2 Test</title></head><body>");
+            sb.Append(html);
+            sb.Append("</body></html>");
+
+            WebPageString = sb.ToString();
+
+            File.WriteAllText(TestPath, WebPageString);
+        }
     }
 }

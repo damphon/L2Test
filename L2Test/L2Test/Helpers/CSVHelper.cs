@@ -14,65 +14,27 @@ namespace L2Test.Helpers
     {
         public string ExportAsCSV()
         {
-            List<TestModels> List = TestModels.QuestionList();
-            string Result = "P_Id,Question,A1,A2,A3,A4,A5,A6,A7,A8,A1ID,A2ID,A3ID,A4ID,A5ID,A6ID,A7ID,A8ID,C1,C2,C3,C4,C5,C6,C7,C8,Category\n";//Header line of the CSV
+            List<TestQuestions> List = Test.QuestionList();
+            string Result = "Question,Category,ImageURL,Answer,IsCorrect,Answer,IsCorrect\n";//Header line of the CSV
             string TempString = "";
-            foreach (var question in List)
+            foreach (var Question in List)
             {
                 StringBuilder sb = new StringBuilder(TempString);
-                sb.Append(question.key);
+                sb.Append(Sanitize(Question.Question));
                 sb.Append(",");
-                sb.Append(Sanitize(question.question));
+                sb.Append(Sanitize(Question.Category));
                 sb.Append(",");
-                sb.Append(Sanitize(question.answer1));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer2));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer3));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer4));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer5));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer6));
-                sb.Append(",");
-                sb.Append(Sanitize(question.answer7));
-                sb.Append(",");
-                sb.Append(question.answer8);
-                sb.Append(",");
-                sb.Append(question.aid1);
-                sb.Append(",");
-                sb.Append(question.aid2);
-                sb.Append(",");
-                sb.Append(question.aid3);
-                sb.Append(",");
-                sb.Append(question.aid4);
-                sb.Append(",");
-                sb.Append(question.aid5);
-                sb.Append(",");
-                sb.Append(question.aid6);
-                sb.Append(",");
-                sb.Append(question.aid7);
-                sb.Append(",");
-                sb.Append(question.aid8);
-                sb.Append(",");
-                sb.Append(question.c1);
-                sb.Append(",");
-                sb.Append(question.c2);
-                sb.Append(",");
-                sb.Append(question.c3);
-                sb.Append(",");
-                sb.Append(question.c4);
-                sb.Append(",");
-                sb.Append(question.c5);
-                sb.Append(",");
-                sb.Append(question.c6);
-                sb.Append(",");
-                sb.Append(question.c7);
-                sb.Append(",");
-                sb.Append(question.c8);
-                sb.Append(",");
-                sb.Append(Sanitize(question.category));
+                sb.Append(Sanitize(Question.Pic));
+                
+                foreach(var A in Question.Answers)
+                {
+                    sb.Append(",");
+                    sb.Append(Sanitize(A.Answer));
+                    sb.Append(",");
+                    if (A.IsCorrect == true) sb.Append("correct");
+                    else sb.Append("incorrect");
+                }
+           
                 sb.Append("\n");
                 TempString = sb.ToString();
             }

@@ -9,155 +9,153 @@ namespace L2Test.Helpers
 {
     public class TestDBHelper
     {
-        public void NewQuestion(string question, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7, string answer8, bool c1, bool c2, bool c3, bool c4, bool c5, bool c6, bool c7, bool c8, string Category)
+        public void NewQuestion(string Question, string Pic, string Category, string[] Answers, int[] IsCorrect)
         {
-            Password pass = new Password();
-            string id1 = pass.Generate();
-            string id2 = pass.Generate();
-            string id3 = pass.Generate();
-            string id4 = pass.Generate();
-            string id5 = pass.Generate();
-            string id6 = pass.Generate();
-            string id7 = pass.Generate();
-            string id8 = pass.Generate();
-
+            int QuestionID = 0;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Test (Question, A1, A2, A3, A4, A5, A6, A7, A8, A1ID, A2ID, A3ID, A4ID, A5ID, A6ID, A7ID, A8ID, C1, C2, C3, C4, C5, C6, C7, C8, Category) VALUES (@question, @answer1, @answer2, @answer3, @answer4, @answer5, @answer6, @answer7, @answer8, @id1, @id2, @id3, @id4, @id5, @id6, @id7, @id8, @c1, @c2, @c3, @c4, @c5, @c6, @c7, @c8, @Category)";
-                    command.Parameters.AddWithValue("@question", question);
-                    command.Parameters.AddWithValue("@answer1", answer1);
-                    command.Parameters.AddWithValue("@answer2", answer2);
-                    command.Parameters.AddWithValue("@answer3", answer3);
-                    command.Parameters.AddWithValue("@answer4", answer4);
-                    command.Parameters.AddWithValue("@answer5", answer5);
-                    command.Parameters.AddWithValue("@answer6", answer6);
-                    command.Parameters.AddWithValue("@answer7", answer7);
-                    command.Parameters.AddWithValue("@answer8", answer8);
-                    command.Parameters.AddWithValue("@id1", id1);
-                    command.Parameters.AddWithValue("@id2", id2);
-                    command.Parameters.AddWithValue("@id3", id3);
-                    command.Parameters.AddWithValue("@id4", id4);
-                    command.Parameters.AddWithValue("@id5", id5);
-                    command.Parameters.AddWithValue("@id6", id6);
-                    command.Parameters.AddWithValue("@id7", id7);
-                    command.Parameters.AddWithValue("@id8", id8);
-                    command.Parameters.AddWithValue("@c1", c1);
-                    command.Parameters.AddWithValue("@c2", c2);
-                    command.Parameters.AddWithValue("@c3", c3);
-                    command.Parameters.AddWithValue("@c4", c4);
-                    command.Parameters.AddWithValue("@c5", c5);
-                    command.Parameters.AddWithValue("@c6", c6);
-                    command.Parameters.AddWithValue("@c7", c7);
-                    command.Parameters.AddWithValue("@c8", c8);
-                    command.Parameters.AddWithValue("@Category", Category);
+                    command.CommandText = "INSERT INTO TestQuestions (Question, Pic, Category) VALUES (@question, @pic, @category) SET @ID = SCOPE_IDENTITY();";
+                    command.Parameters.AddWithValue("@question", Question);
+                    command.Parameters.AddWithValue("@pic", Pic);
+                    command.Parameters.AddWithValue("@category", Category);
+                    command.Parameters.Add("@ID", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
 
                     try
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
+                        QuestionID = (int)command.Parameters["@ID"].Value;
                     }
                     catch { throw; }
                 }
             }
+
+            for(int i = 0; i < Answers.Length; i++)
+            {
+                Password Pass = new Password();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = "INSERT INTO TestAnswers (QuestionID, Answer, AnswerID, IsCorrect) VALUES (@question, @answer, @answerID, @correct)";
+                        command.Parameters.AddWithValue("@question", QuestionID);
+                        command.Parameters.AddWithValue("@answer", Answers[i]);
+                        command.Parameters.AddWithValue("@answerID", Pass.Generate());
+                        command.Parameters.AddWithValue("@correct", IsCorrect[i]);
+
+                        try
+                        {
+                            connection.Open();
+                            command.ExecuteNonQuery();
+                        }
+                        catch { throw; }
+                    }
+                }
+            }
         }
 
-        public List<TestModels> GetQuestions()
+        public List<TestQuestions> GetQuestions()
         {
-            var Questions = new List<TestModels>();
+            var Questions = new List<TestQuestions>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 connection.Open();
-                string query = "SELECT * FROM Test";
+                string query = "SELECT * FROM TestQuestions";
                 using (var command = new SqlCommand(query, connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var Test = new TestModels();
-                            Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
-                            Test.question = reader.GetString(reader.GetOrdinal("Question"));
-                            Test.answer1 = reader.GetString(reader.GetOrdinal("A1"));
-                            Test.answer2 = reader.GetString(reader.GetOrdinal("A2"));
-                            Test.answer3 = reader.GetString(reader.GetOrdinal("A3"));
-                            Test.answer4 = reader.GetString(reader.GetOrdinal("A4"));
-                            Test.answer5 = reader.GetString(reader.GetOrdinal("A5"));
-                            Test.answer6 = reader.GetString(reader.GetOrdinal("A6"));
-                            Test.answer7 = reader.GetString(reader.GetOrdinal("A7"));
-                            Test.answer8 = reader.GetString(reader.GetOrdinal("A8"));
-                            Test.aid1 = reader.GetString(reader.GetOrdinal("A1ID"));
-                            Test.aid2 = reader.GetString(reader.GetOrdinal("A2ID"));
-                            Test.aid3 = reader.GetString(reader.GetOrdinal("A3ID"));
-                            Test.aid4 = reader.GetString(reader.GetOrdinal("A4ID"));
-                            Test.aid5 = reader.GetString(reader.GetOrdinal("A5ID"));
-                            Test.aid6 = reader.GetString(reader.GetOrdinal("A6ID"));
-                            Test.aid7 = reader.GetString(reader.GetOrdinal("A7ID"));
-                            Test.aid8 = reader.GetString(reader.GetOrdinal("A8ID"));
-                            Test.c1 = (bool)reader["C1"];
-                            Test.c2 = (bool)reader["C2"];
-                            Test.c3 = (bool)reader["C3"];
-                            Test.c4 = (bool)reader["C4"];
-                            Test.c5 = (bool)reader["C5"];
-                            Test.c6 = (bool)reader["C6"];
-                            Test.c7 = (bool)reader["C7"];
-                            Test.c8 = (bool)reader["C8"];
-                            Test.category = reader.GetString(reader.GetOrdinal("Category"));
-
+                            var Test = new TestQuestions();
+                            Test.Key = reader.GetInt32(reader.GetOrdinal("P_Id"));
+                            Test.Question = reader.GetString(reader.GetOrdinal("Question"));
+                            Test.Pic = reader.GetString(reader.GetOrdinal("Pic"));
+                            Test.Category = reader.GetString(reader.GetOrdinal("Category"));
+                            Test.Answers = null;
                             Questions.Add(Test);
                         }
                     }
                 }
             }
+
+            foreach(var Q in Questions)
+            {
+                var Answers = new List<TestAnswers>();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM TestAnswers WHERE QuestionID = " + Q.Key;
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var List = new TestAnswers();
+                                List.Key = reader.GetInt32(reader.GetOrdinal("P_Id"));
+                                List.QuestionID = reader.GetInt32(reader.GetOrdinal("QuestionID"));
+                                List.Answer = reader.GetString(reader.GetOrdinal("Answer"));
+                                List.AnswerID = reader.GetString(reader.GetOrdinal("AnswerID"));
+                                List.IsCorrect = (bool)reader["IsCorrect"];
+                                Answers.Add(List);
+                            }
+                        }
+                    }
+                }
+                Q.Answers = Answers;
+            }
+
             return Questions;
         }
 
-        public List<TestModels> GetQuestion(int key)
+        public List<TestQuestions> GetQuestion(int Key)
         {
-            var Question = new List<TestModels>();
+            var Question = new List<TestQuestions>();
+            var Answers = new List<TestAnswers>();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
                 connection.Open();
-                string query = String.Format("SELECT * FROM Test WHERE P_Id = '{0}'", key);
+                string query = "SELECT * FROM TestAnswers WHERE QuestionID = " + Key;
                 using (var command = new SqlCommand(query, connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var Test = new TestModels();
-
-                            Test.key = reader.GetInt32(reader.GetOrdinal("P_Id"));
-                            Test.question = reader.GetString(reader.GetOrdinal("Question"));
-                            Test.answer1 = reader.GetString(reader.GetOrdinal("A1"));
-                            Test.answer2 = reader.GetString(reader.GetOrdinal("A2"));
-                            Test.answer3 = reader.GetString(reader.GetOrdinal("A3"));
-                            Test.answer4 = reader.GetString(reader.GetOrdinal("A4"));
-                            Test.answer5 = reader.GetString(reader.GetOrdinal("A5"));
-                            Test.answer6 = reader.GetString(reader.GetOrdinal("A6"));
-                            Test.answer7 = reader.GetString(reader.GetOrdinal("A7"));
-                            Test.answer8 = reader.GetString(reader.GetOrdinal("A8"));
-                            Test.aid1 = reader.GetString(reader.GetOrdinal("A1ID"));
-                            Test.aid2 = reader.GetString(reader.GetOrdinal("A2ID"));
-                            Test.aid3 = reader.GetString(reader.GetOrdinal("A3ID"));
-                            Test.aid4 = reader.GetString(reader.GetOrdinal("A4ID"));
-                            Test.aid5 = reader.GetString(reader.GetOrdinal("A5ID"));
-                            Test.aid6 = reader.GetString(reader.GetOrdinal("A6ID"));
-                            Test.aid7 = reader.GetString(reader.GetOrdinal("A7ID"));
-                            Test.aid8 = reader.GetString(reader.GetOrdinal("A8ID"));
-                            Test.c1 = (bool)reader["C1"];
-                            Test.c2 = (bool)reader["C2"];
-                            Test.c3 = (bool)reader["C3"];
-                            Test.c4 = (bool)reader["C4"];
-                            Test.c5 = (bool)reader["C5"];
-                            Test.c6 = (bool)reader["C6"];
-                            Test.c7 = (bool)reader["C7"];
-                            Test.c8 = (bool)reader["C8"];
-                            Test.category = reader.GetString(reader.GetOrdinal("Category"));
-
+                            var List = new TestAnswers();
+                            List.Key = reader.GetInt32(reader.GetOrdinal("P_Id"));
+                            List.QuestionID = reader.GetInt32(reader.GetOrdinal("QuestionID"));
+                            List.Answer = reader.GetString(reader.GetOrdinal("Answer"));
+                            List.AnswerID = reader.GetString(reader.GetOrdinal("AnswerID"));
+                            List.IsCorrect = (bool)reader["IsCorrect"];
+                            Answers.Add(List);
+                        }
+                    }
+                }
+            }
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                connection.Open();
+                string query = String.Format("SELECT * FROM TestQuestions WHERE P_Id = '{0}'", Key);
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var Test = new TestQuestions();
+                            Test.Key = reader.GetInt32(reader.GetOrdinal("P_Id"));
+                            Test.Question = reader.GetString(reader.GetOrdinal("Question"));
+                            Test.Pic = reader.GetString(reader.GetOrdinal("Pic"));
+                            Test.Category = reader.GetString(reader.GetOrdinal("Category"));
+                            Test.Answers = Answers;
                             Question.Add(Test);
                         }
                     }
@@ -166,7 +164,7 @@ namespace L2Test.Helpers
             return Question;
         }
 
-        public void RemoveQuestion(int key)
+        public void RemoveQuestion(int Key)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -174,8 +172,30 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "DELETE FROM Test WHERE P_Id = @Key";
-                    command.Parameters.AddWithValue("@Key", key);
+                    command.CommandText = "DELETE FROM TestQuestions WHERE P_Id = @Key";
+                    command.Parameters.AddWithValue("@Key", Key);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch { throw; }
+                }
+            }
+            RemoveAnswers(Key);
+        }
+
+        private static void RemoveAnswers(int Key)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM TestAnswers WHERE QuestionID = @Key";
+                    command.Parameters.AddWithValue("@Key", Key);
 
                     try
                     {
@@ -187,7 +207,47 @@ namespace L2Test.Helpers
             }
         }
 
-        public static string UploadCSV(DataTable dt)
+        public static string PurgeTest()
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM TestQuestions";
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        return "Test DB Question PurgeTest Error: " + e.Message;
+                    }
+                }
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM TestAnswers";
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        return "Test DB Answer PurgeTest Error: " + e.Message;
+                    }
+                }
+                return "";
+            }
+        }
+
+        public static string UploadCSV(DataTable dt) //Not Updated
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -204,36 +264,12 @@ namespace L2Test.Helpers
                     }
                     catch (Exception ex)
                     {
-                       return ex.Message;
+                        return ex.Message;
                     }
                 }
             }
 
             return "";
-        }
-
-        public static string PurgeTest()
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "DELETE FROM TEST";
-
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
-                        return "Test DB PurgeTest Error: " + e.Message;
-                    }
-                }
-                return "";
-            }
         }
     }
 }

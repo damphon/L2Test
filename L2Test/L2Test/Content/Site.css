@@ -208,3 +208,8 @@ textarea {
     margin-bottom:20px;
     padding: 0px 5px;
 }
+
+.modal-body {
+    height:auto;
+    overflow:auto;
+}

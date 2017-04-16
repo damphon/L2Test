@@ -7,6 +7,7 @@ using L2Test.Models;
 using System.IO;
 using System.Data;
 using Ionic.Zip;
+using System.Net.Http;
 
 namespace L2Test.Controllers
 {
@@ -91,7 +92,7 @@ namespace L2Test.Controllers
         public ActionResult Test()
         {
             TechModels Check = new TechModels();
-            TestModels List = new TestModels();
+            TestQuestions List = new TestQuestions();
 
             ViewBag.TimeToTakeTest = Config.GetInt("TimeToTakeTest");
             string URL = Request.Url.ToString();
@@ -109,36 +110,17 @@ namespace L2Test.Controllers
         public ActionResult Edit(string Error = "")
         {
             ViewBag.Err = Error;
-            TestModels List = new TestModels();
+            TestQuestions List = new TestQuestions();
             return View();
         }
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Edit(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formAnswer5, string formAnswer6, string formAnswer7, string formAnswer8, string formC1, string formC2, string formC3, string formC4, string formC5, string formC6, string formC7, string formC8, string formCategory, string newCategory)
+        public ActionResult Edit(TestEditModel jsonData)
         {
-            TestDBHelper testDBHelp = new TestDBHelper();
-            string Category = "";
-            bool C1 = false, C2 = false, C3 = false, C4 = false, C5 = false, C6 = false, C7 = false, C8 = false;
-
-            if (formC1 == "1") C1 = true;
-            if (formC2 == "1") C2 = true;
-            if (formC3 == "1") C3 = true;
-            if (formC4 == "1") C4 = true;
-            if (formC5 == "1") C5 = true;
-            if (formC6 == "1") C6 = true;
-            if (formC7 == "1") C7 = true;
-            if (formC8 == "1") C8 = true;
-
-            //Handle ability to add Categorys to dropdown list.
-            if (formCategory == "1")
-                Category = newCategory;
-            else
-                Category = formCategory;
-
-            //Need to put in checks to prevent incorrect data from breaking DB
-            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, formAnswer5, formAnswer6, formAnswer7, formAnswer8, C1, C2, C3, C4, C5, C6, C7, C8, Category);
-            return Redirect("~/Home/Edit");
+            TestEditModel help = new TestEditModel();
+            help.NewQuestion(jsonData);
+            return Json(new { success = true });
         }
 
         [HttpGet]
@@ -150,37 +132,18 @@ namespace L2Test.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult EditQuestion(string formQuestion, string formAnswer1, string formAnswer2, string formAnswer3, string formAnswer4, string formAnswer5, string formAnswer6, string formAnswer7, string formAnswer8, string formC1, string formC2, string formC3, string formC4, string formC5, string formC6, string formC7, string formC8, string formCategory, string newCategory, string uid)
+        public ActionResult EditQuestion(TestEditModel jsonData)
         {
-            TestDBHelper testDBHelp = new TestDBHelper();
-            TestModels.Delete(uid);
-            string Category = "";
-            bool C1 = false, C2 = false, C3 = false, C4 = false, C5 = false, C6 = false, C7 = false, C8 = false;
-
-            if (formC1 == "1") C1 = true;
-            if (formC2 == "1") C2 = true;
-            if (formC3 == "1") C3 = true;
-            if (formC4 == "1") C4 = true;
-            if (formC5 == "1") C5 = true;
-            if (formC6 == "1") C6 = true;
-            if (formC7 == "1") C7 = true;
-            if (formC8 == "1") C8 = true;
-
-            //Handle ability to add Categorys to dropdown list.
-            if (formCategory == "1")
-                Category = newCategory;
-            else
-                Category = formCategory;
-
-            testDBHelp.NewQuestion(formQuestion, formAnswer1, formAnswer2, formAnswer3, formAnswer4, formAnswer5, formAnswer6, formAnswer7, formAnswer8, C1, C2, C3, C4, C5, C6, C7, C8, Category);
-            return Redirect("~/Home/Edit");
+            TestEditModel Help = new TestEditModel();
+            Help.EditQuestion(jsonData);
+            return Json(new { success = true});
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult Delete(string uid)
         {
-            TestModels.Delete(uid);
+            EditTest.Delete(uid);
             return Redirect("~/Home/Edit");
         }
 
@@ -220,14 +183,16 @@ namespace L2Test.Controllers
         [AllowAnonymous] //Used to submit test
         public ActionResult TestResults(IEnumerable<TestResultModel> jsonData)
         {
-            return Content(TestResultModel.Submit(jsonData));
+            GradeTest help = new GradeTest();
+            return Content(help.Submit(jsonData));
         }
 
         [HttpPost]
         [AllowAnonymous] //Used to save snapshot of HTML at time the submit button was pressed.
         public void TestArchive(string html, string tech)
         {
-            TestResultModel.Archive(html, tech);
+            GradeTest help = new GradeTest();
+            help.Archive(html, tech);
         }
 
         [HttpGet]
