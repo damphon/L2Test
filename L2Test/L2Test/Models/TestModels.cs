@@ -49,7 +49,7 @@ namespace L2Test.Models
     public class TestResultModel
     {
         public string tech { get; set; }
-        public string question { get; set; }
+        public int question { get; set; }
         public string[] answers { get; set; }
         public static int PassingScore = Config.GetInt("PassingScore"); //this is out of 100.
 

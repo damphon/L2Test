@@ -1,7 +1,7 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#
+#Check effecency of getting tech ID for grading
 ##Change all Database feilds to be more human readable for CSV backups
 ##Allow leads to add images to test 
 ##Make CSV import without the need to add random charicters to the answer ID's

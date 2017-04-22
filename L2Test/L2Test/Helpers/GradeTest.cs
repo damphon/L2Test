@@ -39,16 +39,16 @@ namespace L2Test.Helpers
         {
             List<TestQuestions> FullTest = Test.QuestionList();
             List<TestQuestions> TestQuestions = FullTest.ToList();
-            List<string> TempString = new List<string>();
+            List<int> TempList = new List<int>();
 
             foreach (var QID in TechAnswers)
             {
-                TempString.Add(QID.question);
+                TempList.Add(QID.question);
             }
 
             foreach (var Question in FullTest)
             {
-                if (!(TempString.Any(x => x.Contains(Question.Key.ToString()))))
+                if (!TempList.Contains(Question.Key))
                 {
                     TestQuestions.Remove(Question);
                 }
@@ -60,15 +60,15 @@ namespace L2Test.Helpers
         public string PrintResults(List<TestResultModel> TechAnswers)
         {
             List<TestQuestions> TestQuestions = GetTestQuestions(TechAnswers);
-            Dictionary<string, string[]> AnswerDict = TechAnswers.ToDictionary(x => x.question, x => x.answers);
+            Dictionary<int, string[]> AnswerDict = TechAnswers.ToDictionary(x => x.question, x => x.answers);
             string ResultString = "";
 
             //Account for unanswered questions so that there are no null values and unanswered questions are marked incorrect
             foreach (var Question in TestQuestions)
             {
-                if (AnswerDict[Question.Key.ToString()] == null)
+                if (AnswerDict[Question.Key] == null)
                 {
-                    AnswerDict[Question.Key.ToString()] = new string[] { "Unanswered" }; //Unanswered is 8 characters, all valid keys are 10 so this can never be a correct answer
+                    AnswerDict[Question.Key] = new string[] { "Unanswered" }; //Unanswered is 8 characters, all valid keys are 10 so this can never be a correct answer
                 }
             }
 
@@ -93,9 +93,9 @@ namespace L2Test.Helpers
                 {
                     char Index = 'A';
                     TempPossible++;
-                    string[] Selected = AnswerDict[A.AnswerID];
+                    string[] Selected = AnswerDict[Question.Key];
 
-                    if(A.IsCorrect == true)
+                    if (A.IsCorrect == true)
                     {
                         if (Selected.Contains(A.AnswerID)) //Correct answer selected
                         {
@@ -143,7 +143,7 @@ namespace L2Test.Helpers
                         }
                     }
                     if (Index != 'Z') Index++;
-
+                }
                     if (TempPossible == TempCorrect)
                     {
                         CorrectAnswers++;
@@ -187,7 +187,6 @@ namespace L2Test.Helpers
                             categoryGrades.Add(CatList);
                         }
                     }
-                }
             }
         //End question block
         sb.Append("</li>");
@@ -284,8 +283,7 @@ namespace L2Test.Helpers
             List<TestResultModel> TechsAnswers = new List<TestResultModel>();
             GradeTest TestHelp = new GradeTest();
             string grades = "";
-            foreach (var answer in
-                json)
+            foreach (var answer in json)
             {
                 TechsAnswers.Add(answer);
             }

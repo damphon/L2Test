@@ -11,6 +11,7 @@ namespace L2Test.Helpers
     {
         public void NewQuestion(string Question, string Pic, string Category, string[] Answers, int[] IsCorrect)
         {
+            Password Pass = new Password();
             int QuestionID = 0;
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -36,7 +37,6 @@ namespace L2Test.Helpers
 
             for(int i = 0; i < Answers.Length; i++)
             {
-                Password Pass = new Password();
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
                 {
                     using (SqlCommand command = new SqlCommand())
