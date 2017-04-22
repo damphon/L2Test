@@ -18,17 +18,8 @@ namespace L2Test.Helpers
         //Control the grading proccess
         public Dictionary<string, float> Grading(List<TestResultModel> TechAnswers)
         {
-            string TID = TechAnswers[0].tech;
-            string TName = "Unknown Tech";
-            TechDBHelper Tdbhelp = new TechDBHelper();
-            var TechDB = Tdbhelp.ListAll();
-
-            foreach (var ID in TechDB)
-            {
-                if (ID.TechID == TID)
-                    TName = ID.TechName;
-            }
-
+            TechDBHelper TechDB = new TechDBHelper();
+            string TName = TechDB.GetName(TechAnswers[0].tech);
             string Results = PrintResults(TechAnswers);
             SaveResults(Results, TName);
             return FinalScore();

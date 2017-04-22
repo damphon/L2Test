@@ -89,6 +89,21 @@ namespace L2Test.Helpers
             return TechID;
         }
 
+        public string GetName(string id)
+        {
+            string Result = "";
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
+            {
+                connection.Open();
+                string query = "SELECT Tech FROM Login WHERE TechID = '" + id + "'";
+                SqlCommand Command = new SqlCommand(query, connection);
+                var DBResult = Command.ExecuteScalar();
+                Result = Convert.ToString(DBResult);
+                connection.Close();
+            }
+            return Result;
+        }
+
         public void PurgeTechs()
         {
             int Timeout = Config.GetInt("TimeToStartTest");
