@@ -181,6 +181,7 @@
     <Compile Include="Helpers\Config.cs" />
     <Compile Include="Helpers\CSVHelper.cs" />
     <Compile Include="Helpers\EditTest.cs" />
+    <Compile Include="Helpers\Image.cs" />
     <Compile Include="Helpers\Install.cs" />
     <Compile Include="Helpers\ReportCardHelper.cs" />
     <Compile Include="Helpers\GradeTest.cs" />
@@ -269,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Views\Archive\" />
     <Folder Include="Views\Tests\Ungraded\" />
   </ItemGroup>

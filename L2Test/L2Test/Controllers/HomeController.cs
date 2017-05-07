@@ -7,7 +7,6 @@ using L2Test.Models;
 using System.IO;
 using System.Data;
 using Ionic.Zip;
-using System.Net.Http;
 
 namespace L2Test.Controllers
 {
@@ -137,6 +136,14 @@ namespace L2Test.Controllers
             TestEditModel Help = new TestEditModel();
             Help.EditQuestion(jsonData);
             return Json(new { success = true});
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadImage(HttpPostedFileBase file)
+        {
+            Image ImageHelp = new Image();
+            return Json(ImageHelp.Upload(file));
         }
 
         [HttpPost]

@@ -2,6 +2,7 @@
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
 ##Allow leads to add images to test 
+#Update About page
 #Make the install proccess significantly easier and more stable. 
 #Allow different settings for different sites
 ##Change what catagorys appear on test (no shuttle questions for non-phoenix sites)

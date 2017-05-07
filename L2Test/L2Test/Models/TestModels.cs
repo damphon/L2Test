@@ -59,6 +59,7 @@ namespace L2Test.Models
     {
         public string Question { get; set; }
         public string QuestionID { get; set; }
+        public string Pic { get; set; }
         public string Catagory { get; set; }
         public string CategoryDropDown { get; set; }
         public string[] Answers { get; set; }
@@ -66,25 +67,41 @@ namespace L2Test.Models
 
         public void NewQuestion(TestEditModel jsonData)
         {
+            string Question = jsonData.Question;
             string Catagory = jsonData.Catagory;
+            string Pic = jsonData.Pic.TrimStart('\"').TrimEnd('\"');
             TestDBHelper Help = new TestDBHelper();
 
             if (jsonData.CategoryDropDown != "1")
                 Catagory = jsonData.CategoryDropDown;
 
-            Help.NewQuestion(jsonData.Question, "NoPic", Catagory, jsonData.Answers, jsonData.Corrects);
+            if (Question == null)
+                Question = " ";
+
+            if (Catagory == null)
+                Catagory = "No Catagory Selected";
+
+            Help.NewQuestion(Question, Pic, Catagory, jsonData.Answers, jsonData.Corrects);
         }
 
         public void EditQuestion(TestEditModel jsonData)
         {
+            string Question = jsonData.Question;
             string Catagory = jsonData.Catagory;
+            string Pic = jsonData.Pic.TrimStart('\"').TrimEnd('\"');
             TestDBHelper Help = new TestDBHelper();
 
             if (jsonData.CategoryDropDown != "1")
                 Catagory = jsonData.CategoryDropDown;
 
+            if (Question == null)
+                Question = " ";
+
+            if (Catagory == null)
+                Catagory = "No Catagory Selected";
+
             EditTest.Delete(jsonData.QuestionID);
-            Help.NewQuestion(jsonData.Question, "NoPic", Catagory, jsonData.Answers, jsonData.Corrects);
+            Help.NewQuestion(Question, Pic, Catagory, jsonData.Answers, jsonData.Corrects);
         }
     }
 }
