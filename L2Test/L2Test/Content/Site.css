@@ -40,6 +40,10 @@ h3{
     font-size:1.5em;
     margin-bottom:20px;
     padding: 0px 5px;
+    display: inline-block;
+    text-align: justify;
+    width: 100%;
+
 }
 
 .SubmitFloat{
@@ -89,6 +93,12 @@ h3{
     background-color: orangered;
     margin-top: -5px;
     padding: 0px 5px;
+}
+
+#picSample{
+    margin:5px;
+    border:3px solid white;
+    border-radius:8px;
 }
 
 /*Test Edit Page Formatting*/

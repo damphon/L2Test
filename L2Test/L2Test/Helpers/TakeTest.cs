@@ -11,6 +11,7 @@ namespace L2Test.Helpers
         public string StartTest()
         {
             int NumberOfQuestions = Config.GetInt("NumberOfQuestions");
+            int QuestionNumber = 1;
             var List = Test.QuestionList();
             Random rnd = new Random();
             //take list of all questions, put them in random order and truncate any beyond the number of question that should be on each test.
@@ -32,6 +33,17 @@ namespace L2Test.Helpers
                 sb.Append("<li class='well' id='");
                 sb.Append(Question.Key);
                 sb.Append("'><p class='TestQuestion'>");
+
+                if (Question.Pic != "No Image" && Question.Pic != null)
+                {
+                    sb.Append("<img src='/Content/Images/");
+                    sb.Append(Question.Pic);
+                    sb.Append("' height='200' id='picSample'></br>");
+                }
+
+                sb.Append(QuestionNumber);
+                QuestionNumber++;
+                sb.Append(": ");
                 sb.Append(Question.Question);
                 sb.Append("</p>");
 

@@ -1,7 +1,8 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-##Allow leads to add images to test 
+##Add note warning not to change questions while test is being taken
+##Make sure all mentions of L2 are configurable 
 #Update About page
 #Make the install proccess significantly easier and more stable. 
 #Allow different settings for different sites
