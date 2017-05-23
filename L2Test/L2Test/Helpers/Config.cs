@@ -65,7 +65,7 @@ namespace L2Test.Helpers
             return "<u id='configHTML' L2Requirements='" + L2Requirements + "' TestInstructions='" + TestInstructions + "' NumberOfQuestions='" + NumberOfQuestions.ToString() + "' PassingScore='" + PassingScore.ToString() + "' TimeToTakeTest='" + TimeToTakeTest.ToString() + "' TimeToStartTest='" + TimeToStartTest.ToString() + "' style='display: none; '></u>";
         }
 
-        public static void Update(string L2Requirements, string TestInstructions, int NumberOfQuestions, int PassingScore, int TimeToTakeTest, int TimeToStartTest)
+        public static void Update(string HomePage, string AboutPage, int NumberOfQuestions, int PassingScore, int TimeToTakeTest, int TimeToStartTest, string Name)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
             {
@@ -73,13 +73,14 @@ namespace L2Test.Helpers
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "UPDATE Config SET L2Requirements = @Req, TestInstructions = @Ins, NumberOfQuestions = @Que, PassingScore = @Pass, TimeToTakeTest = @Take, TimeToStartTest = @Start WHERE Lock = 'X'";
-                    command.Parameters.AddWithValue("@Req", L2Requirements);
-                    command.Parameters.AddWithValue("@Ins", TestInstructions);
+                    command.CommandText = "UPDATE Config SET HomePage = @Req, AboutPage = @Ins, NumberOfQuestions = @Que, PassingScore = @Pass, TimeToTakeTest = @Take, TimeToStartTest = @Start, Name = @Name WHERE Lock = 'X'";
+                    command.Parameters.AddWithValue("@Req", HomePage);
+                    command.Parameters.AddWithValue("@Ins", AboutPage);
                     command.Parameters.AddWithValue("@Que", NumberOfQuestions);
                     command.Parameters.AddWithValue("@Pass", PassingScore);
                     command.Parameters.AddWithValue("@Take", TimeToTakeTest);
                     command.Parameters.AddWithValue("@Start", TimeToStartTest);
+                    command.Parameters.AddWithValue("@Name", Name);
 
                     try
                     {

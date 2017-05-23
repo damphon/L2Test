@@ -44,19 +44,28 @@
             </div>
         </div>
 
-        <!-- Textarea -->
+        <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="formRequirements">L2 Requirements</label>
+            <label class="col-md-4 control-label" for="formName">Site Name</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="formRequirements" name="formRequirements" placeholder="@ViewBag.L2Requirements" rows="10"></textarea>
+                <input id="formName" name="formName" type="text" placeholder="@ViewBag.Name" class="form-control input-md">
+
             </div>
         </div>
 
         <!-- Textarea -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="formInstructions">Test Instructions</label>
+            <label class="col-md-4 control-label" for="formHomePage">Home Page Text</label>
             <div class="col-md-4">
-                <textarea class="form-control" id="formInstructions" name="formInstructions" placeholder="@ViewBag.TestInstructions" rows="10"></textarea>
+                <textarea class="form-control" id="formHomePage" name="formHomePage" placeholder="@ViewBag.HomePage" rows="10"></textarea>
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="formAboutPage">About Page Text</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="formAboutPage" name="formAboutPage" placeholder="@ViewBag.AboutPage" rows="10"></textarea>
             </div>
         </div>
 

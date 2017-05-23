@@ -68,8 +68,7 @@ namespace L2Test.Controllers
         [AllowAnonymous]//Techs need to access this page to start taking the test
         public ActionResult Home()
         {
-            ViewBag.L2Requirements = Config.GetString("L2Requirements");
-            ViewBag.TestInstructions = Config.GetString("TestInstructions");
+            ViewBag.HomePageText = Config.GetString("HomePage");
 
             if (TempData["error"] == null)
                 ViewBag.Error = "";
@@ -274,6 +273,7 @@ namespace L2Test.Controllers
         [Authorize]
         public ActionResult About()
         {
+            ViewBag.AboutPageText = Config.GetString("AboutPage");
             return View();
         }
 
@@ -281,23 +281,25 @@ namespace L2Test.Controllers
         [Authorize]
         public ActionResult Configuration()
         {
-            ViewBag.L2Requirements = Config.GetString("L2Requirements");
-            ViewBag.TestInstructions = Config.GetString("TestInstructions");
+            ViewBag.HomePage = Config.GetString("HomePage");
+            ViewBag.AboutPage = Config.GetString("AboutPage");
             ViewBag.NumberOfQuestions = Config.GetInt("NumberOfQuestions");
             ViewBag.PassingScore = Config.GetInt("PassingScore");
             ViewBag.TimeToTakeTest = Config.GetInt("TimeToTakeTest");
             ViewBag.TimeToStartTest = Config.GetInt("TimeToStartTest");
+            ViewBag.Name = Config.GetString("Name");
 
             return View();
         }
 
         [HttpPost, ValidateInput(false)]
         [Authorize] 
-        public ActionResult Configuration(int formQuestions = -1, int formScore = -1, int formTimeToTake = -1, int formStart = -1, string formRequirements = "", string formInstructions = "")
+        public ActionResult Configuration(int formQuestions = -1, int formScore = -1, int formTimeToTake = -1, int formStart = -1, string formHomePage = "", string formAboutPage = "", string formName ="")
         {
             //Get all the current values
-            string L2Requirements = Config.GetString("L2Requirements");
-            string TestInstructions = Config.GetString("TestInstructions");
+            string HomePage = Config.GetString("HomePage");
+            string AboutPage = Config.GetString("AboutPage");
+            string Name = Config.GetString("Name");
             int NumberOfQuestions = Config.GetInt("NumberOfQuestions");
             int PassingScore = Config.GetInt("PassingScore");
             int TimeToTakeTest = Config.GetInt("TimeToTakeTest");
@@ -308,12 +310,19 @@ namespace L2Test.Controllers
             if (formScore > 0) { PassingScore = formScore; }
             if (formTimeToTake > 0) { TimeToTakeTest = formTimeToTake; }
             if (formStart > 0) { TimeToStartTest = formStart; }
-            if (formRequirements != "") { L2Requirements = formRequirements; }
-            if (formInstructions != "") { TestInstructions = formInstructions; }
+            if (formHomePage != "") { HomePage = formHomePage; }
+            if (formAboutPage != "") { AboutPage = formAboutPage; }
+            if (formName != "") { Name = formName; }
 
-            Config.Update(L2Requirements, TestInstructions, NumberOfQuestions, PassingScore, TimeToTakeTest, TimeToStartTest);
+            Config.Update(HomePage, AboutPage, NumberOfQuestions, PassingScore, TimeToTakeTest, TimeToStartTest, Name);
 
             return Redirect("~/Home/Configuration");
+        }
+
+        [ChildActionOnly]
+        public ActionResult SiteName()
+        {
+            return new ContentResult { Content = Config.GetString("Name") };
         }
     }
 }

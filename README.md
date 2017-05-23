@@ -1,13 +1,13 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#Some kind of check for unanswered questions on submit
-##Make sure all mentions of L2 are configurable 
-#Fix the backups, CSV.
+#Fix the backups, No more CSV.
 #Make the install proccess significantly easier and more stable. 
+#Update About page
+##############BONUS
 #Change what catagorys appear on test (no shuttle questions for non-phoenix sites)
 ##Make number of or percent of any catagory configurable
-#Update About page
+#Some kind of check for unanswered questions on submit
 #
 #Areas of Focus
 #   1 - The testing software should be easy to install and maintain, it should remain usable without me.
@@ -31,3 +31,9 @@ for CSV have the export make a CSV that is
 Question - Catagory - ImageAddress - Answer - Correct/Incorrect - Answer2 - Correct/Incorrect - Answe3 - Correct/Incorrect ect..
 
 For CSV import manualy seperate the information and then put it in as new questions. 
+
+
+
+Header
+Footer
+About Page
