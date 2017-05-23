@@ -74,7 +74,15 @@ namespace L2Test.Helpers
                 //Question block
                 sb.Append("<li class='well' id='");
                 sb.Append(Question.Key);
-                sb.Append("'><p class='TestResultQuestion'>category:<b>");
+                sb.Append("'><p class='TestResultQuestion'>");
+
+                if (Question.Pic != "No Image" && Question.Pic != null)
+                    {
+                        sb.Append("<img src='/Content/Images/");
+                        sb.Append(Question.Pic);
+                        sb.Append("' height='200' id='picSample'></br>");
+                    }
+                sb.Append("category:<b>");
                 sb.Append(Question.Category);
                 sb.Append("</b> - ");
                 sb.Append(Question.Question);
