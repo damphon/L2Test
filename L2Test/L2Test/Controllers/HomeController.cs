@@ -217,10 +217,11 @@ namespace L2Test.Controllers
         {
             string fileName = "L2Test_Backup_" + DateTime.Now.ToString("yyyy-MM-dd") + ".zip";
 
-            CSVHelper help = new CSVHelper();
-            string csv = help.ExportAsCSV();
-            if (System.IO.File.Exists(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"))) { System.IO.File.Delete(Server.MapPath(@"~\Views\Tests\L2TestDB.csv")); }
-            System.IO.File.WriteAllText(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"), csv);
+            //REPLACE THIS!
+            //CSVHelper help = new CSVHelper();
+            //string csv = help.ExportAsCSV();
+            //if (System.IO.File.Exists(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"))) { System.IO.File.Delete(Server.MapPath(@"~\Views\Tests\L2TestDB.csv")); }
+            //System.IO.File.WriteAllText(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"), csv);
 
             using (ZipFile zip = new ZipFile())
             {
@@ -228,45 +229,6 @@ namespace L2Test.Controllers
                 zip.Save(Server.MapPath(@"~\App_Data\Backup.zip"));
             }
             return new FilePathResult(Server.MapPath(@"~\App_Data\Backup.zip"), "application/zip");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public FileContentResult DownloadCSV()
-        {
-            CSVHelper help = new CSVHelper();
-            string csv = help.ExportAsCSV();
-            string fileName = "L2TestDB_" + DateTime.Now.ToString("yyyy-MM-dd") + ".csv";
-            return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", fileName);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult UploadCSV(HttpPostedFileBase FileUpload, int CSVAppend)
-        {
-            DataTable dt = new DataTable();
-            string ErrMessage = "";
-
-            if (FileUpload != null && FileUpload.ContentLength > 0)
-            {
-                string fileName = Path.GetFileName(FileUpload.FileName);
-                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                try
-                {
-                    FileUpload.SaveAs(path);
-                    //Proccess CSV file and save result to DataTable.
-                    dt = CSVHelper.ProcessCSV(path);
-                }
-                catch (Exception ex) {ErrMessage = ex.Message;}
-            }
-            else {ErrMessage = "Invalid file, or no file selected";}
-
-            //If "replace test" is selected the DB is purged before the new test is imported.
-            if (CSVAppend == 2) ErrMessage += TestDBHelper.PurgeTest();
-            ErrMessage += TestDBHelper.UploadCSV(dt);
-
-            dt.Dispose();
-            return RedirectToAction("Edit", new { Error = ErrMessage});
         }
 
         [HttpGet]

@@ -5,6 +5,9 @@
     L2Test.Helpers.EditTest ListHelp = new L2Test.Helpers.EditTest();
     ViewBag.ResultsURL = Url.Action("EditQuestion", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
+<div class="SubmitFloat">
+        <center><p style="color:red;"><strong>Warning!</strong> Do not make changes to the test questions while someone is taking the test.</p></center>
+</div>
 <!--
  _____           _           _     _         _      _____   _____         _
 |  __ \         | |         | |   | |       | |    / __  \ |_   _|       | |
@@ -16,9 +19,6 @@
                                      |___/
 -->
 <br />
-<div class="alert alert-warning">
-    <strong>Warning!</strong> Do not make changes to the test questions while someone is taking the test.
-</div>
 @Html.Raw(ListHelp.SingleQuestionString(CurrentQuestion))
 
 <!--************************Delete question*****************************-->

@@ -247,29 +247,5 @@ namespace L2Test.Helpers
             }
         }
 
-        public static string UploadCSV(DataTable dt) //Not Updated
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["L2TestConnection"].ToString()))
-            {
-                using (var copy = new SqlBulkCopy(con))
-                {
-                    con.Open();
-
-                    ///Set target table and tell the number of rows
-                    copy.DestinationTableName = "Test";
-                    copy.BatchSize = dt.Rows.Count;
-                    try
-                    {
-                        copy.WriteToServer(dt);
-                    }
-                    catch (Exception ex)
-                    {
-                        return ex.Message;
-                    }
-                }
-            }
-
-            return "";
-        }
     }
 }
