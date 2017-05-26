@@ -199,7 +199,7 @@ namespace L2Test.Helpers
             string WebPageString = "";
             string Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
             string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
-            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/" + FileDate + "_" + Tech + ".html");
+            String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Graded/" + FileDate + "_" + Tech + ".html");
             String CssPath = "/Content/Site.css";
             StringBuilder sb = new StringBuilder(WebPageString);
 

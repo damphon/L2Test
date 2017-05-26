@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using L2Test.Helpers;
 using L2Test.Models;
 using System.IO;
-using System.Data;
 using Ionic.Zip;
 
 namespace L2Test.Controllers
@@ -206,7 +205,7 @@ namespace L2Test.Controllers
         public ActionResult ReportCards()
         {
             ReportCardHelper helper = new ReportCardHelper();
-            ViewBag.GradedResults = helper.GetGradedReport(Server.MapPath(@"~\Views\Tests"));
+            ViewBag.GradedResults = helper.GetGradedReport(Server.MapPath(@"~\Views\Tests\Graded"));
             ViewBag.ArchiveResults = helper.GetGradedReport(Server.MapPath(@"~\Views\Tests\Ungraded"));
             return View();
         }
@@ -215,20 +214,19 @@ namespace L2Test.Controllers
         [Authorize]
         public FilePathResult Backup()
         {
+            DatabaseBackup DB = new DatabaseBackup();
             string fileName = "L2Test_Backup_" + DateTime.Now.ToString("yyyy-MM-dd") + ".zip";
-
-            //REPLACE THIS!
-            //CSVHelper help = new CSVHelper();
-            //string csv = help.ExportAsCSV();
-            //if (System.IO.File.Exists(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"))) { System.IO.File.Delete(Server.MapPath(@"~\Views\Tests\L2TestDB.csv")); }
-            //System.IO.File.WriteAllText(Server.MapPath(@"~\Views\Tests\L2TestDB.csv"), csv);
+            DB.Backup(Server.MapPath(@"~\Content\Backup\tmp\"));
 
             using (ZipFile zip = new ZipFile())
             {
+                zip.AddDirectory(Server.MapPath(@"~\Content\Backup\tmp\"));
+                zip.AddDirectoryByName("Images");
+                zip.AddDirectory(Server.MapPath(@"~\Content\Images"), "Images");
                 zip.AddDirectory(Server.MapPath(@"~\Views\Tests"));
-                zip.Save(Server.MapPath(@"~\App_Data\Backup.zip"));
+                zip.Save(Server.MapPath(@"~\Content\Backup\" + fileName));
             }
-            return new FilePathResult(Server.MapPath(@"~\App_Data\Backup.zip"), "application/zip");
+            return new FilePathResult(Server.MapPath(@"~\Content\Backup\" + fileName), "application/zip");
         }
 
         [HttpGet]
