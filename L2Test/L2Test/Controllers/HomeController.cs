@@ -282,7 +282,7 @@ namespace L2Test.Controllers
         [ChildActionOnly]
         public ActionResult SiteName()
         {
-            return new ContentResult { Content = Config.GetString("Name") };
+            return new ContentResult {Content = Config.GetString("Name")};
         }
     }
 }
