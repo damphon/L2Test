@@ -273,6 +273,7 @@
     <Folder Include="Content\Backup\tmp\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Views\Archive\" />
+    <Folder Include="Views\Tests\Graded\" />
     <Folder Include="Views\Tests\Ungraded\" />
   </ItemGroup>
   <ItemGroup>
