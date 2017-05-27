@@ -229,6 +229,15 @@ namespace L2Test.Controllers
             return new FilePathResult(Server.MapPath(@"~\Content\Backup\" + fileName), "application/zip");
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult Restore(HttpPostedFileBase file)
+        {
+            DatabaseBackup DB = new DatabaseBackup();
+            DB.Restore(file);
+            return Redirect("~/Home/Edit");
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult About()

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace L2Test.Helpers
 {
@@ -11,7 +14,7 @@ namespace L2Test.Helpers
         {
             string connectionString = ConfigurationManager.ConnectionStrings["L2TestConnection"].ConnectionString;
             var sqlConStrBuilder = new SqlConnectionStringBuilder(connectionString);
-            string backupFileName = String.Format("{0}{1}-{2}.bak", path, sqlConStrBuilder.InitialCatalog, DateTime.Now.ToString("yyyy-MM-dd"));
+            string backupFileName = String.Format("{0}{1}-{2}.sql", path, sqlConStrBuilder.InitialCatalog, DateTime.Now.ToString("yyyy-MM-dd"));
 
             using (var connection = new SqlConnection(sqlConStrBuilder.ConnectionString))
             {
@@ -24,6 +27,39 @@ namespace L2Test.Helpers
                 }
             }
             return backupFileName;
+        }
+
+        public void Restore(HttpPostedFileBase file) //still working on this.
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["L2TestConnection"].ConnectionString;
+            var sqlConStrBuilder = new SqlConnectionStringBuilder(connectionString);
+            string script = string.Empty;
+
+            using (BinaryReader b = new BinaryReader(file.InputStream))
+            {
+                byte[] binData = b.ReadBytes(file.ContentLength);
+                script = System.Text.Encoding.UTF8.GetString(binData);
+            }
+
+            // split script on GO command
+            IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+            using (var connection = new SqlConnection(sqlConStrBuilder.ConnectionString))
+            {
+                connection.Open();
+
+                foreach (string commandString in commandStrings)
+                {
+                    if (commandString.Trim() != "")
+                    {
+                        using (var command = new SqlCommand(commandString, connection))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                connection.Close();
+            }
         }
     }
 }
