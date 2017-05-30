@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -14,7 +15,7 @@ namespace L2Test.Helpers
         {
             string connectionString = ConfigurationManager.ConnectionStrings["L2TestConnection"].ConnectionString;
             var sqlConStrBuilder = new SqlConnectionStringBuilder(connectionString);
-            string backupFileName = String.Format("{0}{1}-{2}.sql", path, sqlConStrBuilder.InitialCatalog, DateTime.Now.ToString("yyyy-MM-dd"));
+            string backupFileName = String.Format("{0}{1}-{2}.BAK", path, sqlConStrBuilder.InitialCatalog, DateTime.Now.ToString("yyyy-MM-dd"));
 
             using (var connection = new SqlConnection(sqlConStrBuilder.ConnectionString))
             {
@@ -31,34 +32,38 @@ namespace L2Test.Helpers
 
         public void Restore(HttpPostedFileBase file) //still working on this.
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["L2TestConnection"].ConnectionString;
+            string BackupPath = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Backup"), "Database.BAK");
+            string connectionString = ConfigurationManager.ConnectionStrings["Restore"].ConnectionString;
             var sqlConStrBuilder = new SqlConnectionStringBuilder(connectionString);
-            string script = string.Empty;
+            string connectionStringDest = ConfigurationManager.ConnectionStrings["L2TestConnection"].ConnectionString;
+            var sqlConStrBuilderDest = new SqlConnectionStringBuilder(connectionStringDest);
+            Upload(file);
 
-            using (BinaryReader b = new BinaryReader(file.InputStream))
-            {
-                byte[] binData = b.ReadBytes(file.ContentLength);
-                script = System.Text.Encoding.UTF8.GetString(binData);
-            }
-
-            // split script on GO command
-            IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            //Set DB to single user so that no other user is connected (required for restore)
+            string Query1 ="ALTER DATABASE [" + sqlConStrBuilderDest.InitialCatalog + "] SET Single_User WITH Rollback Immediate";
+            //Restore the DB
+            string Query2 = "RESTORE DATABASE [" + sqlConStrBuilderDest.InitialCatalog + "] FROM DISK='" + BackupPath + "'";
+            //Set DB to multi-user so that it can be connected to again now that the restore is complete
+            string Query3 = "ALTER DATABASE [" + sqlConStrBuilderDest.InitialCatalog + "] SET Multi_User";
 
             using (var connection = new SqlConnection(sqlConStrBuilder.ConnectionString))
             {
                 connection.Open();
+                var command1 = new SqlCommand(Query1, connection);
+                command1.ExecuteNonQuery();
+                var command2 = new SqlCommand(Query2, connection);
+                command2.ExecuteNonQuery();
+                var command3 = new SqlCommand(Query3, connection);
+                command3.ExecuteNonQuery();
+            }
+        }
 
-                foreach (string commandString in commandStrings)
-                {
-                    if (commandString.Trim() != "")
-                    {
-                        using (var command = new SqlCommand(commandString, connection))
-                        {
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                }
-                connection.Close();
+        public void Upload(HttpPostedFileBase file)
+        {
+            if ((file != null) && file.ContentLength > 0)
+            {
+                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Backup"), "Database.BAK");
+                file.SaveAs(path);
             }
         }
     }
