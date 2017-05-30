@@ -144,3 +144,5 @@ C:\Source\Repos\L2Test\L2Test\L2Test\obj\Debug\L2Test.Migrations.201607021359228
 C:\Source\Repos\L2Test\L2Test\L2Test\obj\Debug\L2Test.csproj.GenerateResource.Cache
 C:\Source\Repos\L2Test\L2Test\L2Test\obj\Debug\L2Test.dll
 C:\Source\Repos\L2Test\L2Test\L2Test\obj\Debug\L2Test.pdb
+C:\Source\Repos\L2Test\L2Test\L2Test\bin\L2Test.dll.CodeAnalysisLog.xml
+C:\Source\Repos\L2Test\L2Test\L2Test\bin\L2Test.dll.lastcodeanalysissucceeded

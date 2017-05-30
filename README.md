@@ -1,7 +1,6 @@
 # L2Test - Source available at HTTP://github.com/damphon/L2Test
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
-#Fix the backups, No more CSV.
 #Make the install proccess significantly easier and more stable. 
 #Update About page
 ##############BONUS

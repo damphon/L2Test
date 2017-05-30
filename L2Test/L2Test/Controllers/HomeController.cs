@@ -15,52 +15,10 @@ namespace L2Test.Controllers
         //Authorize means that users have to be logged in to view the page.
 
         [HttpGet]
-        [AllowAnonymous]//Cannot require login if no logins have been created yet
-        public ActionResult Install()
-        {
-            UserMgmt check = new UserMgmt();
-            if (check.isInstalled()) return RedirectToAction("Home"); //Verifies that there is no management accounts then returns the Install page. This is to make sure that no one can go to the install page to hack the system once the page is set up.
-            else {
-                return View();
-            }
-        }
-
-        [HttpPost]
-        [AllowAnonymous]//Cannot require login if no logins have been created yet
-        public ActionResult ConfigDB(string dbPath, string dbName, string dbUser, string dbPassword)
-        {
-            Helpers.Install setup = new Helpers.Install();
-            TempData["DBCheckResult"] = setup.RunInstall(dbPath, dbName, dbUser, dbPassword);
-            return RedirectToAction("Install");
-        }
-
-        [HttpPost]
-        [AllowAnonymous]//Cannot require login if no logins have been created yet
-        public ActionResult CheckDB()
-        {
-            Helpers.Install setup = new Helpers.Install();
-            var urlHelper = new UrlHelper(HttpContext.Request.RequestContext);
-            string URL = urlHelper.Action("Install2", "Home");
-            TempData["DBCheckResult"] = setup.TestDB(URL);
-            return RedirectToAction("Install");
-        }
-        [HttpGet]
-
-        [AllowAnonymous]//Cannot require login if no logins have been created yet
-        public ActionResult Install2()
-        {
-            UserMgmt check = new UserMgmt();
-            if (check.isInstalled()) return RedirectToAction("Home"); //Verifies that there is no management accounts then returns the Install page. This is to make sure that no one can go to the install page to hack the system once the page is set up.
-            else return View();
-        }
-
-        [HttpGet]
-        [AllowAnonymous] //Redirects to Home if there is a Manager/Lead login
+        [AllowAnonymous] 
         public ActionResult Index() 
         {
-            UserMgmt check = new UserMgmt();
-            if (check.isInstalled()) return RedirectToAction("Home"); //If no management accounts exist this takes you to the install page.
-            else return RedirectToAction("Install");
+            return RedirectToAction("Home");
         }
 
         [HttpGet]

@@ -88,9 +88,9 @@ namespace L2Test.Helpers
                 sb.Append(Question.Question);
                 sb.Append("</p>");
 
+                char Index = 'A';
                 foreach (var A in Question.Answers)
                 {
-                    char Index = 'A';
                     TempPossible++;
                     string[] Selected = AnswerDict[Question.Key];
 
