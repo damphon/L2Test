@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define L2Test_TargetDir=$(var.L2Test.TargetDir)?>
+	<Product Id="*" Name="L2TestSetup" Language="1033" Version="1.0.0.0" Manufacturer="GoDaddy" UpgradeCode="4ee4da63-1b93-4abd-9d04-a2064e694b72">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="L2TestSetup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="Content_files" />
+			<ComponentGroupRef Id="ProgramFilesFolder_files" />
+			<ComponentGroupRef Id="fonts_files" />
+			<ComponentGroupRef Id="Scripts_files" />
+			<ComponentGroupRef Id="Views_files" />
+			<ComponentGroupRef Id="Views_Shared_files" />
+			<ComponentGroupRef Id="Views_Home_files" />
+			<ComponentGroupRef Id="Views_Account_files" />
+			<ComponentGroupRef Id="Views_Manage_files" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="L2TestSetup" />
+				<Directory Id="Content" Name="Content" />
+				<Directory Id="fonts" Name="fonts" />
+				<Directory Id="Scripts" Name="Scripts" />
+				<Directory Id="Views" Name="Views">
+				  <Directory Id="Views_Account" Name="Account" />
+				  <Directory Id="Views_Home" Name="Home" />
+				  <Directory Id="Views_Manage" Name="Manage" />
+				  <Directory Id="Views_Shared" Name="Shared" />
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="bin_L2Test.dll" Guid="28e15d64-26ae-4435-8988-f3ee6aca5d55">
+			  <File Id="bin_L2Test.dll" Name="L2Test.dll" Source="$(var.L2Test_TargetDir)L2Test.dll" />
+			</Component>
+			<Component Id="bin_DotNetZip.dll" Guid="7cb590d1-7a78-4606-a249-26e8971d7a25">
+			  <File Id="bin_DotNetZip.dll" Name="DotNetZip.dll" Source="$(var.L2Test_TargetDir)DotNetZip.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" Guid="8cbae791-861b-427b-a7b6-58c0b024c8ab">
+			  <File Id="bin_Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" Name="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" Source="$(var.L2Test_TargetDir)Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Web.Infrastructure.dll" Guid="13de93ba-4b3f-4e40-bff1-92dd0c102110">
+			  <File Id="bin_Microsoft.Web.Infrastructure.dll" Name="Microsoft.Web.Infrastructure.dll" Source="$(var.L2Test_TargetDir)Microsoft.Web.Infrastructure.dll" />
+			</Component>
+			<Component Id="bin_System.Web.Helpers.dll" Guid="a4a8e946-d23f-475c-9bee-c80996b3e11e">
+			  <File Id="bin_System.Web.Helpers.dll" Name="System.Web.Helpers.dll" Source="$(var.L2Test_TargetDir)System.Web.Helpers.dll" />
+			</Component>
+			<Component Id="bin_System.Web.Mvc.dll" Guid="f2cab348-99a6-4a72-93ab-f2de62767354">
+			  <File Id="bin_System.Web.Mvc.dll" Name="System.Web.Mvc.dll" Source="$(var.L2Test_TargetDir)System.Web.Mvc.dll" />
+			</Component>
+			<Component Id="bin_WebGrease.dll" Guid="03a6d653-f71d-445c-85b9-a31cdd9e06f5">
+			  <File Id="bin_WebGrease.dll" Name="WebGrease.dll" Source="$(var.L2Test_TargetDir)WebGrease.dll" />
+			</Component>
+			<Component Id="bin_System.Web.WebPages.Razor.dll" Guid="aa9d6ae3-efec-4d5f-ac0c-0f46b23de843">
+			  <File Id="bin_System.Web.WebPages.Razor.dll" Name="System.Web.WebPages.Razor.dll" Source="$(var.L2Test_TargetDir)System.Web.WebPages.Razor.dll" />
+			</Component>
+			<Component Id="bin_System.Web.WebPages.Deployment.dll" Guid="d89fda3e-1c16-4e8e-8746-bc41f26ff453">
+			  <File Id="bin_System.Web.WebPages.Deployment.dll" Name="System.Web.WebPages.Deployment.dll" Source="$(var.L2Test_TargetDir)System.Web.WebPages.Deployment.dll" />
+			</Component>
+			<Component Id="bin_System.Web.WebPages.dll" Guid="e77f68c4-0991-4c1e-b459-aaa018e06f62">
+			  <File Id="bin_System.Web.WebPages.dll" Name="System.Web.WebPages.dll" Source="$(var.L2Test_TargetDir)System.Web.WebPages.dll" />
+			</Component>
+			<Component Id="bin_System.Web.Razor.dll" Guid="88c609c2-faf1-46e7-9615-5c3d081b77c1">
+			  <File Id="bin_System.Web.Razor.dll" Name="System.Web.Razor.dll" Source="$(var.L2Test_TargetDir)System.Web.Razor.dll" />
+			</Component>
+			<Component Id="bin_System.Web.Optimization.dll" Guid="37f71821-1e79-450f-9f72-70b622a2e1a5">
+			  <File Id="bin_System.Web.Optimization.dll" Name="System.Web.Optimization.dll" Source="$(var.L2Test_TargetDir)System.Web.Optimization.dll" />
+			</Component>
+			<Component Id="bin_Antlr3.Runtime.dll" Guid="992bbbbe-be9a-4b29-b15a-37628c2381d3">
+			  <File Id="bin_Antlr3.Runtime.dll" Name="Antlr3.Runtime.dll" Source="$(var.L2Test_TargetDir)Antlr3.Runtime.dll" />
+			</Component>
+			<Component Id="bin_Newtonsoft.Json.dll" Guid="e05960a8-676e-489b-978a-f3782e3a51c5">
+			  <File Id="bin_Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.L2Test_TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+			<Component Id="bin_EntityFramework.dll" Guid="dcbd1701-fcf1-43a2-a367-98a7f7904a17">
+			  <File Id="bin_EntityFramework.dll" Name="EntityFramework.dll" Source="$(var.L2Test_TargetDir)EntityFramework.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.AspNet.Identity.Core.dll" Guid="f12bd24b-b842-476e-9f45-1f37c2367c3c">
+			  <File Id="bin_Microsoft.AspNet.Identity.Core.dll" Name="Microsoft.AspNet.Identity.Core.dll" Source="$(var.L2Test_TargetDir)Microsoft.AspNet.Identity.Core.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.AspNet.Identity.Owin.dll" Guid="813abf9c-3631-43e8-b2cd-818076452fd5">
+			  <File Id="bin_Microsoft.AspNet.Identity.Owin.dll" Name="Microsoft.AspNet.Identity.Owin.dll" Source="$(var.L2Test_TargetDir)Microsoft.AspNet.Identity.Owin.dll" />
+			</Component>
+			<Component Id="bin_EntityFramework.SqlServer.dll" Guid="cf99e1dc-c233-400c-9704-d0c812d2f46e">
+			  <File Id="bin_EntityFramework.SqlServer.dll" Name="EntityFramework.SqlServer.dll" Source="$(var.L2Test_TargetDir)EntityFramework.SqlServer.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.AspNet.Identity.EntityFramework.dll" Guid="0001eb5f-d215-41c0-bf4e-f42c2daecba2">
+			  <File Id="bin_Microsoft.AspNet.Identity.EntityFramework.dll" Name="Microsoft.AspNet.Identity.EntityFramework.dll" Source="$(var.L2Test_TargetDir)Microsoft.AspNet.Identity.EntityFramework.dll" />
+			</Component>
+			<Component Id="bin_Owin.dll" Guid="601deb2f-eb19-41ac-8a4a-6db416beb5fc">
+			  <File Id="bin_Owin.dll" Name="Owin.dll" Source="$(var.L2Test_TargetDir)Owin.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.dll" Guid="2c291341-c680-464a-8f38-60ef7cda2697">
+			  <File Id="bin_Microsoft.Owin.dll" Name="Microsoft.Owin.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Host.SystemWeb.dll" Guid="66f2d0cb-f77b-4160-83b1-a814e276899f">
+			  <File Id="bin_Microsoft.Owin.Host.SystemWeb.dll" Name="Microsoft.Owin.Host.SystemWeb.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Host.SystemWeb.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.dll" Guid="e59a7919-5b50-4782-a00b-845e42561d56">
+			  <File Id="bin_Microsoft.Owin.Security.dll" Name="Microsoft.Owin.Security.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.Facebook.dll" Guid="f02d9dc9-38c6-4747-9444-a025e4ba737a">
+			  <File Id="bin_Microsoft.Owin.Security.Facebook.dll" Name="Microsoft.Owin.Security.Facebook.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.Facebook.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.Cookies.dll" Guid="af3ac322-e85c-4867-a620-cd45f09f8f94">
+			  <File Id="bin_Microsoft.Owin.Security.Cookies.dll" Name="Microsoft.Owin.Security.Cookies.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.Cookies.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.OAuth.dll" Guid="320c7a4d-5424-4fad-a133-c872d0cd8722">
+			  <File Id="bin_Microsoft.Owin.Security.OAuth.dll" Name="Microsoft.Owin.Security.OAuth.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.OAuth.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.Google.dll" Guid="ae4e4f85-b3e3-42cc-93cd-7c0b1f476e4d">
+			  <File Id="bin_Microsoft.Owin.Security.Google.dll" Name="Microsoft.Owin.Security.Google.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.Google.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.Twitter.dll" Guid="4e29f936-ea78-4a8a-9d1a-09fda402071a">
+			  <File Id="bin_Microsoft.Owin.Security.Twitter.dll" Name="Microsoft.Owin.Security.Twitter.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.Twitter.dll" />
+			</Component>
+			<Component Id="bin_Microsoft.Owin.Security.MicrosoftAccount.dll" Guid="b8f93861-9e54-4cca-ab35-7375e6c86e95">
+			  <File Id="bin_Microsoft.Owin.Security.MicrosoftAccount.dll" Name="Microsoft.Owin.Security.MicrosoftAccount.dll" Source="$(var.L2Test_TargetDir)Microsoft.Owin.Security.MicrosoftAccount.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+	<Fragment>
+	  <ComponentGroup Id="Content_files" Directory="Content">
+	    <Component Id="Content_bootstrap.css" Guid="24570cc1-a77d-46e9-8abe-502d6c882dd9">
+	      <File Id="Content_bootstrap.css" Name="bootstrap.css" Source="$(var.L2Test_TargetDir)Content\bootstrap.css" />
+	    </Component>
+	    <Component Id="Content_bootstrap.min.css" Guid="f9daa6f0-7385-4cdf-8842-bf0ddb3f5442">
+	      <File Id="Content_bootstrap.min.css" Name="bootstrap.min.css" Source="$(var.L2Test_TargetDir)Content\bootstrap.min.css" />
+	    </Component>
+	    <Component Id="Content_Site.css" Guid="47d63700-41cf-4511-9eaa-bed4cdc24f74">
+	      <File Id="Content_Site.css" Name="Site.css" Source="$(var.L2Test_TargetDir)Content\Site.css" />
+	    </Component>
+	  </ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProgramFilesFolder_files" Directory="ProgramFilesFolder">
+      <Component Id="favicon.ico" Guid="a85d7b3e-50ef-417d-ac10-fff42d8e6ff1">
+        <File Id="favicon.ico" Name="favicon.ico" Source="$(var.L2Test_TargetDir)favicon.ico" />
+      </Component>
+      <Component Id="Global.asax" Guid="725a516e-28b3-4e39-951d-f012da33c25c">
+        <File Id="Global.asax" Name="Global.asax" Source="$(var.L2Test_TargetDir)Global.asax" />
+      </Component>
+      <Component Id="Web.config" Guid="8b525013-4f0b-4bc5-aa11-1d12f377fe7d">
+        <File Id="Web.config" Name="Web.config" Source="$(var.L2Test_TargetDir)Web.config" />
+      </Component>
+      <Component Id="Web.Debug.config" Guid="0bf3af1d-c228-4d16-b890-d65e4047134f">
+        <File Id="Web.Debug.config" Name="Web.Debug.config" Source="$(var.L2Test_TargetDir)Web.Debug.config" />
+      </Component>
+      <Component Id="Web.Release.config" Guid="2d52cb03-97be-4617-a333-dda0622de45f">
+        <File Id="Web.Release.config" Name="Web.Release.config" Source="$(var.L2Test_TargetDir)Web.Release.config" />
+      </Component>
+      <Component Id="packages.config" Guid="0299c7e4-0f48-4bc6-95b1-93c01cb72737">
+        <File Id="packages.config" Name="packages.config" Source="$(var.L2Test_TargetDir)packages.config" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="fonts_files" Directory="fonts">
+      <Component Id="fonts_glyphicons_halflings_regular.svg" Guid="87232b2a-a318-4f37-b5d5-da2fbbd69767">
+        <File Id="fonts_glyphicons_halflings_regular.svg" Name="glyphicons-halflings-regular.svg" Source="$(var.L2Test_TargetDir)fonts\glyphicons-halflings-regular.svg" />
+      </Component>
+      <Component Id="fonts_glyphicons_halflings_regular.woff" Guid="0162a7fc-3f39-4546-9a7c-49db34d1998c">
+        <File Id="fonts_glyphicons_halflings_regular.woff" Name="glyphicons-halflings-regular.woff" Source="$(var.L2Test_TargetDir)fonts\glyphicons-halflings-regular.woff" />
+      </Component>
+      <Component Id="fonts_glyphicons_halflings_regular.ttf" Guid="a4fdffba-3537-41f3-aac2-a62d99a76051">
+        <File Id="fonts_glyphicons_halflings_regular.ttf" Name="glyphicons-halflings-regular.ttf" Source="$(var.L2Test_TargetDir)fonts\glyphicons-halflings-regular.ttf" />
+      </Component>
+      <Component Id="fonts_glyphicons_halflings_regular.eot" Guid="289f5d5d-0d41-45dd-9f94-608562379fb3">
+        <File Id="fonts_glyphicons_halflings_regular.eot" Name="glyphicons-halflings-regular.eot" Source="$(var.L2Test_TargetDir)fonts\glyphicons-halflings-regular.eot" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Scripts_files" Directory="Scripts">
+      <Component Id="Scripts_bootstrap.js" Guid="cf166f41-30fa-4a47-81a1-02139c861d52">
+        <File Id="Scripts_bootstrap.js" Name="bootstrap.js" Source="$(var.L2Test_TargetDir)Scripts\bootstrap.js" />
+      </Component>
+      <Component Id="Scripts_bootstrap.min.js" Guid="cf1d5a54-c82c-49c9-a3ea-2f04534ec7b5">
+        <File Id="Scripts_bootstrap.min.js" Name="bootstrap.min.js" Source="$(var.L2Test_TargetDir)Scripts\bootstrap.min.js" />
+      </Component>
+      <Component Id="Scripts_jquery_1.10.2.js" Guid="8faa83e1-5abf-43b0-bdbb-2fbc42e0236f">
+        <File Id="Scripts_jquery_1.10.2.js" Name="jquery-1.10.2.js" Source="$(var.L2Test_TargetDir)Scripts\jquery-1.10.2.js" />
+      </Component>
+      <Component Id="Scripts_jquery_1.10.2.min.js" Guid="5743fa24-4dfd-4c41-9ffd-6547ea5783b7">
+        <File Id="Scripts_jquery_1.10.2.min.js" Name="jquery-1.10.2.min.js" Source="$(var.L2Test_TargetDir)Scripts\jquery-1.10.2.min.js" />
+      </Component>
+      <Component Id="Scripts_jquery.validate.js" Guid="5f56fb5d-9c31-4bdd-90f2-e20237d90027">
+        <File Id="Scripts_jquery.validate.js" Name="jquery.validate.js" Source="$(var.L2Test_TargetDir)Scripts\jquery.validate.js" />
+      </Component>
+      <Component Id="Scripts_jquery.validate.min.js" Guid="16cfb7d3-c33e-445a-a6e6-551257fd15b8">
+        <File Id="Scripts_jquery.validate.min.js" Name="jquery.validate.min.js" Source="$(var.L2Test_TargetDir)Scripts\jquery.validate.min.js" />
+      </Component>
+      <Component Id="Scripts_jquery.validate.unobtrusive.js" Guid="969f06f2-ec2a-461d-bdcc-c172c843a107">
+        <File Id="Scripts_jquery.validate.unobtrusive.js" Name="jquery.validate.unobtrusive.js" Source="$(var.L2Test_TargetDir)Scripts\jquery.validate.unobtrusive.js" />
+      </Component>
+      <Component Id="Scripts_jquery.validate.unobtrusive.min.js" Guid="6c7bb10f-c9af-4641-af5d-ec8a8a964916">
+        <File Id="Scripts_jquery.validate.unobtrusive.min.js" Name="jquery.validate.unobtrusive.min.js" Source="$(var.L2Test_TargetDir)Scripts\jquery.validate.unobtrusive.min.js" />
+      </Component>
+      <Component Id="Scripts_modernizr_2.6.2.js" Guid="ba5d3ad2-90f8-4778-88b6-6e00d7128a8f">
+        <File Id="Scripts_modernizr_2.6.2.js" Name="modernizr-2.6.2.js" Source="$(var.L2Test_TargetDir)Scripts\modernizr-2.6.2.js" />
+      </Component>
+      <Component Id="Scripts_respond.js" Guid="33b41af0-847f-4211-83c1-f2225427364f">
+        <File Id="Scripts_respond.js" Name="respond.js" Source="$(var.L2Test_TargetDir)Scripts\respond.js" />
+      </Component>
+      <Component Id="Scripts_respond.min.js" Guid="6259a39b-6f05-452b-acc9-dbe3387cb666">
+        <File Id="Scripts_respond.min.js" Name="respond.min.js" Source="$(var.L2Test_TargetDir)Scripts\respond.min.js" />
+      </Component>
+      <Component Id="Scripts__references.js" Guid="96cde2d7-86bf-4b3e-ada4-64966cdd5013">
+        <File Id="Scripts__references.js" Name="_references.js" Source="$(var.L2Test_TargetDir)Scripts\_references.js" />
+      </Component>
+      <Component Id="Scripts_jquery_1.10.2.min.map" Guid="fcf2404e-9501-464d-93ba-d39c84caa129">
+        <File Id="Scripts_jquery_1.10.2.min.map" Name="jquery-1.10.2.min.map" Source="$(var.L2Test_TargetDir)Scripts\jquery-1.10.2.min.map" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Views_files" Directory="Views">
+      <Component Id="Views_Web.config" Guid="354f330b-f448-4289-be73-07d66e5f6c1d">
+        <File Id="Views_Web.config" Name="Web.config" Source="$(var.L2Test_TargetDir)Views\Web.config" />
+      </Component>
+      <Component Id="Views__ViewStart.cshtml" Guid="8632ebaa-c3ef-4f76-ade5-f734f9894924">
+        <File Id="Views__ViewStart.cshtml" Name="_ViewStart.cshtml" Source="$(var.L2Test_TargetDir)Views\_ViewStart.cshtml" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Views_Shared_files" Directory="Views_Shared">
+      <Component Id="Views_Shared_Error.cshtml" Guid="060e7207-f18b-46eb-bbe6-a537ed1e5703">
+        <File Id="Views_Shared_Error.cshtml" Name="Error.cshtml" Source="$(var.L2Test_TargetDir)Views\Shared\Error.cshtml" />
+      </Component>
+      <Component Id="Views_Shared__Layout.cshtml" Guid="076ff64d-1fb0-49ad-a2d2-bbe57a34838d">
+        <File Id="Views_Shared__Layout.cshtml" Name="_Layout.cshtml" Source="$(var.L2Test_TargetDir)Views\Shared\_Layout.cshtml" />
+      </Component>
+      <Component Id="Views_Shared_Lockout.cshtml" Guid="0273c6c4-8c77-4dfb-96d5-0dca928ee2d0">
+        <File Id="Views_Shared_Lockout.cshtml" Name="Lockout.cshtml" Source="$(var.L2Test_TargetDir)Views\Shared\Lockout.cshtml" />
+      </Component>
+      <Component Id="Views_Shared__LoginPartial.cshtml" Guid="ac11ecba-c590-4e36-9ce1-6e0d24fb760c">
+        <File Id="Views_Shared__LoginPartial.cshtml" Name="_LoginPartial.cshtml" Source="$(var.L2Test_TargetDir)Views\Shared\_LoginPartial.cshtml" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Views_Home_files" Directory="Views_Home">
+      <Component Id="Views_Home_Home.cshtml" Guid="d50dd3df-bc5b-493c-9a1a-044bbb706adf">
+        <File Id="Views_Home_Home.cshtml" Name="Home.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Home.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Test.cshtml" Guid="04c2912e-d504-4ae1-810c-35040d1d2e30">
+        <File Id="Views_Home_Test.cshtml" Name="Test.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Test.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Edit.cshtml" Guid="b45b3f2c-f0d7-4101-ba0a-300eee2ff379">
+        <File Id="Views_Home_Edit.cshtml" Name="Edit.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Edit.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Manage.cshtml" Guid="22271dc7-f0a6-43d3-8698-2d12f311b0a4">
+        <File Id="Views_Home_Manage.cshtml" Name="Manage.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Manage.cshtml" />
+      </Component>
+      <Component Id="Views_Home_EditQuestion.cshtml" Guid="52d02407-6e56-4ec7-a3e4-c448e67e36d7">
+        <File Id="Views_Home_EditQuestion.cshtml" Name="EditQuestion.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\EditQuestion.cshtml" />
+      </Component>
+      <Component Id="Views_Home_ReportCards.cshtml" Guid="0733562e-55df-4f7e-8182-968295e6185f">
+        <File Id="Views_Home_ReportCards.cshtml" Name="ReportCards.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\ReportCards.cshtml" />
+      </Component>
+      <Component Id="Views_Home_About.cshtml" Guid="4809d0da-0007-4de8-b13f-5e80657999bc">
+        <File Id="Views_Home_About.cshtml" Name="About.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\About.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Install.cshtml" Guid="cadfb62b-5414-4624-898a-77fdd1f42cef">
+        <File Id="Views_Home_Install.cshtml" Name="Install.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Install.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Install2.cshtml" Guid="d789150c-b077-400a-802b-1fc5d1a3c0a2">
+        <File Id="Views_Home_Install2.cshtml" Name="Install2.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Install2.cshtml" />
+      </Component>
+      <Component Id="Views_Home_Configuration.cshtml" Guid="ebc258e9-5114-479f-97e2-abb7a220b3e8">
+        <File Id="Views_Home_Configuration.cshtml" Name="Configuration.cshtml" Source="$(var.L2Test_TargetDir)Views\Home\Configuration.cshtml" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Views_Account_files" Directory="Views_Account">
+      <Component Id="Views_Account__ExternalLoginsListPartial.cshtml" Guid="b19f473f-8c24-46d9-a12b-ddd0e2dc93bb">
+        <File Id="Views_Account__ExternalLoginsListPartial.cshtml" Name="_ExternalLoginsListPartial.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\_ExternalLoginsListPartial.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ConfirmEmail.cshtml" Guid="e315b266-3f45-4ecb-b04d-5f142fbb65fa">
+        <File Id="Views_Account_ConfirmEmail.cshtml" Name="ConfirmEmail.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ConfirmEmail.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ExternalLoginConfirmation.cshtml" Guid="2aff5336-ba35-485f-b326-ab28f9e2fbaa">
+        <File Id="Views_Account_ExternalLoginConfirmation.cshtml" Name="ExternalLoginConfirmation.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ExternalLoginConfirmation.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ExternalLoginFailure.cshtml" Guid="a8c885bf-5bd5-4e4f-989b-e81c70f60cd6">
+        <File Id="Views_Account_ExternalLoginFailure.cshtml" Name="ExternalLoginFailure.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ExternalLoginFailure.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ForgotPassword.cshtml" Guid="1248c0c4-0d32-43e9-be97-03b18b3caaea">
+        <File Id="Views_Account_ForgotPassword.cshtml" Name="ForgotPassword.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ForgotPassword.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ForgotPasswordConfirmation.cshtml" Guid="8ec94360-7530-4948-b9b4-28844c88703c">
+        <File Id="Views_Account_ForgotPasswordConfirmation.cshtml" Name="ForgotPasswordConfirmation.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ForgotPasswordConfirmation.cshtml" />
+      </Component>
+      <Component Id="Views_Account_Login.cshtml" Guid="bdc34158-1804-4302-bc67-f9d8b40ebfbd">
+        <File Id="Views_Account_Login.cshtml" Name="Login.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\Login.cshtml" />
+      </Component>
+      <Component Id="Views_Account_Register.cshtml" Guid="2c967189-c6cc-4b6f-87f3-9ed061f0ae18">
+        <File Id="Views_Account_Register.cshtml" Name="Register.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\Register.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ResetPassword.cshtml" Guid="2c6e2988-4158-4dff-ad84-b0c37d2b2b95">
+        <File Id="Views_Account_ResetPassword.cshtml" Name="ResetPassword.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ResetPassword.cshtml" />
+      </Component>
+      <Component Id="Views_Account_ResetPasswordConfirmation.cshtml" Guid="fe4b7b7e-20ea-4e56-a527-536a7f5491b7">
+        <File Id="Views_Account_ResetPasswordConfirmation.cshtml" Name="ResetPasswordConfirmation.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\ResetPasswordConfirmation.cshtml" />
+      </Component>
+      <Component Id="Views_Account_SendCode.cshtml" Guid="05566fe9-dcff-40dc-af11-9e084c520e14">
+        <File Id="Views_Account_SendCode.cshtml" Name="SendCode.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\SendCode.cshtml" />
+      </Component>
+      <Component Id="Views_Account_VerifyCode.cshtml" Guid="89022aff-fdd6-4c12-9572-61c38a7f7dad">
+        <File Id="Views_Account_VerifyCode.cshtml" Name="VerifyCode.cshtml" Source="$(var.L2Test_TargetDir)Views\Account\VerifyCode.cshtml" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Views_Manage_files" Directory="Views_Manage">
+      <Component Id="Views_Manage_AddPhoneNumber.cshtml" Guid="4ab0b508-1e25-4072-aa75-56709a303b7c">
+        <File Id="Views_Manage_AddPhoneNumber.cshtml" Name="AddPhoneNumber.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\AddPhoneNumber.cshtml" />
+      </Component>
+      <Component Id="Views_Manage_ChangePassword.cshtml" Guid="547a8ecf-fe3f-4ece-acc6-c9d678e211a8">
+        <File Id="Views_Manage_ChangePassword.cshtml" Name="ChangePassword.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\ChangePassword.cshtml" />
+      </Component>
+      <Component Id="Views_Manage_ManageLogins.cshtml" Guid="e2c0f45e-a41f-4178-b339-21f23299edfb">
+        <File Id="Views_Manage_ManageLogins.cshtml" Name="ManageLogins.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\ManageLogins.cshtml" />
+      </Component>
+      <Component Id="Views_Manage_Index.cshtml" Guid="885c37d9-1303-4f23-8a21-32bb46c93028">
+        <File Id="Views_Manage_Index.cshtml" Name="Index.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\Index.cshtml" />
+      </Component>
+      <Component Id="Views_Manage_SetPassword.cshtml" Guid="30cbd752-c3ec-4917-813f-70ec47dc1161">
+        <File Id="Views_Manage_SetPassword.cshtml" Name="SetPassword.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\SetPassword.cshtml" />
+      </Component>
+      <Component Id="Views_Manage_VerifyPhoneNumber.cshtml" Guid="84422286-889f-4403-9db0-a1fc7dcb7130">
+        <File Id="Views_Manage_VerifyPhoneNumber.cshtml" Name="VerifyPhoneNumber.cshtml" Source="$(var.L2Test_TargetDir)Views\Manage\VerifyPhoneNumber.cshtml" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

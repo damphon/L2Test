@@ -201,7 +201,6 @@
     <Compile Include="Helpers\DatabaseBackup.cs" />
     <Compile Include="Helpers\EditTest.cs" />
     <Compile Include="Helpers\Image.cs" />
-    <Compile Include="Helpers\Install.cs" />
     <Compile Include="Helpers\ReportCardHelper.cs" />
     <Compile Include="Helpers\GradeTest.cs" />
     <Compile Include="Helpers\Password.cs" />
@@ -284,8 +283,6 @@
     <Content Include="Views\Home\EditQuestion.cshtml" />
     <Content Include="Views\Home\ReportCards.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Install.cshtml" />
-    <Content Include="Views\Home\Install2.cshtml" />
     <Content Include="Views\Home\Configuration.cshtml" />
   </ItemGroup>
   <ItemGroup>
