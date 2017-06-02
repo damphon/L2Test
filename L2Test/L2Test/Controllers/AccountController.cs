@@ -12,7 +12,7 @@ using L2Test.Models;
 
 namespace L2Test.Controllers
 {
-    [Authorize] //Entire class is Authorize
+    //[Authorize] //Entire class is Authorize.
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
