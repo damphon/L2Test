@@ -2,8 +2,12 @@
     ViewBag.Title = "Edit Question";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string CurrentQuestion = Path.GetFileName(Request.Url.ToString());
-    L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
+    L2Test.Helpers.EditTest ListHelp = new L2Test.Helpers.EditTest();
+    ViewBag.ResultsURL = Url.Action("EditQuestion", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
+<div class="SubmitFloat">
+        <center><p style="color:red;"><strong>Warning!</strong> Do not make changes to the test questions while someone is taking the test.</p></center>
+</div>
 <!--
  _____           _           _     _         _      _____   _____         _
 |  __ \         | |         | |   | |       | |    / __  \ |_   _|       | |
@@ -14,25 +18,9 @@
                                       __/ |
                                      |___/
 -->
-<ul class="Test" style="list-style-type:none">
-    @Html.Raw(ListHelp.SingleQuestionString(CurrentQuestion))
-</ul>
+<br />
+@Html.Raw(ListHelp.SingleQuestionString(CurrentQuestion))
 
-<!--************************Edit Buttons*****************************-->
-<div class="container-fluid">
-    <center>
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-4">
-                <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#editModal">Edit Question</button>
-            </div>
-                <div class="col-sm-4">
-                    <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#deleteModal">Remove Question From Test</button>
-                </div>
-            <div class="col-sm-2"></div>
-            </div>
-    </center>
- </div>
 <!--************************Delete question*****************************-->
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" role="dialog">
@@ -66,219 +54,113 @@
     </div> <!--Modal Dialog-->
 </div><!--End Modal-->
 
-<!--************************Edit Question*****************************-->
-<!-- Modal -->
-<div class="modal fade" id="editModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" id="gallerybtn" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Edit Question:</h3>
-            </div>
-            <div class="modal-body">
-
-                <!--FORM STARTS HERE-->
-                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                    <fieldset>
-
-                        <!-- Get Question -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formQuestion">Question: </label>
-                            <div class="col-md-6">
-                                <textarea class="form-control" id="formQuestion" name="formQuestion" maxlength="799"></textarea>
-                            </div>
-                        </div>
-                        <!-- Get Answer1 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer1">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer1" name="formAnswer1" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC1" id="FC1" value="1">
-                                    </span>
-                                </div>
-                                <p class="help-block">Check correct answers</p>
-                            </div>
-                        </div>
-                        <!-- Get Answer2 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer2">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer2" name="formAnswer2" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC2" id="FC2" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer3 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer3">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer3" name="formAnswer3" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC3" id="FC3" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer4 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer4">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer4" name="formAnswer4" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC4" id="FC4" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer5 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer5">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer5" name="formAnswer5" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC5" id="FC5" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer6 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer6">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer6" name="formAnswer6" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC6" id="FC6" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer7 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer7">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer7" name="formAnswer7" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC7" id="FC7" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Answer8 -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formAnswer8">Answer: </label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input id="formAnswer8" name="formAnswer8" class="form-control" type="text" maxlength="255">
-                                    <span class="input-group-addon">
-                                        <input type="checkbox" name="formC8" id="FC8" value="1">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Get Category -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="formCategory">Select Category</label>
-                            <div class="col-md-4">
-                                <select id="formCategory" name="formCategory" class="form-control">
-                                    <option value="1">New Catagoy</option>
-                                    @Html.Raw(ListHelp.CategoryList())
-                                </select>
-                            </div>
-                        </div>
-                        <!-- New Category-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="newCategory">New Category</label>
-                            <div class="col-md-4">
-                                <input id="newCategory" name="newCategory" type="text" placeholder="" class="form-control input-md">
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="uid" value="@CurrentQuestion">
-
-                        <!-- Submit Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="submitButton"></label>
-                            <div class="col-md-8">
-                                <button id="submitButton" name="submitButton" class="btn btn-info">Add Question</button>
-                                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                </form> <!--FORM ENDS HERE-->
-            </div>  <!--Modal Body-->
-
-        </div> <!--Modal Content-->
-    </div> <!--Modal Dialog-->
-</div>
-
 @section scripts{
     <script>
-        $(window).load(function () {
-            var testData = document.getElementById('TestData');
-            document.getElementById('formQuestion').value = testData.getAttribute("question");
-            document.getElementById('formAnswer1').value = testData.getAttribute("answer1");
-            document.getElementById('formAnswer2').value = testData.getAttribute("answer2");
-            document.getElementById('formAnswer3').value = testData.getAttribute("answer3");
-            document.getElementById('formAnswer4').value = testData.getAttribute("answer4");
-            document.getElementById('formAnswer5').value = testData.getAttribute("answer5");
-            document.getElementById('formAnswer6').value = testData.getAttribute("answer6");
-            document.getElementById('formAnswer7').value = testData.getAttribute("answer7");
-            document.getElementById('formAnswer8').value = testData.getAttribute("answer8");
+        function AddAnswer() {
+            $("<div class='form-group col-md-12'><label class='col-md-4 control-label' for='formAnswer'>Answer: </label><div class='col-md-8'><div class='input-group'><input id='formAnswer' name='formAnswer' class='form-control' type='text' maxlength='255'><span class='input-group-addon'><input type='checkbox' name='formC' class='checkbox_check' value='1'></span></div></div></div>").insertBefore("#AddHere");
+        }
 
-            if (testData.getAttribute("correct1") == "True") {
-                document.getElementById('FC1').checked = true;
+        function SendQuestion() {
+            var formData = new FormData();
+            var formFile = document.getElementById("filebutton").files[0];
+            if (formFile != null){
+                formData.append("file", formFile);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Home/UploadImage", true);
+                xhr.addEventListener("load", function (evt) { UploadComplete(evt, xhr.responseText); }, false);
+                xhr.addEventListener("error", function (evt) { UploadFailed(evt, xhr.responseText); }, false);
+                xhr.send(formData);
             }
-            if (testData.getAttribute("correct2") == "True") {
-                document.getElementById('FC2').checked = true;
-            }
-            if (testData.getAttribute("correct3") == "True") {
-                document.getElementById('FC3').checked = true;
-            }
-            if (testData.getAttribute("correct4") == "True") {
-                document.getElementById('FC4').checked = true;
-            }
-            if (testData.getAttribute("correct5") == "True") {
-                document.getElementById('FC5').checked = true;
-            }
-            if (testData.getAttribute("correct6") == "True") {
-                document.getElementById('FC6').checked = true;
-            }
-            if (testData.getAttribute("correct7") == "True") {
-                document.getElementById('FC7').checked = true;
-            }
-            if (testData.getAttribute("correct8") == "True") {
-                document.getElementById('FC8').checked = true;
-            }
-            
-            for (var i = 0; i < document.getElementById('formCategory').length; i++) {
-                if(document.getElementById('formCategory').options[i].value == testData.getAttribute("Category"))
-                    document.getElementById('formCategory').selectedIndex = i;
-            }
-        })
+            else
+            {
+                var Answers = document.getElementsByName("formAnswer");
+                var Corrects = document.getElementsByName("formC");
+                var JSONObj = {};
+                JSONObj.Question = document.getElementsByName("formQuestion")[0].value;
+                JSONObj.QuestionID = @CurrentQuestion;
+                JSONObj.Pic = document.getElementsByName("picURL")[0].value;
+                JSONObj.Catagory = document.getElementsByName("newCategory")[0].value;
+                JSONObj.CategoryDropDown = document.getElementsByName("formCategory")[0].value;
+                JSONObj.Answers = [];
+                JSONObj.Corrects = [];
+                for (var i = 0; i < Answers.length; i++) {
+                    JSONObj.Answers.push(Answers[i].value);
+                    if (Corrects[i].checked) {
+                        JSONObj.Corrects.push(1);
+                    } else {
+                        JSONObj.Corrects.push(0);
+                    }
+                }
 
-        //Is this even used?
-        function textCounter(field, field2, maxlimit) {
-            //Counts text entered in form and does not allow more than the maxlimit to be entered
-            var countfield = document.getElementById(field2);
-            if (field.value.length > maxlimit) {
-                field.value = field.value.substring(0, maxlimit);
-                return false;
-            } else {
-                countfield.value = field.value.length;
+                $.ajax({
+                    url: "@(ViewBag.ResultsURL)",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(JSONObj),
+                    success: function (data) {
+                        if (data != null) {
+                            window.location.href = '@Url.Action("Edit", "Home")';
+                        } else {
+                            alert("ERROR:Data not submitted");
+                        }
+                    }
+                });
             }
+        }
+
+        function UploadComplete(evt, name) {
+            if (evt.target.status == 200) {
+
+                var Answers = document.getElementsByName("formAnswer");
+                var Corrects = document.getElementsByName("formC");
+
+                var JSONObj = {};
+                JSONObj.Question = document.getElementsByName("formQuestion")[0].value;
+                JSONObj.QuestionID = @CurrentQuestion;
+                JSONObj.Pic = name;
+                JSONObj.Catagory = document.getElementsByName("newCategory")[0].value;
+                JSONObj.CategoryDropDown = document.getElementsByName("formCategory")[0].value;
+                JSONObj.Answers = [];
+                JSONObj.Corrects = [];
+
+                for (var i = 0; i < Answers.length; i++) {
+                    JSONObj.Answers.push(Answers[i].value);
+                    if (Corrects[i].checked) {
+                        JSONObj.Corrects.push(1);
+                    } else {
+                        JSONObj.Corrects.push(0);
+                    }
+                }
+
+                $.ajax({
+                    url: "@(ViewBag.ResultsURL)",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(JSONObj),
+                    success: function (data) {
+                        if (data != null) {
+                            window.location.href = '@Url.Action("Edit", "Home")';
+                        } else {
+                            alert("ERROR:Data not submitted");
+                        }
+                    }
+                });
+            }
+            else {
+                alert("Error Uploading File" + name);
+            }
+        }
+
+        function UploadFailed(evt, name) {
+            alert("There was an error attempting to upload the file." + name);
+
+        }
+
+        function NoImage(){
+            document.getElementById("picURL").setAttribute("value", "No Image");
+            document.getElementById("picSample").setAttribute("style", "margin:5px; border:1px solid white; border-radius:3px; opacity: 0.3;")
         }
     </script>
 }

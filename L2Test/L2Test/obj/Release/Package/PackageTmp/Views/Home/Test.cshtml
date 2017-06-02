@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    L2Test.Models.TestModels ListHelp = new L2Test.Models.TestModels();
+    L2Test.Helpers.TakeTest ListHelp = new L2Test.Helpers.TakeTest();
     string TechID = Path.GetFileName(Request.Url.ToString());
     ViewBag.TechID = TechID;
     ViewBag.ResultsURL = Url.Action("TestResults", "Home", routeValues: null, protocol: Request.Url.Scheme);
@@ -40,7 +40,7 @@ Your test is timed, don't waste that time looking at source code!
         </div>
         <div>
             <ul class="Test" style="list-style-type:none">
-                @Html.Raw(ListHelp.TakeTest())
+                @Html.Raw(ListHelp.StartTest())
             </ul>
         </div>
     </section>
@@ -59,7 +59,7 @@ Your test is timed, don't waste that time looking at source code!
         });
 
         //Count down time left before test auto submits
-        var timeInMinutes = 60;
+        var timeInMinutes = @(ViewBag.TimeToTakeTest);
         var currentTime = Date.parse(new Date());
         var deadline = new Date(currentTime + timeInMinutes * 60000);//60000 milliseconds in a minute
 

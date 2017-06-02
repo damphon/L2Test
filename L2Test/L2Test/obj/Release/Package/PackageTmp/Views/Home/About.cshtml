@@ -3,34 +3,21 @@
     ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-This software is used to automate the L2 test. Tests will grade automatically and be saved in archive for future reference.<br />
-<br />
-<artical><br />
-    <strong>What Techs can do:</strong><br />
-    <p>Techs can only see the homepage, which has information explaining the requirements that need to be met in order to take the test. If a tech has a test ID they can enter it to begin taking their test. As soon as they enter the test ID the test starts. When the test is complete the tech will see their final score along with the score they got for each category. They will not see how they did on each individual question. Techs cannot use the Manage Users, Edit Test, View Results, or About tabs. They should not have logins to manage the test.</p>
-</artical>
-<artical><br />
-    <strong>How the test works:</strong><br />
-    <p>After a tech enters their Test ID they are taken to the test page which randomly orders all the test questions as well as randomly orders all of the answers for each question. The test timer automatically begins counting down. The tech will need to click any answer they feel is correct, which will highlight the answer. When they are done they click submit test. If they run out of time the test is automatically submitted.</p>
+<div class="SubmitFloat">
+    <center></center>
+</div>
 
-        <p>When the test is submitted it first saves a copy of the current HTML of the test without making any changes to the test. This archive version allows leads to verify that the test was graded correctly if there is ever a dispute. The test is then graded and a graded version is saved for the leads to review. The graded version is not in random order, this allows leads to look at multiple tests at once and find trends.</p>
-</artical>
-<article><br />
-    <Strong>What leads can do:</Strong><br />
-    <u>Manage Users Tab:</u>
-    <p>Create new management accounts, delete old management accounts, change their password or reset passwords for other leads.</p>
-    <p>This tab is also where leads go to create Test ID’s for techs. The test ID is good for 2 hours then it can no longer be used to start taking a test. Once the test starts the Test ID is not used, and can expire without impacting the test. This means that the lead can make the ID’s up to 1hr 59min before the tech uses the ID to take the test. If the ID expires before the tech starts the test just make another one.</p>
-    <u>View Results Tab:</u>
-    <p>This tab lists all the tests, both graded and not, with links to each one so they can be reviewed at any time.</p>
-    <u>Edit Test Tab:</u>
-    <p>Here leads can edit existing questions by clicking the edit button on a specific question then on the next screen clicking the ‘edit Question’ button. The ‘Remove Question From Test’ button will delete the question.</p>
-    <p>To add a new question click the ‘Add New Question’ button at the top of the page. New questions can be up to 1,000 characters long. Each answer can be up to 250 characters long. Check the box next to the answers that must be selected to get the answer right. Any number of correct answers is supported. If no answers are checked the correct answer to the question is for the tech to not select any of the answers when taking the test, if all the answers are checked then the tech must select all answers to get a passing score. Use the dropdown to select an existing category or select ‘New Category’ and type into the New Category field to make and assign a new category. The category can be up to 250 characters long.</p>
-    <p>The Export CSV file converts the MSSQL database to a CSV file for you to download and use as a backup. The Import CSV file allows you to import a CSV into the MSSQL database. The ‘append to’ option adds the content of the CSV to the top of the database, the ‘replace’ option deletes the existing test questions and then imports the CSV file. Before importing a CSV it is recommended that you download a CSV to create a backup.</p>
-</article>
-<article><br />
-    <strong>How to make a backup:</strong><br />
-    <p>To make a backup of the test you will need to use the Export CSV File option on the Edit Test tab then browse to the Tests folder on the web server and download the Graded and non-graded HTML files.</p>
-    <p>To restore from a backup by re-installing the L2 Test. Then move the graded and non-graded files to the Tests folder and import the CSV.</p>
-</article>
+<!--
+ _____           _           _     _         _      _____   _____         _
+|  __ \         | |         | |   | |       | |    / __  \ |_   _|       | |
+| |  \/ ___   __| | __ _  __| | __| |_   _  | |    `' / /'   | | ___  ___| |_
+| | __ / _ \ / _` |/ _` |/ _` |/ _` | | | | | |      / /     | |/ _ \/ __| __|
+| |_\ \ (_) | (_| | (_| | (_| | (_| | |_| | | |____./ /___   | |  __/\__ \ |_
+ \____/\___/ \__,_|\__,_|\__,_|\__,_|\__, | \_____/\_____/   \_/\___||___/\__|
+                                      __/ |
+                                     |___/
+-->
 
+<article>
+    @Html.Raw(ViewBag.AboutPageText)
+</article>

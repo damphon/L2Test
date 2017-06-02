@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "L2 Test";
 }
+
+<div class="SubmitFloat">
+    <center> </center>
+</div>
+
 <!--
  _____           _           _     _         _      _____   _____         _
 |  __ \         | |         | |   | |       | |    / __  \ |_   _|       | |
@@ -11,31 +16,11 @@
                                       __/ |
                                      |___/
 -->
+<br />
 <article id="TestRequirements">
-    <br />
-    <b>Requirements to become an L2:</b>
-    <ul>
-        <li>Must have been a member of the Data Center Operations team for at least 9 months.</li>
-        <li>No corrective actions or PIP's on file for the last 6 months.</li>
-        <li>Received a minimum rating of 'Consistent Performer' on most recent annual review.</li>
-        <li>Must have worked in all datacenters within your region for at least one month.</li>
-        <li>
-            Must have one of the following:
-            <ul>
-                <li>Bachelor's Degree (or 4 years of Data Center Experience)</li>
-                <li>Associates + two of the following certifications: A+, Network+, Server+, Linux+, Microsoft, or Cisco Certifications.</li>
-                <li>2 years of Data Center Experience + two of the following certifications: A+, Network+, Server+, Linux+, Microsoft, or Cisco Certifications.</li>
-                <li>Four of the following certifications: A+, Network+, Server+, Linux+, Microsoft, or Cisco Certifications.</li>
-            </ul>
-        </li>
-        <li>Must be sponsored by a DC Supervisor/Manager/Lead.</li>
-        <li>Must pass the L2 Certification test (this test as well as the hands on test.)</li>
-    </ul>
-    <br/>
+        @Html.Raw(ViewBag.HomePageText)
 </article>
-<article id="TestInstructions">
-    You can apply to take the test once every quarter if you meet the qualification listed above. To take the test enter the 10 character passcode provided by the test proctor then hit the "Take L2 Test" button. When taking the test click the answer that you feel is correct and it will highlight blue. If you want to deselect the answer just click it again. Make sure you select all correct answers. When you are done taking the test click the submit button at the bottom of the page. If the timer at the top of the page runs out the test will be automatically submitted as is. 
-</article>
+<br />
 <br />
 <br />
 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -59,4 +44,3 @@
 
     </fieldset>
 </form>
-<footer>More information about the L2 test can be found <a href="https://confluence.int.godaddy.com/pages/viewpage.action?title=Level+2+Advancement&spaceKey=DCS">here.</a></footer>

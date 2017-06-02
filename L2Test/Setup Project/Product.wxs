@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="L2Test" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="8a19c32e-ace8-4bd4-94e8-6d6ab21603fa">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="L2Test.Setup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="BinComponents" />
+		</Feature>
+	</Product>
+
+  <Fragment>
+    <!-- Will default to C:\ if that is the main disk-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Will reference to C:\inetpub-->
+      <Directory Id="INETPUB" Name="Inetpub">
+        <!-- Will reference to c:\Inetpub\L2Test-->
+        <Directory Id="INSTALLFOLDER" Name="L2Test">
+          <Directory Id="BIN" Name="bin"/>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+		</ComponentGroup>
+	</Fragment>
+</Wix>

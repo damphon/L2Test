@@ -17,12 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("L2 Test", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/Home/Home">@Html.Action("SiteName", "Home")</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Manage Users", "Manage", "Home")</li>
-                    <li>@Html.ActionLink("Edit Test", "Edit", "Home")</li>
+                    <li>@Html.ActionLink("Test Settings", "Configuration", "Home")</li>
+                    <li>@Html.ActionLink("Edit Test Questions", "Edit", "Home")</li>
                     <li>@Html.ActionLink("View Results", "ReportCards", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
@@ -34,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - GoDaddy.com L2 Test</p>
+            <p>&copy; @DateTime.Now.Year - GoDaddy.com @Html.Action("SiteName", "Home")</p>
         </footer>
     </div>
 

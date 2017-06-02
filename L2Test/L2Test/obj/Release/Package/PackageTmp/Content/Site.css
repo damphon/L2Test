@@ -24,13 +24,6 @@ h3{
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /*Test Formating */
 
 .well{
@@ -42,11 +35,14 @@ textarea {
     padding-left:0px;
 }
 
-.TestQuestion{
+.TestQuestion, .TestResultQuestion{
     background-color: white;
     font-size:1.5em;
     margin-bottom:20px;
     padding: 0px 5px;
+    display: inline-block;
+    text-align: justify;
+    width: 100%;
 }
 
 .SubmitFloat{
@@ -96,6 +92,12 @@ textarea {
     background-color: orangered;
     margin-top: -5px;
     padding: 0px 5px;
+}
+
+#picSample{
+    margin:5px;
+    border:3px solid white;
+    border-radius:8px;
 }
 
 /*Test Edit Page Formatting*/
@@ -201,10 +203,15 @@ textarea {
     border-radius: 8px;
 }
 
-/*Displaying pats test URL's*/
+/*Displaying past test URL's*/
 .record{
     background-color: white;
     font-size:1.5em;
     margin-bottom:20px;
     padding: 0px 5px;
+}
+
+.modal-body {
+    height:auto;
+    overflow:auto;
 }
