@@ -2,6 +2,7 @@
 #
 #FIXES TO IMPLEMENT FOR BETA BUILD
 #Make the install proccess significantly easier and more stable. 
+##Add script to Project -> Properties -> SQL that imports a backup of the current databases
 #Update About page
 ##############BONUS
 #Change what catagorys appear on test (no shuttle questions for non-phoenix sites)
@@ -19,20 +20,3 @@
 #	7 - Leads should be able to review specific answers to all questions
 #	8 - Techs can flag questions they think need improvement while taking the test, for leads to review
 #	9 - Leads should be able to remove poorly worded questions (from taken tests) and have the test automatically re-score.
-
-To use any number of answeres switch to a 2 database formation, and tie the answeres to the questions
-ex. 
-PID - Question - catagory - (image address)[use a default entrey to indicate no image]
-PID - Question's PID - Answer - AnswerID - Correct/incorrect
-PID - Question's PID - Answer2 - AnswerID2 - Correct/incorrect
-
-for CSV have the export make a CSV that is 
-Question - Catagory - ImageAddress - Answer - Correct/Incorrect - Answer2 - Correct/Incorrect - Answe3 - Correct/Incorrect ect..
-
-For CSV import manualy seperate the information and then put it in as new questions. 
-
-
-
-Header
-Footer
-About Page

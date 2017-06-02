@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 
 namespace L2Test.Helpers
@@ -30,7 +27,7 @@ namespace L2Test.Helpers
             return backupFileName;
         }
 
-        public void Restore(HttpPostedFileBase file) //still working on this.
+        public void Restore(HttpPostedFileBase file)
         {
             string BackupPath = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Backup"), "Database.BAK");
             string connectionString = ConfigurationManager.ConnectionStrings["Restore"].ConnectionString;
