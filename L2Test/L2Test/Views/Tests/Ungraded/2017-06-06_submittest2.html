@@ -36,14 +36,14 @@ Your test is timed, don't waste that time looking at source code!
 <body>
     <section class="TestPageContent">
         <div class="TimerFloat">
-            <center><div id="timer">Time Remaining: 89:51</div></center>
+            <center><div id="timer">Time Remaining: 0:45</div></center>
         </div>
         <div class="SubmitFloat">
             <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
         </div>
         <div>
             <ul class="Test" style="list-style-type:none">
-                <li class="well" id="4026"><p class="TestQuestion">1: Six  and 12 are correct</p><p class="TestAnswer SelectedAnswer" id="o6k9Jd9iKh">A. 6</p><p class="TestAnswer" id="C52zpHEwrU">B. 13</p><p class="TestAnswer" id="wBcG08V06g">C. 5</p><p class="TestAnswer" id="9ME6HdU45k">D. 7</p><p class="TestAnswer" id="ZIFDd6sK71">E. 1</p><p class="TestAnswer" id="IMEP5uKZcE">F. 9</p><p class="TestAnswer" id="5MLIvT8g97">G. 10</p><p class="TestAnswer" id="pVYLI4VmPt">H. 3</p><p class="TestAnswer" id="m2fV7iaIFj">I. 11</p><p class="TestAnswer" id="28tCgtMAWj">J. 2</p><p class="TestAnswer SelectedAnswer" id="ilPAIviYan">K. 12</p><p class="TestAnswer" id="kg5MDA6XCj">L. 8</p><p class="TestAnswer" id="LjfVDsaPFy">M. 16</p><p class="TestAnswer" id="tcu4wT7l00">N. 15</p><p class="TestAnswer" id="CYZG7QHTTW">O. 14</p></li><li class="well" id="4024"><p class="TestQuestion">2: Select True.</p><p class="TestAnswer SelectedAnswer" id="gtV1Iyubzy">A. True</p><p class="TestAnswer" id="lKqwijSW9Q">B. False</p></li><li class="well" id="4027"><p class="TestQuestion">3: Select false</p><p class="TestAnswer" id="ddrsJTQ4ny">A. True</p><p class="TestAnswer SelectedAnswer" id="KxvlLWvuQm">B. False</p></li><li class="well" id="4025"><p class="TestQuestion"><img src="/Content/Images/FB_IMG_1484186963751uGIV49dWnO.jpg" height="200" id="picSample"><br>4: What state is this?</p><p class="TestAnswer SelectedAnswer" id="1R2RRfgFkb">A. AZ</p><p class="TestAnswer" id="zMi7OP3XFO">B. VT</p></li>
+                <li class="well" id="4029"><p class="TestQuestion">1: test question 1</p><p class="TestAnswer SelectedAnswer" id="0mh8TIyTV8">A. 1</p><p class="TestAnswer" id="VT9d4p5z29">B. 2</p></li><li class="well" id="4030"><p class="TestQuestion">2: test question 2</p><p class="TestAnswer" id="h7itO3cvmY">A. 1</p><p class="TestAnswer SelectedAnswer" id="jxJP5fYgWY">B. 2</p></li>
             </ul>
         </div>
     </section>
@@ -62,9 +62,10 @@ Your test is timed, don't waste that time looking at source code!
         });
 
         //Count down time left before test auto submits
-        var timeInMinutes = 90;
+        var timeInMinutes = 1;
         var currentTime = Date.parse(new Date());
         var deadline = new Date(currentTime + timeInMinutes * 60000);//60000 milliseconds in a minute
+        var testSubmitted = false;
 
         $(document).ready(startTimer(deadline));
 
@@ -73,10 +74,10 @@ Your test is timed, don't waste that time looking at source code!
             var changeTime = setInterval(function myTimer() {
                 var timeRemaining = getTimeRemaining(endtime);
                 timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + ('0' + timeRemaining.seconds).slice(-2);
-                if (timeRemaining.total <= 0) {
+                if (timeRemaining.total <= 0 && testSubmitted != true) {
                     clearInterval(changeTime);
                     SendAnswers();
-                } 
+                }
             }, 1000);
         }
 
@@ -94,32 +95,41 @@ Your test is timed, don't waste that time looking at source code!
 
         function SendAnswers() {
 
-            var tech = 'ceeCoGvZHc';
+            SanityCheck();
+
+            var tech = 'IVsVXN5kqo';
             var htmlString = document.documentElement.innerHTML;
 
+            //send snapshot of HTML before grading
             $.ajax({
                 url: "http://localhost:55966/Home/TestArchive",
                 type: "POST",
                 contentType: "application/json",
                 dataType: "json",
-                data: JSON.stringify({ html: htmlString, tech: tech })
+                data: JSON.stringify({ html: htmlString, tech: tech }),
             });
 
             var list = [];
+
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
                 var answer = {};
                 var answers = [];
                 var currentQuestion = document.getElementsByTagName("li")[i];
+
                 answer.tech = tech;
                 answer.question = currentQuestion.getAttribute("id");
+
                 for (var n = 0; n < currentQuestion.childNodes.length; n++) {
                     if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
                         answers.push(currentQuestion.childNodes[n].id);
                     }
                 }
+
                 answer.answers = answers;
                 list.push(answer);
             }
+
+            //Submit results for grading
             $.ajax({
                 url: "http://localhost:55966/Home/TestResults",
                 type: "POST",
@@ -134,14 +144,44 @@ Your test is timed, don't waste that time looking at source code!
                 }
             });
 
+            testSubmitted = true;
+        }
+
+        function SanityCheck(){
+            var htmlString = document.documentElement.innerHTML;
+            var answered = 0;
+            var total = 0;
+
+            for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
+                var selected = false;
+                var currentQuestion = document.getElementsByTagName("li")[i];
+                total++;
+
+                for (var n = 0; n < currentQuestion.childNodes.length; n++) {
+                    if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
+                        selected = true;
+                    }
+                }
+                if (selected) {
+                    answered++;
+                }
+            }
+
+            //Change to activate a modal with submit button in it
+            if(total == answered){
+                alert("Are you sure you want to submit the answers?");
+            }
+            else{
+                alert("You have " + (total - answered) + " questions without answers. Are you sure you want to submit the answers?")
+            }
         }
     </script>
 
 <!-- Visual Studio Browser Link -->
 <script type="application/json" id="__browserLink_initializationData">
-    {"appName":"Chrome","requestId":"573fd834904e4e2ab8763b4589c63192"}
+    {"appName":"Chrome","requestId":"61221a57a97249db8eda0abae9e99172"}
 </script>
-<script type="text/javascript" src="http://localhost:49854/6db1ee01b9454637a52a1ca57cb0eadb/browserLink" async="async"></script>
+<script type="text/javascript" src="http://localhost:51462/838acd7746984f09a330dafb570202d0/browserLink" async="async"></script>
 <!-- End Browser Link -->
 
 

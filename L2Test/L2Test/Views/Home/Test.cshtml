@@ -36,7 +36,7 @@ Your test is timed, don't waste that time looking at source code!
             <center><div id="timer">...Starting Timer</div></center>
         </div>
         <div class="SubmitFloat">
-            <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SendAnswers();">Submit Test for Grading</button></center>
+            <center><button id="SubmitButton" name="SubmitButton" class="btn btn-info" onclick="SanityCheck();">Submit Test for Grading</button></center>
         </div>
         <div>
             <ul class="Test" style="list-style-type:none">
@@ -62,6 +62,7 @@ Your test is timed, don't waste that time looking at source code!
         var timeInMinutes = @(ViewBag.TimeToTakeTest);
         var currentTime = Date.parse(new Date());
         var deadline = new Date(currentTime + timeInMinutes * 60000);//60000 milliseconds in a minute
+        var testSubmitted = false;
 
         $(document).ready(startTimer(deadline));
 
@@ -70,10 +71,10 @@ Your test is timed, don't waste that time looking at source code!
             var changeTime = setInterval(function myTimer() {
                 var timeRemaining = getTimeRemaining(endtime);
                 timer.innerHTML = 'Time Remaining: ' + timeRemaining.minutes + ':' + ('0' + timeRemaining.seconds).slice(-2);
-                if (timeRemaining.total <= 0) {
+                if (timeRemaining.total <= 0 && testSubmitted != true) {
                     clearInterval(changeTime);
                     SendAnswers();
-                } 
+                }
             }, 1000);
         }
 
@@ -94,29 +95,36 @@ Your test is timed, don't waste that time looking at source code!
             var tech = '@(ViewBag.TechID)';
             var htmlString = document.documentElement.innerHTML;
 
+            //send snapshot of HTML before grading
             $.ajax({
                 url: "@(ViewBag.ArchiveURL)",
                 type: "POST",
                 contentType: "application/json",
                 dataType: "json",
-                data: JSON.stringify({ html: htmlString, tech: tech })
+                data: JSON.stringify({ html: htmlString, tech: tech }),
             });
 
             var list = [];
+
             for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
                 var answer = {};
                 var answers = [];
                 var currentQuestion = document.getElementsByTagName("li")[i];
+
                 answer.tech = tech;
                 answer.question = currentQuestion.getAttribute("id");
+
                 for (var n = 0; n < currentQuestion.childNodes.length; n++) {
                     if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
                         answers.push(currentQuestion.childNodes[n].id);
                     }
                 }
+
                 answer.answers = answers;
                 list.push(answer);
             }
+
+            //Submit results for grading
             $.ajax({
                 url: "@(ViewBag.ResultsURL)",
                 type: "POST",
@@ -131,6 +139,44 @@ Your test is timed, don't waste that time looking at source code!
                 }
             });
 
+            testSubmitted = true;
+        }
+
+        function SanityCheck(){
+            var htmlString = document.documentElement.innerHTML;
+            var answered = 0;
+            var total = 0;
+
+            for (var i = 0; i < document.getElementsByTagName("li").length; i++) {
+                var selected = false;
+                var currentQuestion = document.getElementsByTagName("li")[i];
+                total++;
+
+                for (var n = 0; n < currentQuestion.childNodes.length; n++) {
+                    if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
+                        selected = true;
+                    }
+                }
+                if (selected) {
+                    answered++;
+                }
+            }
+
+            //Change to activate a modal with submit button in it
+            if(total == answered){
+                if (confirm('Are you sure you want to submit your test for grading?')) {
+                    SendAnswers();
+                } else {
+                    // Do nothing!
+                }
+            }
+            else{
+                if (confirm("You have " + (total - answered) + " questions without answers. Are you sure you want to submit the answers?")) {
+                    SendAnswers();
+                } else {
+                    // Do nothing!
+                }
+            }
         }
     </script>
 </body>
