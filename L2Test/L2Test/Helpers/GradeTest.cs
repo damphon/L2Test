@@ -191,12 +191,9 @@ namespace L2Test.Helpers
                 {
                     if(Q.question == Question.Key)
                     {
-                        if(Q.comment != "")
-                        {
-                            sb.Append("<p class='TechComment'>");
-                            sb.Append(Q.comment);
-                            sb.Append("</p>");
-                        }
+                        sb.Append("<p class='TechComment'>");
+                        sb.Append(Q.comment);
+                        sb.Append("</p>");
                     }
                 }
             }

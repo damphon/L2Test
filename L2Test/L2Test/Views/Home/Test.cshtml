@@ -118,14 +118,15 @@ Your test is timed, don't waste that time looking at source code!
 
                 answer.tech = tech;
                 answer.question = currentQuestion.getAttribute("id");
-                answer.comment = "";
+                alert("getting hairy");
 
                 for (var n = 0; n < currentQuestion.childNodes.length; n++) {
-                    if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
-                        answers.push(currentQuestion.childNodes[n].id);
+                    currentNode = currentQuestion.childNodes[n];
+                    if (currentNode.className == "TestAnswer SelectedAnswer") {
+                        answers.push(currentNode.id);
                     }
-                    else if (currentQuestion.childNodes[n].className == "Comment") {
-                        answers.comment = currentQuestion.childNodes[n].textContent;
+                    else if (currentNode.className == "HideComment") {
+                        answer.comment = currentNode.childNodes[0].value;
                     }
                 }
 
