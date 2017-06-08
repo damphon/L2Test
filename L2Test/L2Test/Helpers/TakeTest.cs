@@ -47,7 +47,9 @@ namespace L2Test.Helpers
                 sb.Append(Question.Question);
                 sb.Append("</p>");
 
-                foreach(var A in SortedAnswers)
+                sb.Append("<span class='ShowComment' tabindex='0'>Comment</span><div class='HideComment'><textarea class='form-control' class='Comment' name='Comment' maxlength='400'></textarea></div>");
+
+                foreach (var A in SortedAnswers)
                 {
                     sb.Append("<p class='TestAnswer' id='");
                     sb.Append(A.AnswerKey);

@@ -58,6 +58,11 @@ Your test is timed, don't waste that time looking at source code!
             $(this).toggleClass('TestAnswer');
         });
 
+        //Show Comment box
+        $('.ShowComment').click(function () {
+            $(this).next('.HideComment').show();
+        });
+
         //Count down time left before test auto submits
         var timeInMinutes = @(ViewBag.TimeToTakeTest);
         var currentTime = Date.parse(new Date());
@@ -113,10 +118,14 @@ Your test is timed, don't waste that time looking at source code!
 
                 answer.tech = tech;
                 answer.question = currentQuestion.getAttribute("id");
+                answer.comment = "";
 
                 for (var n = 0; n < currentQuestion.childNodes.length; n++) {
                     if (currentQuestion.childNodes[n].className == "TestAnswer SelectedAnswer") {
                         answers.push(currentQuestion.childNodes[n].id);
+                    }
+                    else if (currentQuestion.childNodes[n].className == "Comment") {
+                        answers.comment = currentQuestion.childNodes[n].textContent;
                     }
                 }
 

@@ -186,7 +186,21 @@ namespace L2Test.Helpers
                             categoryGrades.Add(CatList);
                         }
                     }
+
+                foreach(var Q in TechAnswers)
+                {
+                    if(Q.question == Question.Key)
+                    {
+                        if(Q.comment != "")
+                        {
+                            sb.Append("<p class='TechComment'>");
+                            sb.Append(Q.comment);
+                            sb.Append("</p>");
+                        }
+                    }
+                }
             }
+
         //End question block
         sb.Append("</li>");
         ResultString = sb.ToString();
