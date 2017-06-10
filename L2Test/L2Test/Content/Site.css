@@ -27,6 +27,7 @@ h3{
     color: #ffffff;
     font-variant: small-caps;
     font-weight:bold;
+    padding: 15px 50px;
 }
 
 .navbar .navbar-brand:hover, 
@@ -45,52 +46,32 @@ h3{
 .navbar .navbar-nav > .active > a, 
 .navbar .navbar-nav > .active > a:hover, 
 .navbar .navbar-nav > .active > a:focus {
-    color: rebeccapurple;
+    color: greenyellow;
     background-color: #32900d;
 }
 
+ul.nav a:hover {
+    color: black !important;
+    background-color: greenyellow;
+}
+
 .navbar .navbar-toggle {
-    border-color: rebeccapurple;
+    border-color: greenyellow;
 }
 
 .navbar .navbar-toggle:hover, 
 .navbar .navbar-toggle:focus {
-    background-color: rebeccapurple;
+    background-color: greenyellow;
 }
 
 .navbar .navbar-toggle .icon-bar {
-    background-color: rebeccapurple;
+    background-color: greenyellow;
 }
 
 .navbar .navbar-collapse, 
 .navbar .navbar-form {
     border-color: #ffffff;
 }
-
-.navbar .navbar-link {
-    color: rebeccapurple;
-}
-
-.navbar .navbar-link:hover {
-    color: rebeccapurple;
-}
-
-@media (max-width 767px) {
-    .navbar .navbar-nav .open .dropdown-menu > li > a {
-        color: #ffffff;
-    }
-    .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #d3d3d4;
-    }
-    .navbar .navbar-nav .open .dropdown-menu > .active > a,
-    .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
-    .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
-        color: #d3d3d4;
-        background-color: #32900d;
-    }
-}
-
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
