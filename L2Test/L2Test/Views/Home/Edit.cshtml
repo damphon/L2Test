@@ -18,11 +18,11 @@
 <h1 style="color:orangered;">@ViewBag.Err</h1>
 
 <div class="SubmitFloat">
-    <center><button type="button" class="btn btn-lg" data-toggle="modal" data-target="#addModal">Add New Question</button></center>
+    <center><button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal">Add New Question</button></center>
 </div>
 
 <!--************************Add Question***************************-->
-<div class="modal fade" id="addModal" role="dialog">
+<div class="modal custom fade" id="addModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -36,17 +36,18 @@
                 <fieldset>
                     <!-- Get Question -->
                     <div class="form-group col-md-12">
-                        <label class="col-md-4 control-label" for="formQuestion">Question: </label>
-                        <div class="col-md-8">
+                        <label class="col-md-4 control-label" for="formQuestion">Question Text: </label>
+                        <div class="col-md-offset-4">
                             <textarea class="form-control" id="formQuestion" name="formQuestion" maxlength="899"></textarea>
                         </div>
+                        <br/>
                     </div>
                     <!-- Get Category -->
                     <div class="form-group col-md-12">
-                        <label class="col-md-4 control-label" for="formCategory">Select Category</label>
-                        <div class="col-md-8">
+                        <label class="col-md-4 control-label" for="formCategory">Select Category:</label>
+                        <div class="col-md-offset-4">
                             <select id="formCategory" name="formCategory" class="form-control">
-                                <option value="1">New Categoy</option>
+                                <option value="1">New Categoy:</option>
                                 @Html.Raw(ListHelp.CategoryList())
                             </select>
                         </div>
@@ -54,14 +55,14 @@
                     <!-- New Category-->
                     <div class="form-group col-md-12">
                         <label class="col-md-4 control-label" for="newCategory">New Category:</label>
-                        <div class="col-md-8">
+                        <div class="col-md-offset-4">
                             <input id="newCategory" name="newCategory" type="text" placeholder="" class="form-control input-md">
                         </div>
                     </div>
                     <!-- Get Answer1 -->
                     <div class="form-group col-md-12">
                         <label class="col-md-4 control-label" for="formAnswer">Answer: </label>
-                        <div class="col-md-8">
+                        <div class="col-sm-pull-8">
                             <div class="input-group">
                                 <input id="formAnswer" name="formAnswer" class="form-control" type="text" maxlength="255">
                                 <span class="input-group-addon">
@@ -73,7 +74,7 @@
                     <!-- Get Answer2 -->
                     <div class="form-group col-md-12">
                         <label class="col-md-4 control-label" for="formAnswer">Answer: </label>
-                        <div class="col-md-8">
+                        <div class="col-sm-pull-8">
                             <div class="input-group">
                                 <input id="formAnswer" name="formAnswer" class="form-control" type="text" maxlength="255">
                                 <span class="input-group-addon">
@@ -87,7 +88,7 @@
                     <!-- File Button -->
                     <div class="form-group col-md-12">
                         <label class="col-md-4 control-label" for="filebutton">Upload Image:</label>
-                        <div class="col-md-8">
+                        <div class="col-sm-pull-8">
                             <input id="filebutton" name="formFile" class="input-file" type="file" style="vertical-align:top;">
                         </div>
                     </div>
@@ -95,8 +96,8 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-4 control-label" for="submitButton"></label>
                         <div class="col-md-8">
-                            <button class="btn btn-info" onclick="AddAnswer()"><span class="glyphicon glyphicon-plus"></span> More Answers</button>
-                            <button id="SubmitButton" name="SubmitButton" class="btn btn-success" onclick="SendQuestion()">AddQuestion</button>
+                            <button class="btn btn-info" onclick="AddAnswer()"><span class="glyphicon glyphicon-plus"></span> Add More Answers</button>
+                            <button id="SubmitButton" name="SubmitButton" class="btn btn-success" onclick="SendQuestion()">Submit</button>
                         </div>
                     </div>
                 </fieldset>
