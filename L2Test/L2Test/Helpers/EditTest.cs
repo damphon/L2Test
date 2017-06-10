@@ -70,17 +70,17 @@ namespace L2Test.Helpers
                     sb.Append("' height='200' id='picSample' style='margin:5px; border:1px solid white; border-radius:3px;'></center></br>");
                 }
 
-                sb.Append("<div class='form-group col-md-12'><label class='col-md-4 control-label' for='formQuestion'>Question: </label><div class='col-md-8'><textarea class='col-md-12' id='formQuestion' name='formQuestion' maxlength='899'>");
+                sb.Append("<div class='form-group col-md-8'><label class='col-md-4 control-label' for='formQuestion'>Question Text: </label><div class='col-md-8'><textarea class='col-md-12' id='formQuestion' name='formQuestion' maxlength='899'>");
                 sb.Append(Question.Question);
-                sb.Append("</textarea></div></div><div class='form-group col-md-12'><label class='col-md-4 control-label' for='formCategory'>Select Category</label><div class='col-md-8'><select id='formCategory' name='formCategory' class='form-control'><option value='1'>New Catagoy</option>");
+                sb.Append("</textarea></div></div><div class='form-group col-md-8'><label class='col-md-4 control-label' for='formCategory'>Select Category</label><div class='col-md-8'><select id='formCategory' name='formCategory' class='form-control'><option value='1'>New Catagoy</option>");
                 sb.Append(CategoryList(Question.Category));
-                sb.Append("</select></div></div><div class='form-group col-md-12'><label class='col-md-4 control-label' for='newCategory'>New Category</label><div class='col-md-8'><input id='newCategory' name='newCategory' type='text' class='form-control input-md'></div></div><input type='hidden' name='picURL' id='picURL' value='");
+                sb.Append("</select></div></div><div class='form-group col-md-8'><label class='col-md-4 control-label' for='newCategory'>New Category</label><div class='col-md-8'><input id='newCategory' name='newCategory' type='text' class='form-control input-md'></div></div><input type='hidden' name='picURL' id='picURL' value='");
                 sb.Append(Question.Pic);
                 sb.Append("'>");
 
                 foreach (var A in Question.Answers)
                 {
-                    sb.Append("<div class='form-group col-md-12'><label class='col-md-4 control-label' for='formAnswer'>Answer: </label><div class='col-md-8'><div class='input-group'><input name='formAnswer' class='form-control' type='text' maxlength='255' value='");
+                    sb.Append("<div class='form-group col-md-8'><label class='col-md-4 control-label' for='formAnswer'>Answer: </label><div class='col-md-8'><div class='input-group'><input name='formAnswer' class='form-control' type='text' maxlength='255' value='");
                     sb.Append(A.Answer);
                     sb.Append("'><span class='input-group-addon'><input type='checkbox' name='formC' value='1'");
                     if (A.IsCorrect == true)
@@ -89,13 +89,13 @@ namespace L2Test.Helpers
                     }
                     sb.Append("></span></div></div></div>");
                 }
-                sb.Append("<div id='AddHere'></div><div class='form-group col-md-12'><label class='col-md-4 control-label' for='filebutton'>Add/Change Image:</label><div class='col-md-8'><input id ='filebutton' name='formFile' class='input-file' type='file'><button onclick='NoImage()'>Remove Image</button></div></div><br /><br /><div class='form-group col-md-12'><div class='col-md-8'><button class='btn btn-info' onclick='AddAnswer()'><span class='glyphicon glyphicon-plus'></span>Add More Answers</button><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>Remove Question From Test</button><button id='SubmitButton' name='SubmitButton' class='btn btn-success' onclick='SendQuestion()'>Submit</button></div></div></fieldset>");
+                sb.Append("<div id='AddHere'></div><div class='form-group col-md-8'><label class='col-md-4 control-label' for='filebutton'>Add/Change Image:</label><div class='col-md-8'><input id ='filebutton' name='formFile' class='input-file' type='file'><button onclick='NoImage()'>Remove Image</button></div></div><br /><br /><div class='form-group col-md-8'><div class='col-md-8'><button class='btn btn-info' onclick='AddAnswer()'><span class='glyphicon glyphicon-plus'></span>Add More Answers</button><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>Remove Question From Test</button><button id='SubmitButton' name='SubmitButton' class='btn btn-success' onclick='SendQuestion()'>Submit</button></div></div></fieldset>");
                 QuestionString = sb.ToString();
             }
             return QuestionString;
         }
 
-        //Gets list of categorys for the dropdown list on the edit page.
+        //Gets list of categories for the dropdown list on the edit page.
         public List<string> CategoryArray()
         {
             var List = Test.QuestionList();
@@ -110,7 +110,7 @@ namespace L2Test.Helpers
             return categorys;
         }
 
-        //Makes string of categorys for the dropdown list on the edit page.
+        //Makes string of categories for the dropdown list on the edit page.
         public string CategoryList(string Selected = "Not Selected")
         {
             var List = CategoryArray();
