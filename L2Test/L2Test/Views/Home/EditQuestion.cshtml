@@ -6,7 +6,7 @@
     ViewBag.ResultsURL = Url.Action("EditQuestion", "Home", routeValues: null, protocol: Request.Url.Scheme);
 }
 <div class="SubmitFloat">
-        <center><p style="color:red;"><h4><strong>Warning!</strong> Do not make changes to the test questions while someone is taking the test!</h4></p></center>
+        <h4><strong>Warning!</strong> Do not make changes to the test questions while someone is taking the test!</h4>
 </div>
 <!--
  _____           _           _     _         _      _____   _____         _
@@ -32,6 +32,7 @@
                 <button type="button" id="editbtn" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">Are you sure you want to remove this question?</h3>
             <div class="modal-body">
+                </div>
 
                 <!--FORM STARTS HERE-->
                 <form action="@Url.Action("Delete", "Home")" method="post" enctype="multipart/form-data" class="form-horizontal">
