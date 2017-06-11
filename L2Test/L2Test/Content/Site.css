@@ -91,15 +91,22 @@ ul.nav a:hover {
     color:black;
 }
 
+.btn-success.outline{
+    background:none;
+    padding: 1px 1px;
+    
+}
+
 .comment-box {
-    color:aqua;
     padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 45px;
 }
 
 .form-control{
-    padding-bottom: 5px;
+    padding-bottom: 1px;
+    padding-right: 15px;
+    padding-left:15px
     border: 2px;
 }
 

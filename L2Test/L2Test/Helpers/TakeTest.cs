@@ -41,13 +41,14 @@ namespace L2Test.Helpers
                     sb.Append("' height='200' id='picSample'></br>");
                 }
 
+                
                 sb.Append(QuestionNumber);
                 QuestionNumber++;
                 sb.Append(": ");
                 sb.Append(Question.Question);
                 sb.Append("</p>");
 
-                sb.Append("<div class='comment-box'><span class='ShowComment' tabindex='0'>Add Comment</span><div class='HideComment'><textarea class='form-control' name='Comment' maxlength='400'></textarea></div></div>");
+                sb.Append("<div class='comment-box'><span class='ShowComment' tabindex='0'>Add Comment</button></span><div class='HideComment'><textarea class='form-control' name='Comment' maxlength='400'></textarea></div></div>");
 
                 foreach (var A in SortedAnswers)
                 {
