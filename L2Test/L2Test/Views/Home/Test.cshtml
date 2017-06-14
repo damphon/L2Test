@@ -124,8 +124,9 @@ Your test is timed, don't waste that time looking at source code!
                     if (currentNode.className == "TestAnswer SelectedAnswer") {
                         answers.push(currentNode.id);
                     }
-                    else if (currentNode.className == "HideComment") {
-                        answer.comment = currentNode.childNodes[0].value;
+                    else if (currentNode.className == "comment-box") {
+                        var findComment = currentNode.childNodes[1];
+                        answer.comment = findComment.childNodes[0].value;
                     }
                 }
 
