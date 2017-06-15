@@ -189,7 +189,7 @@ namespace L2Test.Helpers
 
                 foreach(var Q in TechAnswers)
                 {
-                    if(Q.question == Question.Key)
+                    if((Q.question == Question.Key) && (Q.comment != "") && (Q.comment != null))
                     {
                         sb.Append("<p class='TechComment'>");
                         sb.Append(Q.comment);
