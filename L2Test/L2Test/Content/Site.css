@@ -120,9 +120,10 @@ ul.nav a:hover {
 }
 
 p.TechComment{
-    border: 1px solid black;
+    border: 1px solid black double;
+    border-style:double;
     padding-left:2px;
-    box-shadow: 5px 5px #888888;
+    box-shadow: 5px 10px 5px #ed886f;
 }
 
 /* Set padding to keep content from hitting the edges */
