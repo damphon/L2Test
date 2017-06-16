@@ -209,7 +209,7 @@ namespace L2Test.Helpers
         {
             string WebPageString = "";
             string Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
-            string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
+            string FileDate = DateTime.Now.ToString("yyyy-MM-dd_hh-mm");
             String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Graded/" + FileDate + "_" + Tech + ".html");
             String CssPath = "/Content/Site.css";
             StringBuilder sb = new StringBuilder(WebPageString);
@@ -339,7 +339,7 @@ namespace L2Test.Helpers
             }
 
             string WebPageString = "";
-            string FileDate = DateTime.Now.ToString("yyyy-MM-dd");
+            string FileDate = DateTime.Now.ToString("yyyy-MM-dd_hh-mm");
             String TestPath = HttpContext.Current.Server.MapPath("/Views/Tests/Ungraded/" + FileDate + "_" + TName + ".html");
             String CssPath = HttpContext.Current.Server.MapPath("/Content/Site.css");
             StringBuilder sb = new StringBuilder(WebPageString);
